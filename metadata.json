@@ -1,0 +1,6 @@
+{
+  "name": "Beyritech Modular Buildings",
+  "description": "High-performance, sustainable, and rapidly deployable multipurpose modular buildings for mining, construction, healthcare, and corporate sectors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
