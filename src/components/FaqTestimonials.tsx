@@ -188,9 +188,9 @@ export default function FaqTestimonials() {
                   {/* Author details */}
                   <div className="flex justify-between items-end pt-6 border-t border-jet-800">
                     <div>
-                      <h4 className="font-display font-bold text-white text-base">
+                      <h3 className="font-display font-bold text-white text-base">
                         {testimonials[activeTestimonial].name}
-                      </h4>
+                      </h3>
                       <p className="text-xs text-gold-500 font-mono mt-0.5">
                         {testimonials[activeTestimonial].role}
                       </p>
@@ -205,8 +205,8 @@ export default function FaqTestimonials() {
                         <button
                           key={idx}
                           onClick={() => handleDotClick(idx)}
-                          className={`h-2 rounded-full transition-all duration-300 ${
-                            activeTestimonial === idx ? "w-8 bg-gold-500" : "w-2 bg-jet-800"
+                          className={`h-6 rounded-full transition-all duration-300 ${
+                            activeTestimonial === idx ? "w-8 bg-gold-500" : "w-6 bg-jet-800"
                           }`}
                           aria-label={`Ir al testimonio ${idx + 1}`}
                         />

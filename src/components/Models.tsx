@@ -316,7 +316,7 @@ export default function Models() {
             <div className="flex items-center justify-center gap-4 mb-4">
               <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-gold-500/40" />
               <img
-                src={isLight ? "/logo/beyritech-logo-light.png" : "/logo/beyritech-logo.png"}
+                src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
                 alt="Beyritech"
                 width="40" height="32"
                 className="h-8 w-auto opacity-60 grayscale"
@@ -334,7 +334,7 @@ export default function Models() {
           <ScrollReveal delay={0.3}>
             <div className="flex items-center justify-center gap-3 mt-3">
               <div className="h-[2px] w-8 bg-gold-500/60" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-jet-400">
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-jet-300">
                 Sistema Constructivo Volumétrico
               </span>
               <div className="h-[2px] w-8 bg-gold-500/60" />
@@ -375,7 +375,7 @@ export default function Models() {
                             <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-1 tracking-tight leading-tight">
                               {model.name}
                             </h3>
-                            <p className="text-[11px] font-mono text-jet-400 uppercase tracking-wider mb-3">
+                            <p className="text-[11px] font-mono text-jet-300 uppercase tracking-wider mb-3">
                               {model.tagline}
                             </p>
                             <p className="text-sm text-jet-300 font-light leading-relaxed mb-5">
@@ -392,7 +392,7 @@ export default function Models() {
                               <div className="space-y-1">
                                 {model.specs.map((spec) => (
                                   <div key={spec.label} className="flex items-center justify-between text-xs py-1.5 border-b border-jet-900/60 last:border-b-0">
-                                    <span className="font-mono text-jet-400 uppercase tracking-wider text-[10px]">
+                                    <span className="font-mono text-jet-300 uppercase tracking-wider text-[10px]">
                                       {spec.label}
                                     </span>
                                     <span className="font-mono text-white font-medium text-[11px]">
@@ -411,7 +411,7 @@ export default function Models() {
                               ))}
                             </div>
 
-                            <button className="mt-5 text-[10px] font-mono uppercase tracking-wider text-jet-400 hover:text-white transition-colors flex items-center gap-1.5">
+                            <button className="mt-5 text-[10px] font-mono uppercase tracking-wider text-jet-300 hover:text-white transition-colors flex items-center gap-1.5">
                               <Download className="w-3 h-3" />
                               Descargar ficha técnica
                             </button>
@@ -441,9 +441,9 @@ export default function Models() {
                 <button
                   key={i}
                   onClick={() => scrollTo(i)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-6 h-6 rounded-full transition-all duration-300 ${
                     i === selectedIndex
-                      ? "bg-gold-500 w-6"
+                      ? "bg-gold-500"
                       : "bg-jet-700 hover:bg-jet-400"
                   }`}
                   aria-label={`Ir al modelo ${i + 1}`}

@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src={isLight ? "/logo/beyritech-logo-light.png?v=2" : "/logo/beyritech-logo.png?v=2"}
+                src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
                 alt="Beyritech"
                 width="45" height="36"
                 className="h-9 w-auto"
@@ -95,7 +95,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-jet-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-jet-300 font-light">
           <div>
             <p>© {new Date().getFullYear()} Beyritech Modular Systems S.A. Todos los derechos reservados.</p>
-            <p className="text-[10px] text-jet-400 mt-1">
+            <p className="text-[10px] text-jet-300 mt-1">
               Optimizado para motores de búsqueda con foco en **Módulos Multipropósito** e ingeniería modular de alto desempeño.
             </p>
           </div>

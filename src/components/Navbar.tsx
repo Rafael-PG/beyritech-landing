@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import Menu from "lucide-react/dist/esm/icons/menu";
+import X from "lucide-react/dist/esm/icons/x";
+import Sun from "lucide-react/dist/esm/icons/sun";
+import Moon from "lucide-react/dist/esm/icons/moon";
 import { useTheme } from "../context/ThemeContext";
 
 const NAV_LINKS = [
@@ -84,7 +86,7 @@ export default function Navbar() {
           className="flex items-center gap-3 group"
         >
           <img
-            src={isLight ? "/logo/beyritech-logo-light.png?v=2" : "/logo/beyritech-logo.png?v=2"}
+            src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
             alt="Beyritech"
             width="50" height="40"
             className="h-10 w-auto"
@@ -107,10 +109,8 @@ export default function Navbar() {
               >
                 {link.name}
                 {isActive && (
-                  <motion.span
-                    layoutId="nav-active"
+                  <span
                     className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gold-500"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
               </a>
@@ -141,31 +141,25 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Backdrop */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            id="mobile-nav-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="lg:hidden absolute top-full left-0 right-0 bg-jet-950/98 border-b border-jet-800 p-6 flex flex-col gap-5 shadow-2xl backdrop-blur-lg"
+      {/* Mobile Menu */}
+      <div
+        id="mobile-nav-menu"
+        className={`lg:hidden absolute top-full left-0 right-0 bg-jet-950/98 border-b border-jet-800 p-6 flex flex-col gap-5 shadow-2xl backdrop-blur-lg transition-all duration-200 ease-in-out ${
+          isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+      >
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.name}
+            id={`mobile-nav-link-${link.name.toLowerCase()}`}
+            href={link.href}
+            onClick={(e) => handleScrollTo(e, link.href)}
+            className="text-lg font-medium text-jet-100 hover:text-gold-500 py-2 border-b border-jet-900"
           >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.name}
-              id={`mobile-nav-link-${link.name.toLowerCase()}`}
-              href={link.href}
-              onClick={(e) => handleScrollTo(e, link.href)}
-              className="text-lg font-medium text-jet-100 hover:text-gold-500 py-2 border-b border-jet-900"
-            >
-              {link.name}
-            </a>
-          ))}
-        </motion.div>
-      )}
-      </AnimatePresence>
+            {link.name}
+          </a>
+        ))}
+      </div>
     </header>
   );
 }

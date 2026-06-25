@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className="bg-jet-950 font-sans text-white overflow-x-hidden">
+      <div className="bg-jet-950 font-sans text-white overflow-x-hidden [content-visibility:auto] [contain-intrinsic-size:1000px]">
         <Navbar />
 
       <main>

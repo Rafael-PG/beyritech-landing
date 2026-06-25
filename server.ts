@@ -1,7 +1,9 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
+import zlib from "zlib";
 import helmet from "helmet";
+import compression from "compression";
 import rateLimit from "express-rate-limit";
 import { createServer as createViteServer } from "vite";
 import nodemailer from "nodemailer";
@@ -9,12 +11,40 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Pre-compress static assets with brotli at startup (faster than gzip, ~20% smaller)
+const brotliCache = new Map<string, { data: Buffer; type: string }>();
+
+function compressStaticAssets(distPath: string) {
+  const assetsDir = path.join(distPath, "assets");
+  if (!fs.existsSync(assetsDir)) return;
+  const files = fs.readdirSync(assetsDir);
+  for (const file of files) {
+    if (file.endsWith(".js") || file.endsWith(".css")) {
+      const filePath = path.join(assetsDir, file);
+      const content = fs.readFileSync(filePath);
+      const compressed = zlib.brotliCompressSync(content, {
+        params: {
+          [zlib.constants.BROTLI_PARAM_QUALITY]: 4,
+          [zlib.constants.BROTLI_PARAM_SIZE_HINT]: content.length,
+        },
+      });
+      const type = file.endsWith(".js") ? "application/javascript" : "text/css";
+      brotliCache.set(`/assets/${file}`, { data: compressed, type });
+    }
+  }
+}
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
 
   if (process.env.NODE_ENV === "production") {
-    app.use(helmet());
+    app.use(compression());
+    app.use(helmet({
+      contentSecurityPolicy: false,
+    }));
+    const distPath = path.join(process.cwd(), "dist");
+    compressStaticAssets(distPath);
   }
   app.use(express.json({ limit: "10kb" }));
 
@@ -83,6 +113,19 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
+    // Serve brotli-compressed assets when client supports it
+    app.get('/assets/*', (req, res, next) => {
+      if (req.acceptsEncodings('br')) {
+        const cached = brotliCache.get(req.path);
+        if (cached) {
+          res.setHeader('Content-Encoding', 'br');
+          res.setHeader('Content-Type', cached.type);
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          return res.send(cached.data);
+        }
+      }
+      next();
+    });
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));

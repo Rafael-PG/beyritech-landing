@@ -127,8 +127,8 @@ export default function Projects() {
                     <span className="text-[10px] font-mono text-gold-500 uppercase tracking-wider block mb-1">
                       {project.category} SPECIFICATION
                     </span>
-                    <h4 className="font-display text-sm font-bold text-white line-clamp-1">{project.title}</h4>
-                    <span className="text-[9px] font-mono text-jet-400 mt-2 block border-t border-jet-800 pt-1">
+                    <h3 className="font-display text-sm font-bold text-white line-clamp-1">{project.title}</h3>
+                    <span className="text-[9px] font-mono text-jet-300 mt-2 block border-t border-jet-800 pt-1">
                       CAD: ARCH-SYS-2026
                     </span>
                   </div>
@@ -202,35 +202,35 @@ export default function Projects() {
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-gold-500" />
                     <div>
-                      <p className="text-[10px] text-jet-400">UBICACIÓN</p>
+                      <p className="text-[10px] text-jet-300">UBICACIÓN</p>
                       <p className="font-bold">{selectedProject.location}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Expand className="w-4 h-4 text-gold-500" />
                     <div>
-                      <p className="text-[10px] text-jet-400">ÁREA DESPLEGADA</p>
+                      <p className="text-[10px] text-jet-300">ÁREA DESPLEGADA</p>
                       <p className="font-bold">{selectedProject.area}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Layers className="w-4 h-4 text-gold-500" />
                     <div>
-                      <p className="text-[10px] text-jet-400">SEGURIDAD</p>
+                      <p className="text-[10px] text-jet-300">SEGURIDAD</p>
                       <p className="font-bold">Normativa ISO</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-3">
-                  <h4 className="font-display font-bold text-sm text-white">Memoria del Proyecto</h4>
+                    <h3 className="font-display font-bold text-sm text-white">Memoria del Proyecto</h3>
                   <p className="text-sm text-jet-300 font-light leading-relaxed">
                     {selectedProject.description}
                   </p>
                 </div>
 
                 <div className="space-y-3 pt-4 border-t border-jet-800">
-                  <h4 className="font-display font-bold text-sm text-gold-500">Componentes Clave Desplegados:</h4>
+                    <h3 className="font-display font-bold text-sm text-gold-500">Componentes Clave Desplegados:</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedProject.features.map((feat, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-xs text-jet-200 bg-jet-950/40 p-3 rounded border border-jet-800">
