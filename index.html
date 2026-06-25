@@ -6,8 +6,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Raleway:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-    <link rel="icon" type="image/png" href="/logo/beyritech-logo.png" />
+    <link rel="icon" type="image/png" href="/logo/beyritech-logo.png" id="favicon" />
     <title>Beyritech — Módulos Multipropósitos</title>
+    <script>
+      (function(){if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('light')}})();
+      (function(){var e=document.getElementById('favicon'),o=new MutationObserver(function(){e.href=document.documentElement.classList.contains('light')?'/logo/beyritech-logo-light.png':'/logo/beyritech-logo.png'});o.observe(document.documentElement,{attributes:true,attributeFilter:['class']});if(localStorage.getItem('theme')==='light')e.href='/logo/beyritech-logo-light.png'})();
+    </script>
   </head>
   <body>
     <div id="root"></div>

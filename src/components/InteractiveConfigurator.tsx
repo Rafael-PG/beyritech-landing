@@ -121,7 +121,7 @@ export default function InteractiveConfigurator() {
         <div className="max-w-5xl mx-auto">
           {!submitted ? (
             <div className="bg-jet-900 border border-jet-800 rounded-lg p-6 sm:p-10 shadow-2xl relative">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 rounded-full filter blur-xl" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle_at_right_top,rgba(254,201,52,0.06),transparent_60%)] pointer-events-none hidden sm:block" />
               
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* 1. Contact Information Block */}
@@ -379,7 +379,7 @@ export default function InteractiveConfigurator() {
             /* Success Message */
             <div className="max-w-xl mx-auto text-center">
               <div className="bg-jet-900 border border-gold-500/30 rounded-lg p-10 sm:p-14 shadow-2xl relative">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gold-500/5 rounded-full filter blur-2xl" />
+                <div className="absolute -top-10 -right-10 w-80 h-80 bg-[radial-gradient(circle_at_right_top,rgba(254,201,52,0.06),transparent_60%)] pointer-events-none hidden sm:block" />
                 <div className="relative z-10">
                   <div className="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle className="w-8 h-8 text-gold-500" />

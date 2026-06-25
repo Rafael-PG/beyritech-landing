@@ -24,6 +24,47 @@
   --color-jet-950: #050505;
 }
 
+/* Model gradients (default: dark mode) */
+:root {
+  --gradient-multispace: linear-gradient(135deg, #0a0e12 0%, #1a2330 50%, #0f1620 100%);
+  --gradient-z-fold: linear-gradient(135deg, #0f1620 0%, #2a3a45 50%, #0a0e12 100%);
+  --gradient-doble-ala: linear-gradient(135deg, #1a2330 0%, #0f1620 50%, #2a3a45 100%);
+}
+
+/* Light Mode — Paleta Cálida Industrial */
+.light {
+  --color-jet-950: #faf8f4;
+  --color-jet-900: #f5f2ec;
+  --color-jet-800: #ede9e1;
+  --color-jet-700: #e3dfd6;
+  --color-jet-400: #948f86;
+  --color-jet-300: #7d7870;
+  --color-jet-200: #5c5852;
+  --color-jet-100: #3a3733;
+  --color-jet-50: #1c1b19;
+  --color-white: #1c1b19;
+  --gradient-multispace: linear-gradient(135deg, #f5f2ec 0%, #ede9e1 50%, #faf8f4 100%);
+  --gradient-z-fold: linear-gradient(135deg, #ede9e1 0%, #e3dfd6 50%, #f5f2ec 100%);
+  --gradient-doble-ala: linear-gradient(135deg, #faf8f4 0%, #ede9e1 50%, #f5f2ec 100%);
+}
+.light ::-webkit-scrollbar-track {
+  background: #e8e4dc;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #c5bfb4;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-500);
+}
+
+/* Theme transition animation */
+.theme-transitioning,
+.theme-transitioning * {
+  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;

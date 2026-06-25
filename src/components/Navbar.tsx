@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 
 const NAV_LINKS = [
   { name: "Características", href: "#why-choose-us" },
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const { isLight, toggleTheme } = useTheme();
 
   useEffect(() => {
     let ticking = false;
@@ -82,7 +84,7 @@ export default function Navbar() {
           className="flex items-center gap-3 group"
         >
           <img
-            src="/logo/beyritech-logo.png?v=2"
+            src={isLight ? "/logo/beyritech-logo-light.png?v=2" : "/logo/beyritech-logo.png?v=2"}
             alt="Beyritech"
             width="50" height="40"
             className="h-10 w-auto"
@@ -115,6 +117,16 @@ export default function Navbar() {
             );
           })}
         </nav>
+
+        {/* Theme toggle */}
+        <button
+          id="theme-toggle"
+          onClick={toggleTheme}
+          className="p-2 rounded-full hover:bg-jet-800 transition-colors text-jet-300 hover:text-gold-500"
+          aria-label={isLight ? "Activar modo oscuro" : "Activar modo claro"}
+        >
+          {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        </button>
 
         {/* Mobile menu button */}
         <div className="flex items-center gap-4 lg:hidden">

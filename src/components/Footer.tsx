@@ -1,7 +1,9 @@
 import React from "react";
 import { Mail, Phone, MapPin, Globe, ArrowUp } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Footer() {
+  const { isLight } = useTheme();
   const handleScrollToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     window.scrollTo({
@@ -22,7 +24,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="/logo/beyritech-logo.png?v=2"
+                src={isLight ? "/logo/beyritech-logo-light.png?v=2" : "/logo/beyritech-logo.png?v=2"}
                 alt="Beyritech"
                 width="45" height="36"
                 className="h-9 w-auto"

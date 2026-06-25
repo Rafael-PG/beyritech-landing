@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Ruler, MoveHorizontal, Download } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import ScrollReveal from "../hooks/ScrollReveal";
+import { useTheme } from "../context/ThemeContext";
 
 interface Spec {
   label: string;
@@ -14,7 +15,6 @@ interface ModelInfo {
   tagline: string;
   specs: Spec[];
   applications: string[];
-  gradient: string;
   description: string;
 }
 
@@ -31,7 +31,6 @@ const models: ModelInfo[] = [
       { label: "Aislamiento PIR", value: "80mm – R-24" },
     ],
     applications: ["Minería", "Construcción", "Educación", "Corporativo"],
-    gradient: "linear-gradient(135deg, #0a0e12 0%, #1a2330 50%, #0f1620 100%)",
     description:
       "Sistema modular plegable de rápida implementación. Ideal para campamentos mineros, aulas temporales y oficinas de faena. Su diseño multispace permite configuraciones flexibles sin comprometer la resistencia estructural.",
   },
@@ -47,7 +46,6 @@ const models: ModelInfo[] = [
       { label: "Aislamiento PIR", value: "100mm – R-32" },
     ],
     applications: ["Minería", "Industrial", "Salud", "Emergencia"],
-    gradient: "linear-gradient(135deg, #0f1620 0%, #2a3a45 50%, #0a0e12 100%)",
     description:
       "Diseño plegable en Z que maximiza la densidad de transporte. Hasta 12 unidades por camión. Certificado para condiciones extremas de alta montaña y climas desérticos.",
   },
@@ -63,7 +61,6 @@ const models: ModelInfo[] = [
       { label: "Aislamiento PIR", value: "80mm – R-24" },
     ],
     applications: ["Salud", "Corporativo", "Educación", "Industrial"],
-    gradient: "linear-gradient(135deg, #1a2330 0%, #0f1620 50%, #2a3a45 100%)",
     description:
       "Estructura de doble ala plegable que ofrece el doble de espacio útil sin duplicar el peso. Perfecto para clínicas modulares, salas de reuniones ejecutivas y laboratorios de campaña.",
   },
@@ -126,7 +123,7 @@ function MultispaceBlueprint() {
 
       {[190, 320].map((cx, i) => (
         <g key={`hinge-${i}`}>
-          <circle cx={cx} cy="150" r="5" fill="#0a0e12" stroke="#FEC934" strokeWidth="1.5" opacity={0.7} />
+          <circle cx={cx} cy="150" r="5" fill="var(--color-jet-950)" stroke="#FEC934" strokeWidth="1.5" opacity={0.7} />
           <circle cx={cx} cy="150" r="2" fill="#FEC934" opacity={0.7} />
         </g>
       ))}
@@ -176,8 +173,8 @@ function ZFoldBlueprint() {
       <path d="M 220 130 L 235 140 L 230 145" fill="none" stroke="#FEC934" strokeWidth="1.5" opacity={0.6} />
       <path d="M 310 150 L 295 160 L 300 165" fill="none" stroke="#FEC934" strokeWidth="1.5" opacity={0.6} />
 
-      <circle cx="220" cy="150" r="4" fill="#0f1620" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
-      <circle cx="310" cy="170" r="4" fill="#0f1620" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
+          <circle cx="220" cy="150" r="4" fill="var(--color-jet-950)" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
+          <circle cx="310" cy="170" r="4" fill="var(--color-jet-950)" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
 
       <DimensionLine x1={100} y1={50} x2={100} y2={260} label="2.8 m" color="#FEC934" />
 
@@ -266,6 +263,7 @@ function ModelBlueprint({ id }: { id: string }) {
 }
 
 export default function Models() {
+  const { isLight } = useTheme();
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "keepSnaps",
@@ -318,7 +316,7 @@ export default function Models() {
             <div className="flex items-center justify-center gap-4 mb-4">
               <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-gold-500/40" />
               <img
-                src="/logo/beyritech-logo.png"
+                src={isLight ? "/logo/beyritech-logo-light.png" : "/logo/beyritech-logo.png"}
                 alt="Beyritech"
                 width="40" height="32"
                 className="h-8 w-auto opacity-60 grayscale"
@@ -364,7 +362,7 @@ export default function Models() {
 
                     {/* Spec card */}
                     <div className="lg:w-[45%] flex flex-col justify-center">
-                      <div className="border border-jet-800 group-hover:border-gold-500/30 transition-colors duration-500 relative bg-jet-950/80 backdrop-blur-sm" style={{ background: model.gradient }}>
+                      <div className="border border-jet-800 group-hover:border-gold-500/30 transition-colors duration-500 relative bg-jet-950 backdrop-blur-sm" style={{ background: `var(--gradient-${model.id})` }}>
                         <div className="m-[3px] border border-jet-800/40 p-5 sm:p-6 relative">
                           <div className="absolute inset-0 bg-[radial-gradient(circle,#ffffff04_0.5px,transparent_0.5px)] bg-[size:20px_20px]" />
 

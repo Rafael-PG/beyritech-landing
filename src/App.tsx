@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import { useLenis } from "./hooks/useLenis";
@@ -20,8 +21,9 @@ export default function App() {
   useLenis();
 
   return (
-    <div className="bg-jet-950 font-sans text-white overflow-x-hidden">
-      <Navbar />
+    <ThemeProvider>
+      <div className="bg-jet-950 font-sans text-white overflow-x-hidden">
+        <Navbar />
 
       <main>
         <Hero />
@@ -58,6 +60,7 @@ export default function App() {
       <Suspense fallback={<SectionFallback className="min-h-[300px]" />}>
         <Footer />
       </Suspense>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }

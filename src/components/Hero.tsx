@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronDown, ShieldCheck, Zap, Award, Flame } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { useTheme } from "../context/ThemeContext";
 
 const staggerVariants = {
   hidden: {},
@@ -19,6 +20,7 @@ const fadeUpItem = {
 };
 
 export default function Hero() {
+  const { isLight } = useTheme();
   const { scrollY } = useScroll();
   const contentY = useTransform(scrollY, [0, 500], [0, -80]);
   const contentOpacity = useTransform(scrollY, [0, 400], [1, 0.3]);
@@ -61,7 +63,7 @@ export default function Hero() {
           muted
           playsInline
           preload="metadata"
-          poster="/logo/beyritech-logo.png"
+          poster={isLight ? "/logo/beyritech-logo-light.png" : "/logo/beyritech-logo.png"}
           className="w-full h-full object-cover"
         >
           <source src="/video/background.mp4" type="video/mp4" />
