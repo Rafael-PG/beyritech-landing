@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Leaf, Sun, Zap, Clock, Truck, ChevronRight, Scale, Snowflake, Wind } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import ScrollReveal from "../hooks/ScrollReveal";
@@ -6,8 +6,15 @@ import ScrollReveal from "../hooks/ScrollReveal";
 export default function SpeedSustainabilityLogistics() {
   const [activeTab, setActiveTab] = useState<"sustainability" | "speed" | "logistics">("sustainability");
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "sustainability" || hash === "speed" || hash === "logistics") {
+      setActiveTab(hash);
+    }
+  }, []);
+
   return (
-    <section id="speed-sustainability-logistics" className="py-24 bg-jet-950 text-white relative">
+    <section id="speed-sustainability-logistics" className="py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Background visual styling */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#c4966a05,transparent_50%)] pointer-events-none" />
 

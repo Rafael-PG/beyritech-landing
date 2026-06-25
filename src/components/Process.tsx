@@ -53,7 +53,7 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-24 bg-jet-900 text-white relative">
+    <section id="process" className="py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-gold-500/5 rounded-full filter blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">

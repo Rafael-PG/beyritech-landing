@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Menu, X, Globe } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+
+const NAV_LINKS = [
+  { name: "Características", href: "#why-choose-us" },
+  { name: "Modelos", href: "#models" },
+  { name: "Pilares", href: "#speed-sustainability-logistics" },
+  { name: "Proceso", href: "#process" },
+  { name: "Proyectos", href: "#projects" },
+  { name: "FAQ", href: "#faq" }
+];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -8,35 +17,37 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      const sections = navLinks.map(l => l.href.slice(1));
-      for (const id of sections.reverse()) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(id);
-          break;
+      if (ticking) return;
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        const sectionIds = NAV_LINKS.map(l => l.href.slice(1));
+        let found = false;
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sectionIds[i]);
+          if (el && el.getBoundingClientRect().top <= 120) {
+            setActiveSection(prev => prev !== sectionIds[i] ? sectionIds[i] : prev);
+            found = true;
+            break;
+          }
         }
-      }
+        if (!found) {
+          setActiveSection(prev => prev !== "" ? "" : prev);
+        }
+        ticking = false;
+      });
+      ticking = true;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Características", href: "#why-choose-us" },
-    { name: "Sostenibilidad", href: "#sustainability" },
-    { name: "Velocidad", href: "#speed" },
-    { name: "Proceso", href: "#process" },
-    { name: "Proyectos", href: "#projects" },
-    { name: "FAQ", href: "#faq" }
-  ];
-
-  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+  const handleScrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     const element = document.querySelector(targetId);
     if (element) {
-      const offset = 80; // height of navbar
+      const offset = 80;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -48,7 +59,7 @@ export default function Navbar() {
       });
     }
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
   return (
     <header
@@ -73,13 +84,14 @@ export default function Navbar() {
           <img
             src="/logo/beyritech-logo.png?v=2"
             alt="Beyritech"
+            width="50" height="40"
             className="h-10 w-auto"
           />
         </a>
 
         {/* Desktop Links */}
         <nav id="desktop-nav" className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => {
+          {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
               <a
@@ -104,32 +116,8 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Action Button & Lang */}
-        <div className="hidden lg:flex items-center gap-6">
-          <div className="flex items-center gap-1.5 text-xs text-jet-300 font-mono">
-            <Globe className="w-3.5 h-3.5 text-gold-500" />
-            <span>ESP</span>
-          </div>
-          <a
-            id="nav-cta-btn"
-            href="#estimator"
-            onClick={(e) => handleScrollTo(e, "#estimator")}
-            className="px-5 py-2.5 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-semibold text-xs uppercase tracking-wider transition-all duration-200 shadow-md shadow-gold-500/10 hover:shadow-gold-500/20 active:translate-y-px"
-          >
-            Cotizar Proyecto
-          </a>
-        </div>
-
         {/* Mobile menu button */}
         <div className="flex items-center gap-4 lg:hidden">
-          <a
-            id="mobile-quick-cta"
-            href="#estimator"
-            onClick={(e) => handleScrollTo(e, "#estimator")}
-            className="px-3 py-1.5 rounded bg-gold-500 text-jet-950 font-bold text-xs uppercase tracking-wider"
-          >
-            Cotizar
-          </a>
           <button
             id="mobile-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -152,7 +140,7 @@ export default function Navbar() {
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="lg:hidden absolute top-full left-0 right-0 bg-jet-950/98 border-b border-jet-800 p-6 flex flex-col gap-5 shadow-2xl backdrop-blur-lg"
           >
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.name}
               id={`mobile-nav-link-${link.name.toLowerCase()}`}
@@ -163,20 +151,6 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <div className="flex items-center justify-between pt-4">
-            <div className="flex items-center gap-1.5 text-sm text-jet-300 font-mono">
-              <Globe className="w-4 h-4 text-gold-500" />
-              <span>Español (ES)</span>
-            </div>
-            <a
-              id="mobile-menu-cta"
-              href="#estimator"
-              onClick={(e) => handleScrollTo(e, "#estimator")}
-              className="px-6 py-3 rounded bg-gold-500 text-jet-950 font-bold text-sm uppercase tracking-wider text-center"
-            >
-              Solicitar Cotización
-            </a>
-          </div>
         </motion.div>
       )}
       </AnimatePresence>

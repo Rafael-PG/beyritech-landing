@@ -1,48 +1,63 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import WhyChooseUs from "./components/WhyChooseUs";
-import SpeedSustainabilityLogistics from "./components/SpeedSustainabilityLogistics";
-import Process from "./components/Process";
-import Projects from "./components/Projects";
-import InteractiveConfigurator from "./components/InteractiveConfigurator";
-import FaqTestimonials from "./components/FaqTestimonials";
-import Footer from "./components/Footer";
 import { useLenis } from "./hooks/useLenis";
+
+const WhyChooseUs = lazy(() => import("./components/WhyChooseUs"));
+const Models = lazy(() => import("./components/Models"));
+const SpeedSustainabilityLogistics = lazy(() => import("./components/SpeedSustainabilityLogistics"));
+const Process = lazy(() => import("./components/Process"));
+const Projects = lazy(() => import("./components/Projects"));
+const InteractiveConfigurator = lazy(() => import("./components/InteractiveConfigurator"));
+const FaqTestimonials = lazy(() => import("./components/FaqTestimonials"));
+const Footer = lazy(() => import("./components/Footer"));
+
+function SectionFallback({ className }: { className?: string }) {
+  return <div className={className} />;
+}
 
 export default function App() {
   useLenis();
 
   return (
     <div className="bg-jet-950 font-sans text-white overflow-x-hidden">
-      {/* 1. Header (Navbar) */}
       <Navbar />
 
       <main>
-        {/* 2. Hero Section */}
         <Hero />
 
-        {/* 3. Why Choose Beyritech */}
-        <WhyChooseUs />
+        <Suspense fallback={<SectionFallback className="min-h-[600px]" />}>
+          <WhyChooseUs />
+        </Suspense>
 
-        {/* 4, 5, 6. Sustainable Efficiency, Operational Speed, Logistics Without Borders */}
-        <SpeedSustainabilityLogistics />
+        <Suspense fallback={<SectionFallback className="min-h-[700px]" />}>
+          <Models />
+        </Suspense>
 
-        {/* 7. Implementation Process (4 Steps) */}
-        <Process />
+        <Suspense fallback={<SectionFallback className="min-h-[500px]" />}>
+          <SpeedSustainabilityLogistics />
+        </Suspense>
 
-        {/* 8. Featured Projects */}
-        <Projects />
+        <Suspense fallback={<SectionFallback className="min-h-[500px]" />}>
+          <Process />
+        </Suspense>
 
-        {/* 9, 10. Testimonials & FAQ Accordions */}
-        <FaqTestimonials />
+        <Suspense fallback={<SectionFallback className="min-h-[600px]" />}>
+          <Projects />
+        </Suspense>
 
-        {/* 11. Contact CTA & AI Quote Estimator */}
-        <InteractiveConfigurator />
+        <Suspense fallback={<SectionFallback className="min-h-[400px]" />}>
+          <FaqTestimonials />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback className="min-h-[600px]" />}>
+          <InteractiveConfigurator />
+        </Suspense>
       </main>
 
-      {/* 12. Footer */}
-      <Footer />
+      <Suspense fallback={<SectionFallback className="min-h-[300px]" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

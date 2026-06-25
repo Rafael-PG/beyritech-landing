@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { EstimateRequest, EstimateResponse } from "../types";
 import { 
-  Wrench, 
-  Cpu, 
   Leaf, 
-  Clock, 
   Building, 
-  Sparkles, 
-  ArrowRight, 
   Mail, 
   User, 
   Phone, 
-  CheckCircle, 
   Loader2, 
-  Printer, 
-  FileCheck 
+  CheckCircle 
 } from "lucide-react";
 
 export default function InteractiveConfigurator() {
@@ -35,9 +27,7 @@ export default function InteractiveConfigurator() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [loadingPhase, setLoadingPhase] = useState("");
-  const [result, setResult] = useState<EstimateResponse | null>(null);
-  const [showForm, setShowForm] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -57,28 +47,9 @@ export default function InteractiveConfigurator() {
     }
 
     setLoading(true);
-    setResult(null);
-
-    // Simulate multi-phase high-tech calculation phases for executive engagement
-    const phases = [
-      "Iniciando análisis estructural Beyritech...",
-      "Calculando estabilidad sísmica y térmica...",
-      "Generando propuesta volumétrica para " + formData.moduleType + "...",
-      "Consultando motor de IA para especificaciones estructurales finales..."
-    ];
-
-    let currentPhaseIdx = 0;
-    setLoadingPhase(phases[0]);
-    
-    const interval = setInterval(() => {
-      currentPhaseIdx++;
-      if (currentPhaseIdx < phases.length) {
-        setLoadingPhase(phases[currentPhaseIdx]);
-      }
-    }, 1000);
 
     try {
-      const response = await fetch("/api/estimate", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -87,30 +58,35 @@ export default function InteractiveConfigurator() {
       });
 
       if (!response.ok) {
-        throw new Error("Estimatión fallida");
+        throw new Error("Error al enviar");
       }
 
-      const data = await response.json();
-      clearInterval(interval);
-      setResult(data);
-      setShowForm(false);
+      setSubmitted(true);
     } catch (err) {
       console.error(err);
-      clearInterval(interval);
-      // Fallback generator already built-in on server side or here
-      alert("Hubo un retraso de red, utilizando el motor local de contingencia.");
+      alert("Hubo un error al enviar la solicitud. Intente nuevamente.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleReset = () => {
-    setShowForm(true);
-    setResult(null);
-  };
-
-  const handlePrint = () => {
-    window.print();
+    setFormData({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      industry: "Mining",
+      moduleType: "Campamento de Viviendas",
+      area: "500",
+      capacity: "80",
+      location: "",
+      sustainability: true,
+      insulation: true,
+      timeline: "6",
+      additionalSpecs: ""
+    });
+    setSubmitted(false);
   };
 
   const moduleTypes: Record<string, string[]> = {
@@ -123,7 +99,7 @@ export default function InteractiveConfigurator() {
   };
 
   return (
-    <section id="estimator" className="py-24 bg-jet-950 text-white relative border-t border-jet-800">
+    <section id="estimator" className="py-24 bg-jet-950 text-white relative border-t border-jet-800 [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#333d4705_1px,transparent_1px),linear-gradient(to_bottom,#333d4705_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
@@ -131,19 +107,19 @@ export default function InteractiveConfigurator() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-500/10 border border-gold-500/20 rounded text-gold-500 text-xs font-mono mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Configurador de Ingeniería Inteligente
+            <Mail className="w-3.5 h-3.5" />
+            Solicitud de Cotización
           </div>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
             Diseñe su Módulo en <span className="text-gold-500">Tiempo Real</span>
           </h2>
           <p className="text-jet-300 mt-4 font-sans text-base sm:text-lg font-light leading-relaxed">
-            Especifique el sector, el tamaño y las condiciones de su proyecto. Nuestro motor de IA estructurará una memoria técnica ejecutiva, plazos logísticos y un indicador de sustentabilidad de inmediato.
+            Especifique el sector, el tamaño y las condiciones de su proyecto. Nuestro equipo de ingeniería le enviará una propuesta técnica detallada a la brevedad.
           </p>
         </div>
 
         <div className="max-w-5xl mx-auto">
-          {showForm ? (
+          {!submitted ? (
             <div className="bg-jet-900 border border-jet-800 rounded-lg p-6 sm:p-10 shadow-2xl relative">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 rounded-full filter blur-xl" />
               
@@ -387,13 +363,12 @@ export default function InteractiveConfigurator() {
                     {loading ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Generando Memoria por IA...</span>
+                        <span>Enviando solicitud...</span>
                       </>
                     ) : (
                       <>
-                        <Sparkles className="w-5 h-5" />
-                        <span>Generar Memoria Técnica de Ingeniería por IA</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <Mail className="w-5 h-5" />
+                        <span>Enviar Solicitud</span>
                       </>
                     )}
                   </button>
@@ -401,138 +376,26 @@ export default function InteractiveConfigurator() {
               </form>
             </div>
           ) : (
-            /* Result Page (Technical Proposal UI) */
-            <div id="estimator-result-card" className="bg-jet-900 border-2 border-gold-500/80 rounded-lg p-6 sm:p-10 shadow-2xl relative animate-fade-in print:bg-white print:text-black print:border-none print:shadow-none print:p-0">
-              {/* Header result */}
-              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-jet-800/80 pb-6 mb-6 print:border-black/20">
-                <div>
-                  <span className="text-xs font-mono bg-gold-500 text-jet-950 px-2.5 py-1 rounded font-bold uppercase">
-                    PROYECTO EVALUADO POR IA
-                  </span>
-                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-3 tracking-tight print:text-black">
-                    {formData.moduleType}
+            /* Success Message */
+            <div className="max-w-xl mx-auto text-center">
+              <div className="bg-jet-900 border border-gold-500/30 rounded-lg p-10 sm:p-14 shadow-2xl relative">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-gold-500/5 rounded-full filter blur-2xl" />
+                <div className="relative z-10">
+                  <div className="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-8 h-8 text-gold-500" />
+                  </div>
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4">
+                    Solicitud Enviada
                   </h3>
-                  <p className="text-xs text-jet-300 font-mono mt-1 print:text-black/60">
-                    Cód. de Registro: <span className="text-gold-500 font-bold">{result?.projectCode}</span> | {formData.company}
+                  <p className="text-jet-300 font-sans text-base font-light leading-relaxed max-w-md mx-auto">
+                    Gracias, <span className="text-white font-medium">{formData.name}</span>. Hemos recibido los datos de su proyecto y un ingeniero consultor se comunicará a la brevedad al correo <span className="text-white font-medium">{formData.email}</span> con una propuesta técnica detallada.
                   </p>
-                </div>
-                <div className="bg-jet-950 border border-jet-800 px-4 py-2.5 rounded text-right shrink-0 print:border-black/10 print:text-black">
-                  <span className="text-[9px] font-mono text-jet-400 block uppercase">
-                    Puntaje de Sustentabilidad
-                  </span>
-                  <span className="text-2xl font-display font-bold text-gold-500 font-mono">
-                    {result?.sustainabilityScore.split(" ")[0]}
-                  </span>
-                </div>
-              </div>
-
-              {/* Summary */}
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-display text-xs font-bold uppercase tracking-widest text-gold-300 mb-2 print:text-black">
-                    Resumen Ejecutivo del Proyecto
-                  </h4>
-                  <p className="text-sm text-jet-200 font-light leading-relaxed print:text-black/80">
-                    {result?.executiveSummary}
-                  </p>
-                </div>
-
-                {/* Grid info details */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-jet-800/60 print:border-black/10">
-                  <div className="space-y-4">
-                    <h5 className="font-display text-xs font-bold uppercase tracking-widest text-gold-500">
-                      Layout y Configuración Recomendada
-                    </h5>
-                    <div className="p-4 bg-jet-950 border border-jet-800/80 rounded text-sm text-jet-200 font-light leading-relaxed print:bg-gray-100 print:text-black print:border-none">
-                      {result?.recommendedLayout}
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h5 className="font-display text-xs font-bold uppercase tracking-widest text-gold-500">
-                      Línea de Tiempo Operativa Estimada
-                    </h5>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
-                      <div className="bg-jet-950 p-3 rounded border border-jet-800/40 print:bg-gray-50 print:text-black print:border-none">
-                        <span className="text-[9px] text-jet-400 block">FABRICACIÓN INDUSTRIAL</span>
-                        <span className="font-bold text-white block mt-0.5 print:text-black">{result?.timelineEstimate.manufacturing}</span>
-                      </div>
-                      <div className="bg-jet-950 p-3 rounded border border-jet-800/40 print:bg-gray-50 print:text-black print:border-none">
-                        <span className="text-[9px] text-jet-400 block">LOGÍSTICA INTERMODAL</span>
-                        <span className="font-bold text-white block mt-0.5 print:text-black">{result?.timelineEstimate.logistics}</span>
-                      </div>
-                      <div className="bg-jet-950 p-3 rounded border border-jet-800/40 print:bg-gray-50 print:text-black print:border-none">
-                        <span className="text-[9px] text-jet-400 block">MONTAJE PLUG & PLAY</span>
-                        <span className="font-bold text-white block mt-0.5 print:text-black">{result?.timelineEstimate.assembly}</span>
-                      </div>
-                      <div className="bg-jet-950 p-3 rounded border border-gold-500/20 print:bg-gray-100 print:text-black print:border-none">
-                        <span className="text-[9px] text-gold-500 font-bold block">TIEMPO TOTAL ENTREGA</span>
-                        <span className="font-bold text-gold-500 block mt-0.5 font-mono text-sm">{result?.timelineEstimate.totalWeeks} Semanas</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Specs list */}
-                <div className="pt-6 border-t border-jet-800/60 print:border-black/10">
-                  <h4 className="font-display text-xs font-bold uppercase tracking-widest text-gold-300 mb-4 print:text-black">
-                    Especificación de Materiales y Cumplimiento Normativo
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {result?.technicalSpecs.map((spec, index) => (
-                      <div key={index} className="p-4 bg-jet-950 border border-jet-800 rounded relative print:bg-gray-50 print:text-black print:border-none">
-                        <h5 className="font-display text-xs font-bold text-gold-500 mb-1">{spec.category}</h5>
-                        <p className="text-xs text-jet-300 font-light leading-relaxed print:text-black/80">{spec.detail}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Score Explainer */}
-                <div className="p-4 bg-gold-500/5 border border-gold-500/30 rounded flex items-start gap-3 print:bg-gray-50 print:text-black print:border-none">
-                  <Leaf className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="font-display text-xs font-bold text-gold-300 uppercase tracking-widest print:text-black">Justificación Ecológica</h5>
-                    <p className="text-xs text-jet-200 font-light mt-1 leading-relaxed print:text-black/80">
-                      {result?.sustainabilityScore}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Dynamic warning if fallback was used */}
-                {result?._warning && (
-                  <p className="text-[10px] text-gold-500 font-mono text-center">
-                    * {result._warning}
-                  </p>
-                )}
-
-                {/* Actions bottom */}
-                <div className="pt-8 border-t border-jet-800/60 flex flex-col sm:flex-row gap-3 print:hidden">
-                  <button
-                    onClick={handlePrint}
-                    className="flex-1 px-5 py-3 rounded border border-jet-700 hover:border-gold-500 hover:bg-gold-500/5 text-white font-medium text-xs uppercase tracking-wider flex items-center justify-center gap-2"
-                  >
-                    <Printer className="w-4 h-4 text-gold-500" />
-                    Imprimir Memoria Técnica
-                  </button>
-
                   <button
                     onClick={handleReset}
-                    className="flex-1 px-5 py-3 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs"
+                    className="mt-8 px-6 py-3 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs transition-colors"
                   >
-                    Configurar Nuevo Proyecto
+                    Nueva Solicitud
                   </button>
-                </div>
-
-                {/* Legal notice for quote lead generation */}
-                <div className="bg-jet-950 border border-jet-800 p-4 rounded text-xs text-jet-300 font-light flex items-start gap-3 mt-4 print:hidden">
-                  <FileCheck className="w-5 h-5 text-gold-500 shrink-0" />
-                  <div>
-                    <p className="font-bold text-white">Próximo Paso Ejecutivo:</p>
-                    <p className="mt-1">
-                      Un Ingeniero Consultor Senior de Beyritech ha recibido una copia de esta memoria técnica de pre-factibilidad para el proyecto <span className="font-mono text-gold-500 font-bold">{result?.projectCode}</span>. Nos pondremos en contacto con <span className="font-bold">{formData.name}</span> al correo <span className="font-mono">{formData.email}</span> o teléfono para agendar una sesión técnica detallada de revisión CAD en las próximas 12 horas.
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>

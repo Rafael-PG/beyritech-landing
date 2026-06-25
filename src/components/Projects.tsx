@@ -66,7 +66,7 @@ export default function Projects() {
   const categories = ["All", "Mining", "Corporate", "Healthcare", "Education", "Industrial"];
 
   return (
-    <section id="projects" className="py-24 bg-jet-950 text-white relative">
+    <section id="projects" className="py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6">

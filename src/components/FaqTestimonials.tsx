@@ -66,7 +66,7 @@ export default function FaqTestimonials() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-jet-900 text-white relative">
+    <section id="faq" className="py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-gold-500/5 rounded-full filter blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">

@@ -11,7 +11,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-jet-950 text-white pt-20 pb-10 border-t border-jet-900 relative overflow-hidden">
+    <footer className="bg-jet-950 text-white pt-20 pb-10 border-t border-jet-900 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold-500/5 rounded-full filter blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
@@ -24,6 +24,7 @@ export default function Footer() {
               <img
                 src="/logo/beyritech-logo.png?v=2"
                 alt="Beyritech"
+                width="45" height="36"
                 className="h-9 w-auto"
               />
             </div>

@@ -1,7 +1,10 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI } from "@google/genai";
+import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -10,108 +13,64 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // Middleware
-  app.use(express.json());
+  if (process.env.NODE_ENV === "production") {
+    app.use(helmet());
+  }
+  app.use(express.json({ limit: "10kb" }));
 
-  // API Route: AI-powered Modular Specification and Estimator
-  app.post("/api/estimate", async (req, res) => {
+  // Rate limiter for contact endpoint
+  const contactLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    message: { error: "Demasiadas solicitudes. Intente en 15 minutos." },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Pre-cache resources at startup (avoid sync I/O in request handlers)
+  const logoPath = path.join(process.cwd(), "public/logo/beyritech-logo.png");
+  const logoAttachment = fs.readFileSync(logoPath);
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    port: parseInt(process.env.SMTP_PORT || "587"),
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  // API Route: Contact form — send email notification
+  app.post("/api/contact", contactLimiter, async (req, res) => {
     try {
-      const { 
-        industry, 
-        moduleType, 
-        area, 
-        capacity, 
-        location, 
-        sustainability, 
-        insulation, 
-        timeline,
-        additionalSpecs 
-      } = req.body;
+      const { name, company, email, phone, industry, moduleType, area, capacity, location, sustainability, insulation, timeline, additionalSpecs } = req.body;
 
-      // Validate input briefly
-      if (!industry || !moduleType || !area) {
-        return res.status(400).json({ error: "Required fields are missing." });
+      if (!name || !email) {
+        return res.status(400).json({ error: "Name and email are required." });
       }
 
-      // Safe lazy-init of Google GenAI
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        console.warn("GEMINI_API_KEY not found in environment. Using high-fidelity local generator fallback.");
-        const fallbackEst = generateLocalFallbackSpecification(req.body);
-        return res.json(fallbackEst);
-      }
+      const html = buildEmailTemplate({ name, company, email, phone, industry, moduleType, area, capacity, location, sustainability, insulation, timeline, additionalSpecs });
 
-      const ai = new GoogleGenAI({
-        apiKey,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build',
-          }
-        }
+      await transporter.sendMail({
+        from: `"Beyritech Web" <${process.env.SMTP_USER}>`,
+        to: process.env.EMAIL_TO || email,
+        replyTo: email,
+        subject: `Nueva cotización — ${name} — ${moduleType || "Módulo"}`,
+        html,
+        attachments: [
+          {
+            filename: "beyritech-logo.png",
+            content: logoAttachment,
+            cid: "logo@beyritech",
+          },
+        ],
       });
 
-      const prompt = `
-You are the Lead Architectural Configurator & Chief Estimator at Beyritech (Multipurpose Modular Buildings, Módulos Multipropósito). 
-Your target audience is executive decision-makers in mining, construction, government, and corporate sectors.
-
-Generate a highly professional, comprehensive technical proposal and specification report for the following modular building request:
-- Industry: ${industry}
-- Module Type: ${moduleType}
-- Desired Area: ${area} sqm
-- Expected Capacity: ${capacity || 'Not specified'} people
-- Installation Location/Terrain: ${location || 'Not specified'}
-- Key Sustainability Add-ons: ${sustainability ? 'Eco-insulated panels, high recycled steel ratio, solar-ready structure' : 'Standard premium efficiency'}
-- Premium Thermal/Acoustic Insulation: ${insulation ? 'Advanced polyisocyanurate (PIR) cores, double glazing' : 'Standard rockwool core'}
-- Desired Execution Timeline: ${timeline || 'Standard fast-track'} weeks
-- Custom Notes: ${additionalSpecs || 'None'}
-
-Please return a structured JSON response matching this schema:
-{
-  "projectCode": "BEY-2026-XXXX", // Generate a random high-end project code
-  "executiveSummary": "A concise, elegant executive pitch showing why Beyritech modular systems are perfect for this exact scenario...",
-  "recommendedLayout": "A detailed layout proposal detailing wall configurations, access points, and safety standards suited for the selected terrain.",
-  "technicalSpecs": [
-    { "category": "Structure & Framing", "detail": "..." },
-    { "category": "Thermal & Acoustic Performance", "detail": "..." },
-    { "category": "Wall & Roof Paneling", "detail": "..." },
-    { "category": "Assembly Method", "detail": "..." }
-  ],
-  "timelineEstimate": {
-    "manufacturing": "X weeks (detail factory prep)",
-    "logistics": "X weeks (detail transport and container specs)",
-    "assembly": "X days/weeks (detail on-site crane and joinery requirements)",
-    "totalWeeks": X
-  },
-  "sustainabilityScore": "A to A+ score with a brief technical justification of carbon footprint savings compared to traditional concrete construction."
-}
-
-Ensure the tone is extremely technical, highly professional, precise, and authoritative. Frame Beyritech as superior to traditional brick-and-mortar builders.
-Your response MUST be valid JSON and ONLY JSON. Do not write markdown tags or preambles around the JSON.
-`;
-
-      const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: prompt,
-        config: {
-          responseMimeType: "application/json"
-        }
-      });
-
-      const textOutput = response.text;
-      if (!textOutput) {
-        throw new Error("No output text received from Gemini API");
-      }
-
-      const parsedSpec = JSON.parse(textOutput.trim());
-      return res.json(parsedSpec);
-
+      res.json({ success: true, message: "Solicitud enviada correctamente." });
     } catch (error: any) {
-      console.error("Gemini specification generation failed:", error);
-      const fallbackEst = generateLocalFallbackSpecification(req.body);
-      return res.json({
-        ...fallbackEst,
-        _warning: "Generated using fallback engine due to upstream server query latency."
-      });
+      console.error("Email send failed:", error);
+      res.status(500).json({ error: "Error al enviar el correo. Intente nuevamente." });
     }
   });
 
@@ -135,29 +94,83 @@ Your response MUST be valid JSON and ONLY JSON. Do not write markdown tags or pr
   });
 }
 
-function generateLocalFallbackSpecification(body: any) {
-  const { industry, moduleType, area, capacity, location, timeline } = body;
-  const areaNum = parseInt(area) || 150;
-  const timeNum = parseInt(timeline) || 4;
-  
-  return {
-    projectCode: `BEY-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-    executiveSummary: `Technical evaluation for ${moduleType || 'Módulo Multipropósito'} designed specifically for the ${industry || 'Industrial'} sector at the requested location (${location || 'General Terrain'}). Beyritech structural systems offer standard-setting volumetric efficiency, high seismic resistance, and extreme thermal boundaries.`,
-    recommendedLayout: `Optimal configuration consists of a modular layout of ${Math.ceil(areaNum / 45)} prefabricated 40ft high-cube space cells. Side-to-side integration with integrated utility corridors and wet cores. Reinforced entry vectors designed for frequent commercial operation.`,
-    technicalSpecs: [
-      { "category": "Structure & Framing", "detail": "Structural hot-rolled steel frame with anti-corrosive multi-coat polyurethane paint (C5-M marine exposure rated)." },
-      { "category": "Thermal & Acoustic Performance", "detail": "100mm high-density Polyisocyanurate (PIR) cores providing R-value of 32+ and acoustic damping of 42dB." },
-      { "category": "Wall & Roof Paneling", "detail": "Galvanized pre-painted micro-ribbed steel face. Anti-bacterial interior micro-cladding suitable for healthcare/clean environments." },
-      { "category": "Assembly Method", "detail": "Integrated ISO-corner locks. High-speed bolt-less joint seals with elastomer gasket borders ensuring full hermetic performance." }
-    ],
-    timelineEstimate: {
-      "manufacturing": "2 to 3 weeks (precision CNC fabrication and utility pre-fitting in dust-free factory conditions)",
-      "logistics": "1 week (pre-slung shipping configurations using custom flat-racks, sea/land boundary logistics optimization)",
-      "assembly": "48 to 72 hours (crane placement, instant bolt coupling, and high-tolerance service plug-and-play connections)",
-      "totalWeeks": Math.max(3, timeNum - 1)
-    },
-    sustainabilityScore: "Grade A (92% Recyclability Index). Achieves a 68% reduction in carbon footprint compared to classic dry-cast concrete construction by avoiding raw resource transport and minimizing on-site waste."
-  };
+function buildEmailTemplate(data: {
+  name: string; company: string; email: string; phone: string;
+  industry: string; moduleType: string; area: string; capacity: string;
+  location: string; sustainability: boolean; insulation: boolean;
+  timeline: string; additionalSpecs: string;
+}) {
+  const fields = [
+    { label: "Nombre", value: data.name },
+    { label: "Empresa", value: data.company },
+    { label: "Correo", value: data.email },
+    { label: "Teléfono", value: data.phone },
+    { label: "Sector", value: data.industry },
+    { label: "Tipo de módulo", value: data.moduleType },
+    { label: "Área (m²)", value: data.area },
+    { label: "Capacidad", value: data.capacity },
+    { label: "Ubicación", value: data.location },
+    { label: "Plazo (semanas)", value: data.timeline },
+    { label: "Aislamiento PIR", value: data.insulation ? "Sí" : "No" },
+    { label: "Sostenibilidad Solar-Ready", value: data.sustainability ? "Sí" : "No" },
+  ];
+
+  const rows = fields.map(f => `
+    <tr>
+      <td style="padding:10px 14px;border-bottom:1px solid #2a2a2a;color:#909090;font-size:13px;font-family:'Courier New',monospace;text-transform:uppercase;letter-spacing:0.5px;width:180px">${f.label}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #2a2a2a;color:#ffffff;font-size:14px;font-family:Arial,sans-serif">${f.value}</td>
+    </tr>
+  `).join("");
+
+  const hasNotes = data.additionalSpecs && data.additionalSpecs.trim();
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background-color:#050505">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#050505;padding:40px 20px">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background-color:#090A0A;border:1px solid #1c1c1c;border-radius:8px;overflow:hidden">
+
+        <!-- Header -->
+        <tr>
+          <td style="padding:32px 32px 20px;text-align:center;border-bottom:2px solid #FEC93430">
+            <img src="cid:logo@beyritech" alt="Beyritech" style="height:36px;opacity:0.8" />
+            <h1 style="color:#FEC934;font-family:'Raleway',Arial,sans-serif;font-size:20px;font-weight:700;letter-spacing:1px;margin:16px 0 0;text-transform:uppercase">Nueva Solicitud de Cotización</h1>
+            <p style="color:#606060;font-family:Arial,sans-serif;font-size:12px;margin:6px 0 0;font-family:'Courier New',monospace">SISTEMA CONSTRUCTIVO VOLUMÉTRICO</p>
+          </td>
+        </tr>
+
+        <!-- Data table -->
+        <tr><td style="padding:24px 32px">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            ${rows}
+          </table>
+        </td></tr>
+
+        <!-- Notes -->
+        ${hasNotes ? `
+        <tr><td style="padding:0 32px 24px">
+          <div style="border-left:3px solid #FEC934;padding:12px 16px;background-color:#0a0e12;border-radius:4px">
+            <p style="color:#909090;font-size:11px;font-family:'Courier New',monospace;text-transform:uppercase;letter-spacing:1px;margin:0 0 6px">Notas del proyecto</p>
+            <p style="color:#e0e0e0;font-size:13px;font-family:Arial,sans-serif;margin:0;line-height:1.5">${data.additionalSpecs}</p>
+          </div>
+        </td></tr>` : ""}
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:20px 32px;background-color:#050505;border-top:1px solid #1c1c1c;text-align:center">
+            <p style="color:#505050;font-size:11px;font-family:Arial,sans-serif;margin:0">© ${new Date().getFullYear()} Beyritech — Sistemas Modulares Multipropósito</p>
+            <p style="color:#404040;font-size:10px;font-family:'Courier New',monospace;margin:4px 0 0">Este correo fue generado automáticamente desde el formulario web</p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
 }
 
 startServer();
