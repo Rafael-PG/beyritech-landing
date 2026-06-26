@@ -50,7 +50,7 @@ export default function WhyChooseUs() {
           </h2>
           <div className="w-16 h-[2px] bg-gold-500 mx-auto mt-6" />
           <p className="text-jet-200 mt-4 font-sans text-base sm:text-lg font-light leading-relaxed">
-            Fusionamos la velocidad de la prefabricación automatizada con la sofisticación de la arquitectura de lujo, creando estructuras de resistencia extrema listas para operar de inmediato.
+            Fusionamos la velocidad de la prefabricación automatizada con la sofisticación de la arquitectura de lujo, creando Módulos Multipropósito y contenedores de oficina de resistencia extrema, ideales para minería, corporaciones, clínicas y aulas modulares.
           </p>
         </div>
 

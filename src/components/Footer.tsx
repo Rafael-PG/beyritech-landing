@@ -25,9 +25,10 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <img
                 src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
-                alt="Beyritech"
+                alt="Beyritech — Fabricantes de Módulos Multipropósito"
                 width="45" height="36"
                 className="h-9 w-auto"
+                loading="lazy"
               />
             </div>
             
@@ -48,7 +49,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-jet-300 font-light">
               <li><a href="#why-choose-us" className="hover:text-gold-500 transition-colors">Campamentos Mineros</a></li>
-              <li><a href="#why-choose-us" className="hover:text-gold-500 transition-colors">Oficinas Corporativas Modulares</a></li>
+              <li><a href="#why-choose-us" className="hover:text-gold-500 transition-colors">Oficinas Corporativas y Contenedores de Oficina Modulares</a></li>
               <li><a href="#why-choose-us" className="hover:text-gold-500 transition-colors">Módulos Hospitalarios / Clínicas</a></li>
               <li><a href="#why-choose-us" className="hover:text-gold-500 transition-colors">Aulas y Módulos de Educación</a></li>
               <li><a href="#why-choose-us" className="hover:text-gold-500 transition-colors">Bodegas e Infraestructura Industrial</a></li>
@@ -77,15 +78,15 @@ export default function Footer() {
             <ul className="space-y-3 text-xs text-jet-300 font-light">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-500 shrink-0" />
-                <span>Av. Vitacura 2670, Las Condes, Santiago, Chile</span>
+                <span>Av. Santa Elvira Mza. B Lote. 8, Lima, Perú</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-500 shrink-0" />
-                <span>+56 2 2400 9000</span>
+                <span>+51 993 694 677</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-gold-500 shrink-0" />
-                <span>proyectos@beyritech.com</span>
+                <span>asistente.comercial@beyritech.com</span>
               </li>
             </ul>
           </div>

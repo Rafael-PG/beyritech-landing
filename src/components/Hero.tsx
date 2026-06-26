@@ -115,7 +115,7 @@ export default function Hero() {
 
             <div className="animate-fade-up stagger-3">
               <p className="font-sans text-base sm:text-lg lg:text-xl text-jet-200 font-light leading-relaxed mb-10 max-w-2xl">
-                Despliegue infraestructuras modulares de calidad superior para minería, corporaciones y sanidad. Reduzca los tiempos un 60% sin comprometer la resistencia estructural ni el aislamiento térmico.
+                Despliegue Módulos Multipropósito y contenedores de oficina modulares de calidad superior para minería, corporaciones y sanidad. Reduzca los tiempos un 60% sin comprometer la resistencia estructural ni el aislamiento térmico.
               </p>
             </div>
 
@@ -167,30 +167,30 @@ export default function Hero() {
         >
           <div>
             <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Área Desplegada</p>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
+            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
               +120,000 <span className="text-gold-500 text-lg">m²</span>
-            </h2>
+            </p>
             <p className="text-xs text-jet-300 mt-1">Minería y corporaciones</p>
           </div>
           <div>
             <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Velocidad Operativa</p>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono text-gold-500">
+            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono text-gold-500">
               -60% <span className="text-white text-lg">Tiempo</span>
-            </h2>
+            </p>
             <p className="text-xs text-jet-300 mt-1">Fabricación en paralelo</p>
           </div>
           <div>
             <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Vida Útil</p>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
+            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
               +50 <span className="text-gold-500 text-lg">Años</span>
-            </h2>
+            </p>
             <p className="text-xs text-jet-300 mt-1">Acero galvanizado pesado</p>
           </div>
           <div>
             <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Aislamiento PIR</p>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
+            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
               R-32 <span className="text-gold-500 text-lg">Mínimo</span>
-            </h2>
+            </p>
             <p className="text-xs text-jet-300 mt-1">Apto clima de alta montaña</p>
           </div>
         </div>

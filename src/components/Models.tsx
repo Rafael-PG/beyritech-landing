@@ -317,9 +317,10 @@ export default function Models() {
               <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-gold-500/40" />
               <img
                 src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
-                alt="Beyritech"
+                alt="Beyritech — Módulos Multipropósito e Ingeniería Volumétrica"
                 width="40" height="32"
                 className="h-8 w-auto opacity-60 grayscale"
+                loading="lazy"
               />
               <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-gold-500/40" />
             </div>

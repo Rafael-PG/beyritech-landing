@@ -164,7 +164,7 @@ export default function FaqTestimonials() {
             {/* Active quote container */}
             <div className="space-y-6 overflow-hidden">
               <AnimatePresence mode="wait" custom={direction}>
-                <motion.div
+                <motion.article
                   key={activeTestimonial}
                   custom={direction}
                   variants={slideVariants}
@@ -213,7 +213,7 @@ export default function FaqTestimonials() {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </motion.article>
               </AnimatePresence>
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function FaqTestimonials() {
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                  <div
+                  <article
                     key={idx}
                     className="bg-jet-950 border border-jet-800 rounded overflow-hidden"
                   >
@@ -272,7 +272,7 @@ export default function FaqTestimonials() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>

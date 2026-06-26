@@ -87,9 +87,11 @@ export default function Navbar() {
         >
           <img
             src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
-            alt="Beyritech"
+            alt="Logo Beyritech — Módulos Multipropósito y Contenedores de Oficina"
             width="50" height="40"
             className="h-10 w-auto"
+            fetchpriority="high"
+            loading="eager"
           />
         </a>
 

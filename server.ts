@@ -128,7 +128,11 @@ async function startServer() {
     });
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+      if (req.path === '/') {
+        res.sendFile(path.join(distPath, 'index.html'));
+      } else {
+        res.status(404).sendFile(path.join(distPath, '404.html'));
+      }
     });
   }
 
