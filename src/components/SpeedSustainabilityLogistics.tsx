@@ -101,8 +101,8 @@ export default function SpeedSustainabilityLogistics() {
                       <Scale className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-white">92% Índice de Reciclabilidad</h4>
-                      <p className="text-xs text-jet-300 font-light mt-1">Estructura de acero y cerramientos recuperables que evitan el desperdicio industrial.</p>
+                      <h4 className="font-display text-sm font-bold text-white">Alta Reciclabilidad</h4>
+                      <p className="text-xs text-jet-300 font-light mt-1">Estructura de acero y cerramientos recuperables que minimizan el desperdicio industrial.</p>
                     </div>
                   </div>
 
@@ -128,7 +128,7 @@ export default function SpeedSustainabilityLogistics() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-mono">
                     <span className="text-jet-200">Residuos de Obra Húmeda (% volumen)</span>
-                    <span className="text-gold-500 font-bold">Beyritech: 4% | Tradicional: 35%</span>
+                    <span className="text-gold-500 font-bold">Beyritech: significativamente menor | Tradicional: alto</span>
                   </div>
                   <div className="h-2.5 w-full bg-jet-950 rounded overflow-hidden flex">
                     <motion.div
@@ -146,7 +146,7 @@ export default function SpeedSustainabilityLogistics() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-mono">
                     <span className="text-jet-200">Transmitancia Térmica (Valor R de Aislamiento)</span>
-                    <span className="text-gold-500 font-bold">Beyritech: R-32+ (Máximo) | Tradicional: R-12</span>
+                    <span className="text-gold-500 font-bold">Beyritech: Alto aislamiento PIR | Tradicional: convencional</span>
                   </div>
                   <div className="h-2.5 w-full bg-jet-950 rounded overflow-hidden flex">
                     <motion.div
@@ -163,13 +163,13 @@ export default function SpeedSustainabilityLogistics() {
                 {/* Stat Box Grid */}
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-jet-800">
                   <div className="bg-jet-950 p-4 rounded border border-jet-800/60">
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Ahorro CO2</p>
-                    <h5 className="font-display text-xl font-bold text-white mt-1">-68%</h5>
-                    <p className="text-[10px] text-jet-300 mt-1">Menos transporte de material primario.</p>
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Huella de Carbono</p>
+                    <h5 className="font-display text-xl font-bold text-white mt-1">Reducción significativa</h5>
+                    <p className="text-[10px] text-jet-300 mt-1">Menos transporte y desperdicio de material.</p>
                   </div>
                   <div className="bg-jet-950 p-4 rounded border border-jet-800/60">
                     <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Eficiencia Climatización</p>
-                    <h5 className="font-display text-xl font-bold text-white mt-1">-45%</h5>
+                    <h5 className="font-display text-xl font-bold text-white mt-1">Ahorro notable</h5>
                     <p className="text-[10px] text-jet-300 mt-1">Ahorro constante de energía operativa.</p>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ export default function SpeedSustainabilityLogistics() {
                   Velocidad de Despliegue que Acelera el Retorno
                 </h3>
                 <p className="text-sm sm:text-base text-jet-200 font-light leading-relaxed">
-                  Mientras que en un proyecto tradicional no se puede construir el armazón hasta terminar los cimientos, Beyritech realiza la **prefabricación modular en nuestra planta automatizada en paralelo** con la preparación del terreno. Esto reduce el cronograma de ejecución global en más del 60%.
+                  Mientras que en un proyecto tradicional no se puede construir el armazón hasta terminar los cimientos, Beyritech realiza la **prefabricación modular en planta automatizada en paralelo** con la preparación del terreno. Esto reduce significativamente el cronograma de ejecución global.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-jet-800/80">
@@ -235,7 +235,7 @@ export default function SpeedSustainabilityLogistics() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-mono">
                     <span className="text-gold-500 font-bold">CONSTRUCCIÓN MODULAR BEYRITECH</span>
-                    <span className="text-gold-500 font-bold">6 Semanas (Ahorro del 75%)</span>
+                    <span className="text-gold-500 font-bold">6 Semanas (Ahorro significativo)</span>
                   </div>
                   <div className="h-10 w-full bg-jet-950 rounded overflow-hidden flex text-[10px] font-mono text-center relative border border-gold-500/30">
                     <div className="bg-gold-700 text-jet-950 font-bold flex flex-col justify-center px-1" style={{ width: "50%" }}>
@@ -288,8 +288,8 @@ export default function SpeedSustainabilityLogistics() {
                       <Snowflake className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-white">Certificación de Alta Montaña</h4>
-                      <p className="text-xs text-jet-300 font-light mt-1">Homologados para resistir altitudes superiores a 4,500 m.s.n.m. y presiones térmicas extremas.</p>
+                      <h4 className="font-display text-sm font-bold text-white">Diseñado para Alta Montaña</h4>
+                      <p className="text-xs text-jet-300 font-light mt-1">Módulos preparados para operar en altitudes elevadas y condiciones térmicas extremas.</p>
                     </div>
                   </div>
 
@@ -298,8 +298,8 @@ export default function SpeedSustainabilityLogistics() {
                       <Wind className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-white">Resistencia a Ráfagas Huracanadas</h4>
-                      <p className="text-xs text-jet-300 font-light mt-1">Cálculo de cargas laterales para soportar ráfagas de viento costeras de hasta 180 km/h sin deformación estructural.</p>
+                      <h4 className="font-display text-sm font-bold text-white">Resistencia a Viento Intenso</h4>
+                      <p className="text-xs text-jet-300 font-light mt-1">Cálculo de cargas laterales para entornos costeros y de alta montaña con vientos fuertes.</p>
                     </div>
                   </div>
                 </div>
@@ -312,8 +312,8 @@ export default function SpeedSustainabilityLogistics() {
                   <h4 className="font-display text-sm font-mono text-gold-500 uppercase tracking-widest mb-4">
                     Configuración de Carga Intermodal Flat-Rack
                   </h4>
-                  <p className="text-xs text-jet-300 font-light mb-6">
-                    Los módulos Beyritech se pliegan o encajan volumétricamente a dimensiones estándar de contenedor High Cube de 20 o 40 pies.
+                    <p className="text-xs text-jet-300 font-light mb-6">
+                    Los módulos se diseñan para optimizar el transporte en contenedores estándar de 20 o 40 pies.
                   </p>
                 </div>
 
@@ -336,8 +336,8 @@ export default function SpeedSustainabilityLogistics() {
                     <p className="text-xs font-bold text-white mt-1">4 Módulos / Cama</p>
                   </div>
                   <div className="bg-jet-950 p-2.5 rounded border border-jet-800/40">
-                    <span className="text-[9px] font-mono text-jet-300 uppercase">Flete Reducido</span>
-                    <p className="text-xs font-bold text-gold-500 mt-1">-55% Coste</p>
+                    <span className="text-[9px] font-mono text-jet-300 uppercase">Flete Optimizado</span>
+                    <p className="text-xs font-bold text-gold-500 mt-1">Coste reducido</p>
                   </div>
                   <div className="bg-jet-950 p-2.5 rounded border border-jet-800/40">
                     <span className="text-[9px] font-mono text-jet-300 uppercase">Despliegue</span>

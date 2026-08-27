@@ -7,6 +7,7 @@ import compression from "compression";
 import rateLimit from "express-rate-limit";
 import { createServer as createViteServer } from "vite";
 import nodemailer from "nodemailer";
+import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -59,7 +60,10 @@ async function startServer() {
 
   // Pre-cache resources at startup (avoid sync I/O in request handlers)
   const logoPath = path.join(process.cwd(), "public/logo/beyritech-logo.png");
-  const logoAttachment = fs.readFileSync(logoPath);
+  let logoAttachment: Buffer | undefined;
+  if (fs.existsSync(logoPath)) {
+    logoAttachment = fs.readFileSync(logoPath);
+  }
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || "smtp.gmail.com",
@@ -69,6 +73,85 @@ async function startServer() {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
+  });
+
+  // MySQL pool
+  const db = mysql.createPool({
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASS || "",
+    database: process.env.DB_NAME || "landing_beyritech",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+  });
+
+  // Rate limiter for API reads
+  const apiLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 60,
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // ─── API: Blog ────────────────────────────────────────
+  app.get("/api/blog", apiLimiter, async (_req, res) => {
+    try {
+      const [rows] = await db.execute(
+        "SELECT idBlog, slug, servicio, title, excerpt, date, author, readTime, image, featured, trafficRank, isNew, keywords FROM blog_posts WHERE published = TRUE ORDER BY date DESC"
+      );
+      res.json(rows);
+    } catch (err) {
+      console.error("Blog list error:", err);
+      res.status(500).json({ error: "Error al obtener artículos." });
+    }
+  });
+
+  app.get("/api/blog/:slug", apiLimiter, async (req, res) => {
+    try {
+      const [rows] = await db.execute(
+        "SELECT * FROM blog_posts WHERE slug = ? AND published = TRUE",
+        [req.params.slug]
+      );
+      const posts = rows as any[];
+      if (posts.length === 0) {
+        return res.status(404).json({ error: "Artículo no encontrado." });
+      }
+      res.json(posts[0]);
+    } catch (err) {
+      console.error("Blog single error:", err);
+      res.status(500).json({ error: "Error al obtener el artículo." });
+    }
+  });
+
+  // ─── API: Casos de éxito ──────────────────────────────
+  app.get("/api/casos-exito", apiLimiter, async (_req, res) => {
+    try {
+      const [rows] = await db.execute(
+        "SELECT idCasos, slug, servicio, title, excerpt, date, author, readTime, image, featured, trafficRank, isNew, keywords FROM casos_exito WHERE published = TRUE ORDER BY date DESC"
+      );
+      res.json(rows);
+    } catch (err) {
+      console.error("Casos list error:", err);
+      res.status(500).json({ error: "Error al obtener casos de éxito." });
+    }
+  });
+
+  app.get("/api/casos-exito/:slug", apiLimiter, async (req, res) => {
+    try {
+      const [rows] = await db.execute(
+        "SELECT * FROM casos_exito WHERE slug = ? AND published = TRUE",
+        [req.params.slug]
+      );
+      const casos = rows as any[];
+      if (casos.length === 0) {
+        return res.status(404).json({ error: "Caso de éxito no encontrado." });
+      }
+      res.json(casos[0]);
+    } catch (err) {
+      console.error("Casos single error:", err);
+      res.status(500).json({ error: "Error al obtener el caso de éxito." });
+    }
   });
 
   // API Route: Contact form — send email notification
@@ -82,20 +165,25 @@ async function startServer() {
 
       const html = buildEmailTemplate({ name, company, email, phone, industry, moduleType, area, capacity, location, sustainability, insulation, timeline, additionalSpecs });
 
-      await transporter.sendMail({
+      const mailOptions: any = {
         from: `"Beyritech Web" <${process.env.SMTP_USER}>`,
-        to: process.env.EMAIL_TO || email,
+        to: process.env.EMAIL_TO || "asistente.comercial@beyritech.com",
         replyTo: email,
         subject: `Nueva cotización — ${name} — ${moduleType || "Módulo"}`,
         html,
-        attachments: [
+      };
+
+      if (logoAttachment) {
+        mailOptions.attachments = [
           {
             filename: "beyritech-logo.png",
             content: logoAttachment,
             cid: "logo@beyritech",
           },
-        ],
-      });
+        ];
+      }
+
+      await transporter.sendMail(mailOptions);
 
       res.json({ success: true, message: "Solicitud enviada correctamente." });
     } catch (error: any) {
@@ -127,12 +215,12 @@ async function startServer() {
       next();
     });
     app.use(express.static(distPath));
+    // SPA fallback: serve index.html for all non-file routes
     app.get('*', (req, res) => {
-      if (req.path === '/') {
-        res.sendFile(path.join(distPath, 'index.html'));
-      } else {
-        res.status(404).sendFile(path.join(distPath, '404.html'));
+      if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: "API endpoint not found" });
       }
+      res.sendFile(path.join(distPath, 'index.html'));
     });
   }
 

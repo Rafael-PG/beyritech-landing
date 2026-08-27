@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect, type MouseEvent } from "react";
+import { Link } from "react-router-dom";
 import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
-import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
+import Factory from "lucide-react/dist/esm/icons/factory";
 import Zap from "lucide-react/dist/esm/icons/zap";
-import Award from "lucide-react/dist/esm/icons/award";
-import Flame from "lucide-react/dist/esm/icons/flame";
+import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
+import Clock from "lucide-react/dist/esm/icons/clock";
 
 export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -28,48 +29,30 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleScrollToEstimator = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const scrollToSection = (id: string) => (e: MouseEvent) => {
     e.preventDefault();
-    const element = document.querySelector("#estimator");
-    if (element) {
+    const el = document.querySelector(id);
+    if (el) {
       const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    }
-  };
-
-  const handleScrollToModels = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const element = document.querySelector("#models");
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      const rect = el.getBoundingClientRect().top;
+      window.scrollTo({ top: rect - offset, behavior: "smooth" });
     }
   };
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-jet-950">
-      {/* Video Background */}
+      {/* Hero Video Background */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
           poster="/video/poster.webp"
-          className="w-full h-full object-cover will-change-transform"
+          className="w-full h-full object-cover"
         >
           <source src="/video/background.webm" type="video/webm" />
           <source src="/video/background.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-jet-950 via-jet-950/80 to-jet-950/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-jet-950 via-transparent to-jet-950/60" />
@@ -89,25 +72,23 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full flex flex-col justify-between min-h-screen">
         <div />
 
-        {/* Core Message Card */}
-        <div
-          ref={contentRef}
-          className="max-w-3xl mt-12 will-change-transform"
-        >
+        {/* Core Message */}
+        <div ref={contentRef} className="max-w-3xl mt-12 will-change-transform">
           <div>
             <div className="animate-fade-up stagger-1">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 mb-6 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse" />
                 <span className="text-[11px] font-mono uppercase tracking-widest text-gold-300 font-semibold">
-                  Sistemas de Ingeniería Volumétrica
+                  Módulos prefabricados de fabricación nacional
                 </span>
               </div>
             </div>
 
             <div className="animate-fade-up stagger-2">
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-                Módulos Multipropósito de <span className="text-gold-500 relative inline-block">
-                  Alto Rendimiento
+                Espacios habilitados en{" "}
+                <span className="text-gold-500 relative inline-block">
+                  semanas, no en meses
                   <span className="absolute left-0 bottom-1 w-full h-[3px] bg-gold-500/30" />
                 </span>
               </h1>
@@ -115,43 +96,41 @@ export default function Hero() {
 
             <div className="animate-fade-up stagger-3">
               <p className="font-sans text-base sm:text-lg lg:text-xl text-jet-200 font-light leading-relaxed mb-10 max-w-2xl">
-                Despliegue Módulos Multipropósito y contenedores de oficina modulares de calidad superior para minería, corporaciones y sanidad. Reduzca los tiempos un 60% sin comprometer la resistencia estructural ni el aislamiento térmico.
+                Módulos prefabricados de fabricación nacional para agroindustria,
+                logística, obra y corporaciones. Reduzca tiempos de ejecución,
+                elimine imprevistos de presupuesto y obtenga un espacio operativo
+                en semanas.
               </p>
             </div>
 
             <div className="animate-fade-up stagger-4">
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <button
-                  id="hero-primary-cta"
-                  onClick={handleScrollToEstimator}
-                  className="px-8 py-4 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-xl shadow-gold-500/20 hover:scale-[1.03] active:scale-[0.98]"
+                <Link
+                  to="/contacto"
+                  className="px-8 py-4 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-xl shadow-gold-500/20 hover:scale-[1.03] active:scale-[0.98] text-center"
                 >
-                  Solicitar Módulo
-                </button>
+                  Solicitar cotización
+                </Link>
                 <button
-                  id="hero-secondary-cta"
-                  onClick={handleScrollToModels}
+                  onClick={scrollToSection("#models")}
                   className="px-8 py-4 rounded border border-jet-200/20 hover:border-gold-500 hover:bg-gold-500/5 text-white font-medium uppercase tracking-wider text-sm transition-all duration-300 backdrop-blur-sm hover:scale-[1.03] active:scale-[0.98]"
                 >
-                  Ver Modelos
+                  Ver modelos
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Core Trust Badges */}
+          {/* Trust Bar — datos verificables */}
           <div className="pt-6 border-t border-jet-800/60 animate-fade-up stagger-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: ShieldCheck, label: "ISO 9001 / C5-M" },
-                { icon: Zap, label: "Rápido Montaje" },
-                { icon: Award, label: "Soporte Minero" },
-                { icon: Flame, label: "Ignífugo Certificado" },
+                { icon: Factory, label: "Fabricación nacional" },
+                { icon: Zap, label: "Montaje en semanas" },
+                { icon: ShieldCheck, label: "Garantía incluida" },
+                { icon: Clock, label: "Entrega garantizada" },
               ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-2.5"
-                >
+                <div key={item.label} className="flex items-center gap-2.5">
                   <item.icon className="w-5 h-5 text-gold-500 shrink-0" />
                   <span className="text-xs font-mono text-jet-200">{item.label}</span>
                 </div>
@@ -163,36 +142,27 @@ export default function Hero() {
         {/* Statistics */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-12 pb-4 border-t border-jet-800/80 mt-12 bg-jet-950/40 backdrop-blur-sm p-6 rounded-lg"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-12 pb-4 mt-12"
         >
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Área Desplegada</p>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
-              +120,000 <span className="text-gold-500 text-lg">m²</span>
-            </p>
-            <p className="text-xs text-jet-300 mt-1">Minería y corporaciones</p>
-          </div>
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Velocidad Operativa</p>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono text-gold-500">
-              -60% <span className="text-white text-lg">Tiempo</span>
-            </p>
-            <p className="text-xs text-jet-300 mt-1">Fabricación en paralelo</p>
-          </div>
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Vida Útil</p>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
-              +50 <span className="text-gold-500 text-lg">Años</span>
-            </p>
-            <p className="text-xs text-jet-300 mt-1">Acero galvanizado pesado</p>
-          </div>
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-widest text-jet-300">Aislamiento PIR</p>
-            <p className="font-display text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
-              R-32 <span className="text-gold-500 text-lg">Mínimo</span>
-            </p>
-            <p className="text-xs text-jet-300 mt-1">Apto clima de alta montaña</p>
-          </div>
+          {[
+            { label: "Proyectos ejecutados", value: "Agroindustria y logística", icon: "01" },
+            { label: "Reducción de tiempo", value: "Hasta -60% vs. obra tradicional", icon: "02" },
+            { label: "Recuperable", value: "Hasta 98% del módulo", icon: "03" },
+            { label: "Aislamiento térmico", value: "Alto rendimiento PIR", icon: "04" },
+          ].map((stat, i) => (
+            <div
+              key={i}
+              className="group relative bg-jet-900/40 backdrop-blur-sm border border-jet-800/50 rounded-lg p-4 hover:border-gold-500/30 transition-all duration-500"
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-[9px] font-mono text-gold-500/60 mt-0.5 shrink-0">{stat.icon}</span>
+                <div className="min-w-0">
+                  <p className="font-display text-sm font-bold text-white leading-snug">{stat.label}</p>
+                  <p className="text-[10px] text-jet-400 mt-1 font-light leading-relaxed">{stat.value}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Scroll Indicator */}

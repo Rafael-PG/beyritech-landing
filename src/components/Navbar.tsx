@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, type MouseEvent } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Menu from "lucide-react/dist/esm/icons/menu";
 import X from "lucide-react/dist/esm/icons/x";
 import Sun from "lucide-react/dist/esm/icons/sun";
@@ -6,63 +7,36 @@ import Moon from "lucide-react/dist/esm/icons/moon";
 import { useTheme } from "../context/ThemeContext";
 
 const NAV_LINKS = [
-  { name: "Características", href: "#why-choose-us" },
-  { name: "Modelos", href: "#models" },
-  { name: "Pilares", href: "#speed-sustainability-logistics" },
-  { name: "Proceso", href: "#process" },
-  { name: "Proyectos", href: "#projects" },
-  { name: "FAQ", href: "#faq" }
+  { name: "Soluciones", href: "/soluciones" },
+  { name: "Modelos", href: "/modelos" },
+  { name: "Proceso", href: "/proceso" },
+  { name: "Proyectos", href: "/casos-de-exito" },
+  { name: "Blog", href: "/blog" },
+  { name: "Nosotros", href: "/nosotros" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const { isLight, toggleTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (ticking) return;
-      requestAnimationFrame(() => {
-        setIsScrolled(window.scrollY > 50);
-        const sectionIds = NAV_LINKS.map(l => l.href.slice(1));
-        let found = false;
-        for (let i = sectionIds.length - 1; i >= 0; i--) {
-          const el = document.getElementById(sectionIds[i]);
-          if (el && el.getBoundingClientRect().top <= 120) {
-            setActiveSection(prev => prev !== sectionIds[i] ? sectionIds[i] : prev);
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          setActiveSection(prev => prev !== "" ? "" : prev);
-        }
-        ticking = false;
-      });
-      ticking = true;
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleScrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    const element = document.querySelector(targetId);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
+  // Close mobile menu on route change
+  useEffect(() => {
     setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  const handleScrollToTop = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
@@ -70,73 +44,94 @@ export default function Navbar() {
       id="main-header"
       className="fixed top-0 left-0 right-0 z-50 py-4"
     >
-      {/* Always-present background with opacity transition */}
+      {/* Background */}
       <div
         className={`absolute inset-0 transition-opacity duration-300 ${
           isScrolled ? "opacity-100 bg-jet-900 border-b border-jet-800/80 shadow-lg" : "opacity-0"
         }`}
       />
-      
+
       <div className="relative max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Brand Logo */}
-        <a
-          id="brand-logo"
-          href="#"
-          onClick={(e) => handleScrollTo(e, "#root")}
+        {/* Brand */}
+        <Link
+          to="/"
+          onClick={handleScrollToTop}
           className="flex items-center gap-3 group"
         >
           <img
             src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
-            alt="Logo Beyritech — Módulos Multipropósito y Contenedores de Oficina"
+            alt="Logo Beyritech — Módulos Multipropósito"
             width="50" height="40"
-            className="h-10 w-auto"
+            className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
             fetchpriority="high"
             loading="eager"
           />
-        </a>
+        </Link>
 
-        {/* Desktop Links */}
+        {/* Desktop Nav */}
         <nav id="desktop-nav" className="hidden lg:flex items-center gap-8">
           {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.slice(1);
+            const isActive = location.pathname === link.href || location.pathname.startsWith(link.href + "/");
             return (
-              <a
+              <Link
                 key={link.name}
-                id={`nav-link-${link.name.toLowerCase()}`}
-                href={link.href}
-                onClick={(e) => handleScrollTo(e, link.href)}
+                to={link.href}
                 className={`relative font-sans text-sm font-medium transition-colors duration-200 ${
                   isActive ? "text-gold-500" : "text-jet-100 hover:text-gold-500"
                 }`}
               >
                 {link.name}
                 {isActive && (
-                  <span
-                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gold-500"
-                  />
+                  <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gold-500" />
                 )}
-              </a>
+              </Link>
             );
           })}
         </nav>
 
-        {/* Theme toggle */}
-        <button
-          id="theme-toggle"
-          onClick={toggleTheme}
-          className="p-2 rounded-full hover:bg-jet-800 transition-colors text-jet-300 hover:text-gold-500"
-          aria-label={isLight ? "Activar modo oscuro" : "Activar modo claro"}
-        >
-          {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-        </button>
+        {/* Right side: CTA + theme toggle */}
+        <div className="hidden lg:flex items-center gap-4">
+          <Link
+            to="/contacto"
+            className="px-5 py-2.5 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs rounded transition-all duration-200 shadow-md shadow-gold-500/15"
+          >
+            Cotizar
+          </Link>
 
-        {/* Mobile menu button */}
-        <div className="flex items-center gap-4 lg:hidden">
+          <button
+            id="theme-toggle"
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-jet-800 transition-colors text-jet-300 hover:text-gold-500"
+            aria-label={isLight ? "Activar modo oscuro" : "Activar modo claro"}
+          >
+            {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          </button>
+        </div>
+
+        {/* Mobile: CTA + theme + hamburger */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            to="/contacto"
+            className="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-[10px] rounded"
+          >
+            Cotizar
+          </Link>
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-jet-800 transition-colors text-jet-300"
+            aria-label={isLight ? "Activar modo oscuro" : "Activar modo claro"}
+          >
+            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+          </button>
+
           <button
             id="mobile-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white hover:text-gold-500 transition-colors"
+            className="text-white hover:text-gold-500 transition-colors p-2"
             aria-label="Toggle Menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav-menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -150,17 +145,20 @@ export default function Navbar() {
           isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.name}
-            id={`mobile-nav-link-${link.name.toLowerCase()}`}
-            href={link.href}
-            onClick={(e) => handleScrollTo(e, link.href)}
-            className="text-lg font-medium text-jet-100 hover:text-gold-500 py-2 border-b border-jet-900"
-          >
-            {link.name}
-          </a>
-        ))}
+        {NAV_LINKS.map((link) => {
+          const isActive = location.pathname === link.href;
+          return (
+            <Link
+              key={link.name}
+              to={link.href}
+              className={`text-lg font-medium py-2 border-b border-jet-900 transition-colors ${
+                isActive ? "text-gold-500" : "text-jet-100 hover:text-gold-500"
+              }`}
+            >
+              {link.name}
+            </Link>
+          );
+        })}
       </div>
     </header>
   );

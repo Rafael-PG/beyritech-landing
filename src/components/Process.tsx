@@ -141,7 +141,7 @@ export default function Process() {
 
               <div className="space-y-3 pt-6 border-t border-jet-800/80">
                 <h4 className="font-display text-xs font-bold uppercase tracking-widest text-gold-300">
-                  Hitos e Entregables clave:
+                  Hitos y Entregables clave:
                 </h4>
                 <ul className="grid grid-cols-1 gap-2">
                   {steps[activeStep].details.map((detail, dIdx) => (

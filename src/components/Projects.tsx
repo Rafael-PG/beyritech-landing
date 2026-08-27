@@ -1,274 +1,165 @@
-import React, { useState } from "react";
-import { Project } from "../types";
-import { MapPin, Expand, Layers, CheckCircle2, X, Download } from "lucide-react";
+import React from "react";
+import { MapPin, Expand, CheckCircle2, ArrowRight, Wheat, Warehouse } from "lucide-react";
+import { Link } from "react-router-dom";
+import ScrollReveal from "../hooks/ScrollReveal";
+
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  location: string;
+  area: string;
+  modules: string;
+  timeline: string;
+  features: string[];
+  description: string;
+  icon: React.ElementType;
+  gradient: string;
+}
+
+const projectsList: Project[] = [
+  {
+    id: "proj-1",
+    title: "Complejo Dormitorios Agroindustriales",
+    category: "Agroindustria",
+    location: "Ica, Perú",
+    area: "3,200 m²",
+    modules: "18 módulos Multispace",
+    timeline: "6 semanas",
+    features: ["Dormitorios para 144 operarios", "Comedor y casino integrado", "Posta de salud", "Aislamiento PIR 80mm"],
+    description:
+      "Dormitorios modulares para personal de campo de una agroexportadora de uva en el valle de Ica. El complejo incluye 18 módulos Multispace configurados como dormitorios dúplex, comedor industrial para 120 personas, posta de salud y servicios sanitarios. Entregado en tiempo récord para la campaña de exportación.",
+    icon: Wheat,
+    gradient: "from-emerald-900 via-emerald-800 to-teal-900",
+  },
+  {
+    id: "proj-2",
+    title: "Módulo Operativo en Almacén Logístico",
+    category: "Logística",
+    location: "Lima, Perú",
+    area: "180 m²",
+    modules: "1 módulo Doble Ala",
+    timeline: "3 semanas",
+    features: ["Oficina dentro de nave operativa", "Sala de control y despacho", "Sin obra húmeda", "Montaje en 48 horas"],
+    description:
+      "Módulo Doble Ala instalado dentro de una nave logística en operación continua en el Callao. El módulo opera como oficina de control de despachos y sala de seguimiento GPS de flota. La clave: cero interrupción de la operación logística durante el montaje. Plug & Play en 48 horas.",
+    icon: Warehouse,
+    gradient: "from-blue-900 via-blue-800 to-indigo-900",
+  },
+];
 
 export default function Projects() {
-  const [filter, setFilter] = useState<string>("All");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  const projectsList: Project[] = [
-    {
-      id: "proj-1",
-      title: "Campamento Minero 'Cordillera Alta'",
-      category: "Mining",
-      location: "Los Andes, Altitud 4,200 m.s.n.m.",
-      area: "12,500 m²",
-      features: ["Aislamiento Térmico PIR 100mm", "Certificación Sísmica Estructural Clase A", "Habitaciones Térmicas, Comedores y Clínica integrada"],
-      image: "linear-gradient(135deg, #11151a 0%, #1c232b 100%)",
-      description: "Diseño y despliegue llave en mano de un campamento para 1,500 operadores mineros en condiciones de frío extremo. Los módulos soportan presiones de nieve de 250 kg/m² y fueron instalados en tan solo 28 días de montaje final."
-    },
-    {
-      id: "proj-2",
-      title: "Oficinas Corporativas 'Vanguardia'",
-      category: "Corporate",
-      location: "San Isidro, Sector Financiero",
-      area: "3,800 m²",
-      features: ["Fachada Vidriada de Doble Acristalamiento", "Revestimientos en Madera Termotratada", "Climatización Inteligente VRF"],
-      image: "linear-gradient(135deg, #1c232b 0%, #7c512d 100%)",
-      description: "Edificio corporativo modular de 3 niveles con acabados premium inspirados en arquitectura sostenible (como el modelo de madera y metal del video). Diseñado con amplios vanos de luz natural para maximizar el confort y la productividad."
-    },
-    {
-      id: "proj-3",
-      title: "Centro de Atención Médica 'Sanitario Norte'",
-      category: "Healthcare",
-      location: "Antofagasta, Sector Desértico",
-      area: "1,500 m²",
-      features: ["Revestimiento Interior Antibacteriano", "Sistemas de Presión Aire Negativa", "Rápido Acoplamiento Eléctrico ISO"],
-      image: "linear-gradient(135deg, #11151a 0%, #333d47 100%)",
-      description: "Complejo hospitalario modular con salas de operaciones, áreas de aislamiento y consultorios. Cumple al 100% con los estándares regulatorios de salud pública, completándose un 70% más rápido que la edificación húmeda tradicional."
-    },
-    {
-      id: "proj-4",
-      title: "Módulos Educativos 'Sustentables'",
-      category: "Education",
-      location: "Copiapó, Zona Rural",
-      area: "2,200 m²",
-      features: ["Techos Preparados para Paneles Solares", "Ventilación Cruzada Pasiva", "Aislamiento Acústico de 45dB"],
-      image: "linear-gradient(135deg, #7c512d 0%, #11151a 100%)",
-      description: "Aulas modulares prefabricadas de alta eficiencia térmica y acústica para escuelas técnicas. Diseñadas para operar en climas áridos con nulo consumo de aire acondicionado gracias al sombreador modular integrado."
-    },
-    {
-      id: "proj-5",
-      title: "Infraestructura de Depósito e Industrial",
-      category: "Industrial",
-      location: "Pudahuel, Centro Logístico",
-      area: "8,500 m²",
-      features: ["Pórticos de Acero de Luz Libre", "Paneles Acústicos Integrados", "Instalación Eléctrica Trifásica Embutida"],
-      description: "Instalación industrial y bodegas de almacenamiento modular acoplables con grúas de alto tonelaje. Diseñado para un cliente de logística pesada, permitiendo futuras ampliaciones modulares con el mínimo impacto operativo.",
-      image: "linear-gradient(135deg, #333d47 0%, #1c232b 100%)"
-    }
-  ];
-
-  const filteredProjects = filter === "All"
-    ? projectsList
-    : projectsList.filter(p => p.category === filter);
-
-  const categories = ["All", "Mining", "Corporate", "Healthcare", "Education", "Industrial"];
-
   return (
     <section id="projects" className="py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-gold-500 font-semibold">
-              Casos de Éxito Corporativo
+        <ScrollReveal>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-500 font-semibold">
+              Casos de Éxito
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-3 tracking-tight">
-              Proyectos Destacados
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight">
+              Proyectos{" "}
+              <span className="relative inline-block">
+                reales
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gold-500/40" />
+              </span>
             </h2>
-            <div className="w-16 h-[2px] bg-gold-500 mt-6" />
+            <p className="text-jet-400 mt-5 font-sans text-base font-light leading-relaxed max-w-xl mx-auto">
+              Ejemplos de configuraciones modulares ejecutadas para clientes en Perú.
+            </p>
           </div>
-          <p className="text-jet-300 font-sans text-base max-w-xl font-light leading-relaxed">
-            Nuestros despliegues de ingeniería modular están operativos en las regiones con los climas más desafiantes, proporcionando confort, seguridad y durabilidad garantizada bajo norma internacional.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-2 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-4 py-2 text-xs font-mono uppercase tracking-wider rounded transition-all duration-200 border ${
-                filter === cat
-                  ? "bg-gold-500 border-gold-500 text-jet-950 font-bold"
-                  : "bg-jet-900 border-jet-800 text-jet-300 hover:border-gold-500/40 hover:text-white"
-              }`}
-            >
-              {cat === "All" ? "Todos" : cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              onClick={() => setSelectedProject(project)}
-              className="group bg-jet-900 border border-jet-800 hover:border-gold-500/40 rounded overflow-hidden cursor-pointer shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
-            >
-              <div>
-                {/* Visual architectural gradient simulator */}
-                <div 
-                  className="h-52 relative flex items-center justify-center p-6 text-center"
-                  style={{ background: project.image }}
-                >
-                  <div className="absolute inset-0 bg-jet-950/20 group-hover:bg-jet-950/10 transition-colors" />
-                  
-                  {/* Subtle Grid overlay */}
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:1.5rem_1.5rem]" />
-
-                  {/* Blueprint details */}
-                  <div className="relative z-10 border border-white/10 bg-jet-950/80 backdrop-blur-sm p-4 rounded max-w-xs">
-                    <span className="text-[10px] font-mono text-gold-500 uppercase tracking-wider block mb-1">
-                      {project.category} SPECIFICATION
-                    </span>
-                    <h3 className="font-display text-sm font-bold text-white line-clamp-1">{project.title}</h3>
-                    <span className="text-[9px] font-mono text-jet-300 mt-2 block border-t border-jet-800 pt-1">
-                      CAD: ARCH-SYS-2026
-                    </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projectsList.map((project, i) => (
+            <div key={project.id}>
+            <ScrollReveal delay={i * 150}>
+              <div className="group h-full flex flex-col">
+                {/* Visual header */}
+                <div className={`relative h-56 rounded-t-2xl bg-gradient-to-br ${project.gradient} overflow-hidden`}>
+                  {/* Pattern overlay */}
+                  <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"}} />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  {/* Icon */}
+                  <div className="absolute top-6 left-6 w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                    <project.icon className="w-6 h-6 text-white/80" strokeWidth={1.5} />
+                  </div>
+                  {/* Category badge */}
+                  <div className="absolute top-6 right-6 px-3 py-1 bg-black/30 backdrop-blur-sm rounded-full text-[10px] font-mono uppercase tracking-wider text-white/70">
+                    {project.category}
+                  </div>
+                  {/* Bottom info bar */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+                    <div>
+                      <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-1">{project.title}</h3>
+                      <div className="flex items-center gap-1.5 text-xs text-white/60">
+                        <MapPin className="w-3 h-3" />
+                        <span>{project.location}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Info Container */}
-                <div className="p-6">
-                  {/* Location & Area */}
-                  <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-jet-300 mb-4 pb-4 border-b border-jet-800/60">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-gold-500" />
-                      <span className="line-clamp-1">{project.location.split(",")[0]}</span>
+                {/* Content */}
+                <div className="bg-jet-900 border border-jet-800 border-t-0 rounded-b-2xl p-6 flex flex-col flex-1">
+                  {/* Stats row */}
+                  <div className="grid grid-cols-3 gap-3 mb-5 pb-5 border-b border-jet-800/60">
+                    <div>
+                      <p className="text-[9px] font-mono uppercase tracking-wider text-jet-500 mb-1">Área</p>
+                      <p className="text-sm font-bold text-white">{project.area}</p>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Expand className="w-3.5 h-3.5 text-gold-500" />
-                      <span>{project.area}</span>
+                    <div>
+                      <p className="text-[9px] font-mono uppercase tracking-wider text-jet-500 mb-1">Módulos</p>
+                      <p className="text-sm font-bold text-white">{project.modules}</p>
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-mono uppercase tracking-wider text-jet-500 mb-1">Plazo</p>
+                      <p className="text-sm font-bold text-gold-500">{project.timeline}</p>
                     </div>
                   </div>
 
-                  <h3 className="font-display text-lg font-bold text-white group-hover:text-gold-500 transition-colors duration-200 mb-3">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-jet-300 font-light line-clamp-2 leading-relaxed mb-4">
+                  <p className="text-sm text-jet-300 font-light leading-relaxed mb-5 flex-1">
                     {project.description}
                   </p>
-                </div>
-              </div>
 
-              {/* Specifications snippet at bottom */}
-              <div className="px-6 pb-6 pt-2">
-                <div className="flex flex-col gap-1.5 border-t border-jet-800/60 pt-4">
-                  {project.features.slice(0, 2).map((feat, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-[11px] text-jet-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-gold-500 shrink-0" />
-                      <span className="truncate">{feat}</span>
-                    </div>
-                  ))}
-                  <span className="text-[10px] font-mono text-gold-500 mt-1 uppercase block hover:underline">
-                    Ver Planos y Memoria Descriptiva →
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Modal for Details */}
-        {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-jet-950/80 backdrop-blur-md">
-            <div className="bg-jet-900 border border-jet-800 rounded-lg max-w-2xl w-full p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 text-jet-300 hover:text-white transition-colors"
-                aria-label="Cerrar modal"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              <div className="space-y-6">
-                <div>
-                  <span className="text-xs font-mono text-gold-500 uppercase tracking-widest block mb-1">
-                    {selectedProject.category} / FICHA TÉCNICA
-                  </span>
-                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                    {selectedProject.title}
-                  </h3>
-                </div>
-
-                <div className="p-4 bg-jet-950 border border-jet-800 rounded flex flex-col sm:flex-row gap-4 sm:items-center text-xs font-mono justify-around text-jet-200">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-gold-500" />
-                    <div>
-                      <p className="text-[10px] text-jet-300">UBICACIÓN</p>
-                      <p className="font-bold">{selectedProject.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Expand className="w-4 h-4 text-gold-500" />
-                    <div>
-                      <p className="text-[10px] text-jet-300">ÁREA DESPLEGADA</p>
-                      <p className="font-bold">{selectedProject.area}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-gold-500" />
-                    <div>
-                      <p className="text-[10px] text-jet-300">SEGURIDAD</p>
-                      <p className="font-bold">Normativa ISO</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                    <h3 className="font-display font-bold text-sm text-white">Memoria del Proyecto</h3>
-                  <p className="text-sm text-jet-300 font-light leading-relaxed">
-                    {selectedProject.description}
-                  </p>
-                </div>
-
-                <div className="space-y-3 pt-4 border-t border-jet-800">
-                    <h3 className="font-display font-bold text-sm text-gold-500">Componentes Clave Desplegados:</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {selectedProject.features.map((feat, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-jet-200 bg-jet-950/40 p-3 rounded border border-jet-800">
-                        <CheckCircle2 className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
+                  {/* Features */}
+                  <div className="grid grid-cols-2 gap-2 mb-5">
+                    {project.features.map((feat, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-[11px] text-jet-400">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-gold-500 shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Fake Download Specification Button */}
-                <div className="pt-6 border-t border-jet-800 flex flex-col sm:flex-row gap-3">
-                  <button 
-                    onClick={() => {
-                      alert("Descarga Iniciada: La memoria técnica y planos CAD en formato DWG han sido solicitados con éxito a la base de datos.");
-                    }}
-                    className="flex-1 px-5 py-3 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-colors"
+                  <Link
+                    to="/casos-de-exito"
+                    className="inline-flex items-center gap-2 text-xs font-medium text-gold-500 hover:text-gold-400 transition-colors group/link"
                   >
-                    <Download className="w-4 h-4" />
-                    Descargar Planos CAD (.dwg)
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setSelectedProject(null);
-                      const element = document.querySelector("#estimator");
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }}
-                    className="px-5 py-3 rounded border border-jet-700 hover:border-gold-500 text-white font-medium text-xs uppercase tracking-wider"
-                  >
-                    Cotizar Configuración Similar
-                  </button>
+                    <span>Ver caso completo</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
+            </ScrollReveal>
             </div>
+          ))}
+        </div>
+
+        <ScrollReveal>
+          <div className="mt-12 text-center">
+            <Link
+              to="/casos-de-exito"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-jet-700 hover:border-gold-500 text-white font-medium uppercase tracking-wider text-xs rounded-xl transition-all hover:bg-gold-500/5"
+            >
+              Ver todos los casos de éxito <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-        )}
+        </ScrollReveal>
       </div>
     </section>
   );

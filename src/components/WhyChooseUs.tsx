@@ -12,18 +12,18 @@ export default function WhyChooseUs() {
     },
     {
       icon: Anchor,
-      title: "Resistencia Extrema C5-M",
-      desc: "Estructuras de acero de alto límite elástico con protección anticorrosión marina multicapa. Soportan vientos de hasta 180 km/h y cargas de nieve extremas."
+      title: "Protección Anticorrosión Industrial",
+      desc: "Estructuras de acero de alto límite elástico con protección anticorrosión multicapa. Diseñado para condiciones extremas de viento y carga."
     },
     {
       icon: ShieldAlert,
       title: "Aislamiento Ignífugo e Hidrófugo",
-      desc: "Materiales certificados Clase 1 contra incendios. Paneles herméticos de núcleo PIR/Lana de roca de alta densidad que bloquean ruidos y humedad ambiental."
+      desc: "Paneles herméticos de núcleo PIR/Lana de roca con clasificación ignífuga. Bloquean ruidos y humedad ambiental para entornos exigentes."
     },
     {
       icon: HardHat,
-      title: "Homologación Minera y Corporativa",
-      desc: "Nuestros módulos cumplen con los exigentes estándares de seguridad laboral (OSHA, HSE) y normativas de habitabilidad para campamentos en alta montaña."
+      title: "Diseño para Minera y Corporativo",
+      desc: "Nuestros módulos están diseñados para cumplir estándares de seguridad laboral y normativas de habitabilidad, incluyendo entornos de alta montaña."
     },
     {
       icon: Layers,
@@ -32,8 +32,8 @@ export default function WhyChooseUs() {
     },
     {
       icon: FileCheck,
-      title: "Certificación Sísmica y Estructural",
-      desc: "Diseños calculados por algoritmos estructurales avanzados para zonas de alta sismicidad, garantizando la seguridad ininterrumpida de sus operaciones y su personal."
+      title: "Diseño Estructural para Sismicidad",
+      desc: "Cálculos estructurales para zonas de alta sismicidad, priorizando la seguridad de las operaciones y el personal."
     }
   ];
 

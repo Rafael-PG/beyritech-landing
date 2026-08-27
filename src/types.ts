@@ -1,21 +1,12 @@
 export interface Project {
   id: string;
   title: string;
-  category: "Mining" | "Corporate" | "Healthcare" | "Education" | "Industrial";
+  category: string;
   location: string;
   area: string;
   features: string[];
-  image: string;
   description: string;
-}
-
-export interface Testimonial {
-  id: string;
-  name: string;
-  role: string;
-  company: string;
-  quote: string;
-  rating: number;
+  slug: string;
 }
 
 export interface FAQItem {
