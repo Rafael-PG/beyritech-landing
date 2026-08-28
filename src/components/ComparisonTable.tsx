@@ -1,128 +1,169 @@
-import { Clock, DollarSign, Droplets, RotateCcw, VolumeX, Settings } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Clock, DollarSign, Droplets, RotateCcw, VolumeX, Settings, ArrowRight, Check } from "lucide-react";
+import { useInView } from "motion/react";
+import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 import ScrollReveal from "../hooks/ScrollReveal";
 
-const rows = [
+const metrics = [
   {
     icon: Clock,
-    criteria: "Tiempo de ejecución",
-    modular: "Semanas",
-    tradicional: "Meses",
-    modularWidth: 25,
-    tradicionalWidth: 90,
-    detail: "Un módulo Multispace se despliega en 48h vs. 6+ meses de obra convencional",
+    label: "Tiempo de implementación",
+    mod: { pct: 90, result: "operativo en días" },
+    trad: { pct: 12, result: "espera de 6–12 meses" },
   },
   {
     icon: DollarSign,
-    criteria: "Predecibilidad de presupuesto",
-    modular: "Alta",
-    tradicional: "Baja",
-    modularWidth: 90,
-    tradicionalWidth: 30,
-    detail: "Costo fijo por módulo. Sin sorpresas por demoras o materiales",
+    label: "Control presupuestario",
+    mod: { pct: 88, result: "precio cerrado, sin sorpresas" },
+    trad: { pct: 15, result: "sobrecostos frecuentes" },
   },
   {
     icon: Droplets,
-    criteria: "Trabajo húmedo en sitio",
-    modular: "Mínimo",
-    tradicional: "Extensivo",
-    modularWidth: 15,
-    tradicionalWidth: 85,
-    detail: "Solo conexiones. Sin mezcla, curado ni secado en terreno",
+    label: "Impacto ambiental en sitio",
+    mod: { pct: 84, result: "casi cero residuos" },
+    trad: { pct: 30, result: "obra húmeda y desechos" },
   },
   {
     icon: RotateCcw,
-    criteria: "Reubicabilidad",
-    modular: "Se reinstala",
-    tradicional: "Se demuele",
-    modularWidth: 95,
-    tradicionalWidth: 5,
-    detail: "El módulo es un activo, no un gasto. Se muda con la operación",
+    label: "Vida útil del activo",
+    mod: { pct: 100, result: "activo 100% reubicable" },
+    trad: { pct: 8, result: "inversión que se demuele" },
   },
   {
     icon: VolumeX,
-    criteria: "Impacto durante obra",
-    modular: "Bajo",
-    tradicional: "Alto",
-    modularWidth: 15,
-    tradicionalWidth: 85,
-    detail: "Sin ruido, polvo ni interrupción de operaciones circundantes",
+    label: "Experiencia en sitio",
+    mod: { pct: 92, result: "cero interrupción" },
+    trad: { pct: 34, result: "ruido, polvo y maquinaria" },
   },
   {
     icon: Settings,
-    criteria: "Personalización",
-    modular: "Alta",
-    tradicional: "Media",
-    modularWidth: 85,
-    tradicionalWidth: 50,
-    detail: "Interior configurable: sanitarios, baños, divisiones, acabados",
+    label: "Personalización del espacio",
+    mod: { pct: 95, result: "configurable según necesidad" },
+    trad: { pct: 22, result: "estructura rígida" },
   },
 ];
 
 export default function ComparisonTable() {
-  return (
-    <section className="py-24 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:400px]">
-      {/* Gradient mesh background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-jet-950 via-jet-900 to-jet-950" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full filter blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold-500/3 rounded-full filter blur-[100px] pointer-events-none" />
+  const scoreRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(scoreRef, { once: true, margin: "-80px" });
+  const [score, setScore] = useState(0);
 
-      <div className="max-w-5xl mx-auto px-6 relative">
+  useEffect(() => {
+    if (!inView) return;
+    let raf = 0;
+    const start = performance.now();
+    const duration = 1400;
+    const tick = (t: number) => {
+      const p = Math.min((t - start) / duration, 1);
+      setScore(Math.round(p * 6));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView]);
+
+  const bar = (pct: number) => ({
+    initial: { width: "0%" },
+    whileInView: { width: `${pct}%` },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const },
+  });
+
+  return (
+    <section className="py-24 bg-[#050505] relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:900px]">
+      {/* Grid texture background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+
+      <div className="max-w-4xl mx-auto px-6 relative">
+        {/* Header */}
         <ScrollReveal>
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-500 font-semibold">
               Comparativa
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight text-white">
-              Modular vs.{" "}
-              <span className="text-jet-500 line-through decoration-2">Tradicional</span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight text-white leading-tight">
+              ¿Por qué <span className="text-gold-500">Modular</span> vs.{" "}
+              <span className="text-jet-500 line-through decoration-2">Tradicional</span>?
             </h2>
-            <p className="text-jet-400 mt-5 font-sans text-base font-light leading-relaxed">
-              La construcción modular supera a la obra tradicional en cada métrica que importa.
+            <p className="text-jet-400 mt-5 font-sans text-base font-light leading-relaxed max-w-xl mx-auto">
+              Seis criterios clave, misma escala: la barra mide el cumplimiento, más larga = mejor.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Infographic rows */}
-        <div className="space-y-8">
-          {rows.map((row, i) => (
+        {/* Score */}
+        <ScrollReveal delay={0.05}>
+          <div ref={scoreRef} className="mb-14">
+            <div className="flex items-center justify-center gap-6 sm:gap-14">
+              <div className="text-center">
+                <span className="block font-mono text-5xl sm:text-6xl font-bold text-jet-600 line-through decoration-2 decoration-jet-700">
+                  00
+                </span>
+                <span className="block text-[9px] font-mono uppercase tracking-widest text-jet-600 mt-1.5">
+                  Tradicional
+                </span>
+              </div>
+              <span className="font-mono text-xl sm:text-2xl font-bold text-gold-500/60">vs</span>
+              <div className="text-center">
+                <span className="block font-mono text-5xl sm:text-6xl font-bold text-gold-500">
+                  {String(score).padStart(2, "0")}
+                </span>
+                <span className="block text-[9px] font-mono uppercase tracking-widest text-gold-500 mt-1.5">
+                  Modular
+                </span>
+              </div>
+            </div>
+            <p className="text-center text-xs text-jet-500 font-light mt-5">
+              Criterios ganados por cada opción.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        {/* Criteria rows */}
+        <div>
+          {metrics.map((m, i) => (
             <div key={i}>
-              <ScrollReveal delay={i * 80}>
-                <div className="group">
-                  {/* Header with icon + criteria */}
-                  <div className="flex items-center gap-3 mb-2">
-                    <row.icon className="w-4 h-4 text-gold-500" />
-                    <span className="font-display text-sm font-bold text-white">{row.criteria}</span>
+              <ScrollReveal delay={0.05 * i}>
+                <div className="py-6 border-b border-dashed border-gold-500/10 last:border-0">
+                  {/* Row header */}
+                  <div className="flex items-center justify-between gap-4 mb-4">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <m.icon className="w-4 h-4 text-gold-500 shrink-0" strokeWidth={1.5} />
+                      <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-tight">
+                        {m.label}
+                      </h3>
+                    </div>
+                    <span className="text-[9px] font-mono uppercase tracking-wider text-gold-500 flex items-center gap-1 shrink-0">
+                      <Check className="w-3 h-3" strokeWidth={3} />
+                      Modular
+                    </span>
                   </div>
-                  {/* Detail text */}
-                  <p className="text-[11px] text-jet-500 mb-3 ml-7 font-light">{row.detail}</p>
 
-                  {/* Bars container */}
-                  <div className="space-y-2 ml-7">
-                    {/* Modular bar */}
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-gold-500 w-20 shrink-0 text-right">Modular</span>
-                      <div className="flex-1 h-7 bg-jet-800/50 rounded-full overflow-hidden relative">
-                        <div
-                          className="h-full bg-gradient-to-r from-gold-600 to-gold-400 rounded-full flex items-center justify-end pr-3 animate-bar-grow"
-                          style={{ width: `${row.modularWidth}%` }}
-                        >
-                          <span className="text-[10px] font-mono font-bold text-jet-950">{row.modular}</span>
-                        </div>
-                      </div>
+                  {/* Modular */}
+                  <div className="flex items-center gap-3">
+                    <span className="w-14 shrink-0 text-[9px] font-mono uppercase tracking-wider text-gold-500">
+                      Modular
+                    </span>
+                    <div className="relative flex-1 h-2.5 bg-jet-950/90 rounded-full overflow-hidden">
+                      <motion.div className="absolute inset-y-0 left-0 bg-gold-500 rounded-full" {...bar(m.mod.pct)} />
                     </div>
+                    <span className="w-28 sm:w-44 shrink-0 text-right text-xs font-light text-jet-300 leading-snug">
+                      <span className="font-mono text-gold-500">{m.mod.pct}%</span> · {m.mod.result}
+                    </span>
+                  </div>
 
-                    {/* Traditional bar */}
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-jet-500 w-20 shrink-0 text-right">Tradicional</span>
-                      <div className="flex-1 h-7 bg-jet-800/50 rounded-full overflow-hidden relative">
-                        <div
-                          className="h-full bg-jet-600 rounded-full flex items-center justify-end pr-3 animate-bar-grow"
-                          style={{ width: `${row.tradicionalWidth}%`, animationDelay: `${0.15 + i * 0.08}s` }}
-                        >
-                          <span className="text-[10px] font-mono font-bold text-jet-300">{row.tradicional}</span>
-                        </div>
-                      </div>
+                  {/* Tradicional */}
+                  <div className="flex items-center gap-3 mt-2.5">
+                    <span className="w-14 shrink-0 text-[9px] font-mono uppercase tracking-wider text-jet-500">
+                      Tradicional
+                    </span>
+                    <div className="relative flex-1 h-2.5 bg-jet-950/90 rounded-full overflow-hidden">
+                      <motion.div className="absolute inset-y-0 left-0 bg-jet-700/70 rounded-full" {...bar(m.trad.pct)} />
                     </div>
+                    <span className="w-28 sm:w-44 shrink-0 text-right text-xs font-light text-jet-500 leading-snug">
+                      <span className="font-mono text-jet-600">{m.trad.pct}%</span> · {m.trad.result}
+                    </span>
                   </div>
                 </div>
               </ScrollReveal>
@@ -130,17 +171,28 @@ export default function ComparisonTable() {
           ))}
         </div>
 
-        {/* Legend */}
-        <ScrollReveal>
-          <div className="mt-12 flex items-center justify-center gap-8 text-xs text-jet-400">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-gold-600 to-gold-400" />
-              <span>Beyritech Modular</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-jet-600" />
-              <span>Construcción tradicional</span>
-            </div>
+        {/* Verdict */}
+        <ScrollReveal delay={0.2}>
+          <div className="mt-14 text-center">
+            <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4">
+              6 de 6 criterios: <span className="text-gold-500">Modular gana</span>
+            </h3>
+            <p className="text-jet-400 font-sans text-base font-light leading-relaxed max-w-2xl mx-auto">
+              En velocidad, costo, impacto, flexibilidad, experiencia y vida útil, la construcción modular de Beyritech supera a la obra tradicional.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        {/* CTA */}
+        <ScrollReveal delay={0.3}>
+          <div className="mt-12 text-center">
+            <Link
+              to="/contacto"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gold-500 hover:bg-gold-600 text-jet-950 text-xs font-mono font-bold tracking-wider uppercase transition-colors duration-200"
+            >
+              Solicitar Cotización
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </ScrollReveal>
       </div>

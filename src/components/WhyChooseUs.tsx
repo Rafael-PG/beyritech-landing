@@ -22,8 +22,8 @@ export default function WhyChooseUs() {
     },
     {
       icon: HardHat,
-      title: "Diseño para Minera y Corporativo",
-      desc: "Nuestros módulos están diseñados para cumplir estándares de seguridad laboral y normativas de habitabilidad, incluyendo entornos de alta montaña."
+      title: "Diseño para Entornos Exigentes",
+      desc: "Nuestros módulos están diseñados para cumplir estándares de seguridad laboral y normativas de habitabilidad en entornos exigentes de costa y sierra."
     },
     {
       icon: Layers,
@@ -39,7 +39,10 @@ export default function WhyChooseUs() {
 
   return (
     <section id="why-choose-us" className="py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Grid texture background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+      
+      <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-gold-500 font-semibold">

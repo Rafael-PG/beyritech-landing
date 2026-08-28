@@ -8,21 +8,14 @@ import Clock from "lucide-react/dist/esm/icons/clock";
 
 export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
       const sy = window.scrollY;
       const cr = contentRef.current;
-      const sr = statsRef.current;
       if (cr) {
         cr.style.transform = `translateY(${Math.min(0, -sy * 0.16)}px)`;
         cr.style.opacity = `${Math.max(0.3, 1 - sy / 400 * 0.7)}`;
-      }
-      if (sr) {
-        const t = Math.max(0, Math.min(1, (sy - 100) / 400));
-        sr.style.transform = `translateY(${120 * (1 - t)}px)`;
-        sr.style.opacity = `${t}`;
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -140,14 +133,11 @@ export default function Hero() {
         </div>
 
         {/* Statistics */}
-        <div
-          ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-12 pb-4 mt-12"
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-12 pb-4 mt-12 animate-fade-up stagger-7">
           {[
             { label: "Proyectos ejecutados", value: "Agroindustria y logística", icon: "01" },
-            { label: "Reducción de tiempo", value: "Hasta -60% vs. obra tradicional", icon: "02" },
-            { label: "Recuperable", value: "Hasta 98% del módulo", icon: "03" },
+            { label: "Reducción de tiempo", value: "Entregas en semanas, no en meses", icon: "02" },
+            { label: "Activo reubicable", value: "Se desmonta y se reinstala", icon: "03" },
             { label: "Aislamiento térmico", value: "Alto rendimiento PIR", icon: "04" },
           ].map((stat, i) => (
             <div
@@ -155,10 +145,10 @@ export default function Hero() {
               className="group relative bg-jet-900/40 backdrop-blur-sm border border-jet-800/50 rounded-lg p-4 hover:border-gold-500/30 transition-all duration-500"
             >
               <div className="flex items-start gap-3">
-                <span className="text-[9px] font-mono text-gold-500/60 mt-0.5 shrink-0">{stat.icon}</span>
+                <span className="text-[9px] font-mono text-gold-500/60 mt-1 shrink-0">{stat.icon}</span>
                 <div className="min-w-0">
                   <p className="font-display text-sm font-bold text-white leading-snug">{stat.label}</p>
-                  <p className="text-[10px] text-jet-400 mt-1 font-light leading-relaxed">{stat.value}</p>
+                  <p className="text-sm text-jet-200 mt-1 font-light leading-relaxed">{stat.value}</p>
                 </div>
               </div>
             </div>

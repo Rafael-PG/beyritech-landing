@@ -1,18 +1,23 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Mail, User, Building, Phone, Loader2, CheckCircle, MessageCircle } from "lucide-react";
 import SEO from "../components/SEO";
+import { empresa, whatsappLink as buildWhatsappLink } from "../data/empresa";
+
+const VALID_MODELS = ["multispace", "doble-ala", "mini-doble-ala"];
 
 export default function Contacto() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const whatsappLink = buildWhatsappLink("Hola, estoy interesado en una cotización de módulos modulares.");
+  const initialModule = VALID_MODELS.includes(searchParams.get("modelo") || "") ? searchParams.get("modelo")! : "";
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     company: "",
-    email: "",
     phone: "",
-    industry: "Mining",
-    moduleType: "",
+    industry: "Agroindustria",
+    moduleType: initialModule,
     area: "",
     capacity: "",
     location: "",
@@ -28,7 +33,7 @@ export default function Contacto() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email) return;
+    if (!formData.name) return;
 
     setLoading(true);
     try {
@@ -37,7 +42,7 @@ export default function Contacto() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          moduleType: "Contacto directo",
+          moduleType: formData.moduleType || "Contacto directo",
           area: "",
           capacity: "",
           location: "",
@@ -103,14 +108,6 @@ export default function Contacto() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-mono text-jet-300 block mb-1.5" htmlFor="c-email">Correo *</label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-jet-300 absolute left-3 top-3" />
-                    <input id="c-email" name="email" type="email" required value={formData.email} onChange={handleChange}
-                      className="w-full bg-jet-950 border border-jet-800 rounded px-4 py-3 pl-11 text-sm text-white focus:outline-none focus:border-gold-500" />
-                  </div>
-                </div>
-                <div>
                   <label className="text-xs font-mono text-jet-300 block mb-1.5" htmlFor="c-phone">Teléfono *</label>
                   <div className="relative">
                     <Phone className="w-4 h-4 text-jet-300 absolute left-3 top-3" />
@@ -125,8 +122,8 @@ export default function Contacto() {
                   <label className="text-xs font-mono text-jet-300 block mb-1.5" htmlFor="c-industry">Sector</label>
                   <select id="c-industry" name="industry" value={formData.industry} onChange={handleChange}
                     className="w-full bg-jet-950 border border-jet-800 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
-                    <option value="Mining">Minería</option>
                     <option value="Agroindustria">Agroindustria</option>
+                    <option value="Mining">Minería</option>
                     <option value="Logistica">Logística / Almacenes</option>
                     <option value="Construction">Construcción / Obra</option>
                     <option value="Corporate">Corporativo</option>
@@ -225,15 +222,15 @@ export default function Contacto() {
               <ul className="space-y-3 text-sm text-jet-300">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-gold-500" />
-                  <span>+51 993 694 677</span>
+                  <span>{empresa.telefono}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-gold-500" />
-                  <span>asistente.comercial@beyritech.com</span>
+                  <span>{empresa.email}</span>
                 </li>
               </ul>
               <a
-                href="https://wa.me/51993694677?text=Hola,%20estoy%20interesado%20en%20una%20cotización%20de%20módulos%20modulares."
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors"
@@ -253,8 +250,7 @@ export default function Contacto() {
             <div className="bg-jet-900 border border-jet-800 rounded p-6">
               <h3 className="font-display font-bold text-white text-sm mb-4">Ubicación</h3>
               <p className="text-sm text-jet-300 font-light">
-                Av. Santa Elvira Mza. B Lote 8<br />
-                Los Olivos, Lima – Perú
+                {empresa.direccionCompleta}
               </p>
             </div>
           </div>

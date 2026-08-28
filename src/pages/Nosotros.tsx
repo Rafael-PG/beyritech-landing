@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail, Building, ShieldCheck, Wrench } from "lucide-react";
 import SEO from "../components/SEO";
+import { empresa } from "../data/empresa";
 
 export default function Nosotros() {
   return (
@@ -46,19 +47,19 @@ export default function Nosotros() {
               <ul className="space-y-3 text-sm text-jet-300">
                 <li className="flex items-start gap-3">
                   <Building className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
-                  <span>Beyritech Modular Systems S.A.C.</span>
+                  <span>{empresa.nombre}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
-                  <span>Av. Santa Elvira Mza. B Lote 8, Los Olivos, Lima, Perú</span>
+                  <span>{empresa.direccionCompleta}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Phone className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
-                  <span>+51 993 694 677</span>
+                  <span>{empresa.telefono}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
-                  <span>asistente.comercial@beyritech.com</span>
+                  <span>{empresa.email}</span>
                 </li>
               </ul>
             </div>

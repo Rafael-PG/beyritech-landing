@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { empresa } from "../data/empresa";
 
 export default function PoliticaPrivacidad() {
   const today = new Date().toLocaleDateString("es-PE", { year: "numeric", month: "long", day: "numeric" });
@@ -27,7 +28,7 @@ export default function PoliticaPrivacidad() {
 
           <div>
             <h2 className="font-display text-xl font-bold text-white mb-3">1. Responsable del tratamiento</h2>
-            <p>Beyritech Modular Systems S.A.C., con domicilio en Av. Santa Elvira Mza. B Lote 8, Los Olivos, Lima, Perú. Correo electrónico: asistente.comercial@beyritech.com</p>
+            <p>{empresa.nombre}, con domicilio en {empresa.direccionCompleta}. Correo electrónico: {empresa.email}</p>
           </div>
 
           <div>
@@ -73,7 +74,7 @@ export default function PoliticaPrivacidad() {
               <li>Oponerse al tratamiento de sus datos</li>
               <li>Revocar su consentimiento en cualquier momento</li>
             </ul>
-            <p className="mt-2">Para ejercer estos derechos, contáctenos a: asistente.comercial@beyritech.com</p>
+            <p className="mt-2">Para ejercer estos derechos, contáctenos a: {empresa.email}</p>
           </div>
 
           <div>

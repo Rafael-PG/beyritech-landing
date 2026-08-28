@@ -159,8 +159,8 @@ async function startServer() {
     try {
       const { name, company, email, phone, industry, moduleType, area, capacity, location, sustainability, insulation, timeline, additionalSpecs } = req.body;
 
-      if (!name || !email) {
-        return res.status(400).json({ error: "Name and email are required." });
+      if (!name) {
+        return res.status(400).json({ error: "Name is required." });
       }
 
       const html = buildEmailTemplate({ name, company, email, phone, industry, moduleType, area, capacity, location, sustainability, insulation, timeline, additionalSpecs });
@@ -168,7 +168,7 @@ async function startServer() {
       const mailOptions: any = {
         from: `"Beyritech Web" <${process.env.SMTP_USER}>`,
         to: process.env.EMAIL_TO || "asistente.comercial@beyritech.com",
-        replyTo: email,
+        replyTo: email || undefined,
         subject: `Nueva cotización — ${name} — ${moduleType || "Módulo"}`,
         html,
       };
@@ -230,7 +230,7 @@ async function startServer() {
 }
 
 function buildEmailTemplate(data: {
-  name: string; company: string; email: string; phone: string;
+  name: string; company: string; email?: string; phone: string;
   industry: string; moduleType: string; area: string; capacity: string;
   location: string; sustainability: boolean; insulation: boolean;
   timeline: string; additionalSpecs: string;
@@ -238,7 +238,6 @@ function buildEmailTemplate(data: {
   const fields = [
     { label: "Nombre", value: data.name },
     { label: "Empresa", value: data.company },
-    { label: "Correo", value: data.email },
     { label: "Teléfono", value: data.phone },
     { label: "Sector", value: data.industry },
     { label: "Tipo de módulo", value: data.moduleType },
@@ -249,6 +248,10 @@ function buildEmailTemplate(data: {
     { label: "Aislamiento PIR", value: data.insulation ? "Sí" : "No" },
     { label: "Sostenibilidad Solar-Ready", value: data.sustainability ? "Sí" : "No" },
   ];
+
+  if (data.email) {
+    fields.splice(2, 0, { label: "Correo", value: data.email });
+  }
 
   const rows = fields.map(f => `
     <tr>

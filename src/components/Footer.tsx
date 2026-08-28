@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Globe, ArrowUp } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { empresa } from "../data/empresa";
 
 export default function Footer() {
   const { isLight } = useTheme();
@@ -10,19 +11,17 @@ export default function Footer() {
 
   return (
     <footer className="bg-jet-950 text-white pt-20 pb-10 border-t border-jet-900 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold-500/5 rounded-full filter blur-3xl pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-6">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" onClick={handleScrollToTop} className="flex items-center gap-3">
               <img
                 src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
                 alt="Beyritech — Fabricantes de Módulos Multipropósito"
-                width="45" height="36"
-                className="h-9 w-auto"
+                width="80" height="64"
+                className="h-16 w-auto"
                 loading="lazy"
               />
             </Link>
@@ -85,15 +84,15 @@ export default function Footer() {
             <ul className="space-y-3 text-xs text-jet-300 font-light">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-500 shrink-0" />
-                <span>Av. Santa Elvira Mza. B Lote 8, Los Olivos, Lima</span>
+                <span>{empresa.direccionCorta}</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-500 shrink-0" />
-                <span>+51 993 694 677</span>
+                <span>{empresa.telefono}</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-gold-500 shrink-0" />
-                <span>asistente.comercial@beyritech.com</span>
+                <span>{empresa.email}</span>
               </li>
             </ul>
           </div>
@@ -101,7 +100,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-jet-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-jet-300 font-light">
-          <p>© {new Date().getFullYear()} Beyritech Modular Systems S.A.C. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} {empresa.nombre} Todos los derechos reservados.</p>
 
           <div className="flex items-center gap-6">
             <Link to="/terminos-y-condiciones" className="hover:text-gold-500 transition-colors">Términos y Condiciones</Link>

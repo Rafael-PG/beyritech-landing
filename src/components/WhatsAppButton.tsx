@@ -1,10 +1,10 @@
 import { MessageCircle } from "lucide-react";
+import { whatsappLink } from "../data/empresa";
 
-const PHONE = "51993694677";
 const MESSAGE = "Hola, me interesa solicitar información sobre sus módulos multipropósitos.";
 
 export default function WhatsAppButton() {
-  const href = `https://wa.me/${PHONE}?text=${encodeURIComponent(MESSAGE)}`;
+  const href = whatsappLink(MESSAGE);
 
   return (
     <a

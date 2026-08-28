@@ -35,9 +35,11 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const handleScrollToTop = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+    if (location.pathname === "/") {
+      e.preventDefault();
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [location.pathname]);
 
   return (
     <header
@@ -61,8 +63,8 @@ export default function Navbar() {
           <img
             src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
             alt="Logo Beyritech — Módulos Multipropósito"
-            width="50" height="40"
-            className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+            width="80" height="64"
+            className="h-16 w-auto transition-transform duration-300 group-hover:scale-105"
             fetchpriority="high"
             loading="eager"
           />

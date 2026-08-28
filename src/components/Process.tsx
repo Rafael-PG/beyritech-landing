@@ -12,7 +12,7 @@ export default function Process() {
       subtitle: "Ingeniería de Requerimientos a Medida",
       desc: "Analizamos las restricciones climáticas, sísmicas, el tipo de suelo y el uso final del módulo. Generamos planos en 3D con especificación técnica, cálculo estructural optimizado y propuesta de layout interior.",
       details: [
-        "Estudio de condiciones de alta montaña o costa (vientos, nieve)",
+        "Estudio de condiciones de costa o sierra (vientos, clima)",
         "Generación de renders 3D y planos CAD detallados",
         "Presupuesto cerrado sin desviaciones de costes"
       ]
@@ -21,7 +21,7 @@ export default function Process() {
       icon: Factory,
       title: "2. Prefabricación Automatizada Off-site",
       subtitle: "Construcción en Entorno Industrial Controlado",
-      desc: "Fabricamos la estructura principal de acero y los paneles autoportantes PIR en nuestra planta robotizada. Se realiza el pre-cableado eléctrico y las instalaciones sanitarias internas bajo estricto control de calidad ISO 9001.",
+      desc: "Fabricamos la estructura principal de acero y los paneles autoportantes PIR en nuestra planta industrial. Se realiza el pre-cableado eléctrico y las instalaciones sanitarias internas bajo estricto control de calidad, con inspección por etapas.",
       details: [
         "Estructura de acero soldada por sistemas robotizados",
         "Control de humedad y temperatura constante para evitar corrosión",
@@ -43,7 +43,7 @@ export default function Process() {
       icon: KeyRound,
       title: "4. Ensamblaje Rápido y Entrega de Llaves",
       subtitle: "Despliegue y Conexión Plug & Play en Obra",
-      desc: "En sitio, un equipo certificado de Beyritech posiciona los módulos mediante grúas pesadas. Se acoplan los cierres estructurales, se conectan las redes de servicios principales y se realiza la entrega llave en mano en un lapso de 48 a 72 horas.",
+      desc: "En sitio, el equipo técnico de Beyritech posiciona los módulos mediante grúas. Se acoplan los cierres estructurales, se conectan las redes de servicios principales y se realiza la entrega llave en mano en un lapso de 48 a 72 horas.",
       details: [
         "Izaje seguro guiado por ingenieros especialistas",
         "Unión de redes de agua, alcantarillado, electricidad y datos",
@@ -53,10 +53,11 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
-      <div className="absolute top-1/2 left-0 w-80 h-80 bg-gold-500/5 rounded-full filter blur-3xl pointer-events-none" />
+    <section id="process" className="py-24 bg-[#050505] text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+      {/* Grid texture background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-xs font-mono uppercase tracking-widest text-gold-500 font-semibold">

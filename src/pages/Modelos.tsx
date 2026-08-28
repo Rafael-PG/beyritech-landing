@@ -1,54 +1,17 @@
 import { Link } from "react-router-dom";
-import { Ruler, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import SEO from "../components/SEO";
+import { catalog, type CatalogModel } from "../data/modelos";
 
-interface Model {
-  slug: string;
-  name: string;
-  tagline: string;
-  area: string;
-  capacity: string;
-  insulation: string;
-  dimensions: string;
-  weight: string;
-  applications: string[];
+function specRows(model: CatalogModel) {
+  return [
+    { label: "Dimensiones", value: model.dimensionsOpen },
+    { label: "Área útil", value: model.area },
+    { label: "Capacidad", value: model.capacity },
+    { label: "Peso", value: model.weight },
+    { label: "Aislamiento PIR", value: model.insulation },
+  ];
 }
-
-const models: Model[] = [
-  {
-    slug: "multispace",
-    name: "Módulo Plegable Multispace",
-    tagline: "Versatilidad estructural para múltiples sectores",
-    area: "72 m²",
-    capacity: "8–12 personas",
-    insulation: "80mm – R-24",
-    dimensions: "6m × 12m × 3m",
-    weight: "2.5 ton",
-    applications: ["Minería", "Construcción", "Educación", "Corporativo"],
-  },
-  {
-    slug: "doble-ala",
-    name: "Módulo Plegable Doble Ala",
-    tagline: "Doble amplitud para espacios corporativos y sanitarios",
-    area: "144 m²",
-    capacity: "16–24 personas",
-    insulation: "80mm – R-24",
-    dimensions: "8m × 18m × 3.2m",
-    weight: "4.2 ton",
-    applications: ["Salud", "Corporativo", "Educación", "Industrial"],
-  },
-  {
-    slug: "mini-doble-ala",
-    name: "Mini Doble Ala",
-    tagline: "Compacto, eficiente, ideal para espacios reducidos",
-    area: "45 m²",
-    capacity: "4–8 personas",
-    insulation: "80mm – R-24",
-    dimensions: "5m × 9m × 2.8m",
-    weight: "1.6 ton",
-    applications: ["Salud", "Industrial", "Corporativo"],
-  },
-];
 
 export default function Modelos() {
   return (
@@ -57,7 +20,7 @@ export default function Modelos() {
         title="Catálogo de Modelos — Multispace, Doble Ala, Mini Doble Ala"
         description="Tres líneas de módulos prefabricados optimizados para diferentes sectores. Especificaciones técnicas, fichas y tabla comparativa."
         url="/modelos"
-        structuredData={{ "@context": "https://schema.org", "@type": "ItemList", name: "Modelos Beyritech", numberOfItems: 3, itemListElement: [{ "@type": "ListItem", position: 1, name: "Multispace" }, { "@type": "ListItem", position: 2, name: "Doble Ala" }, { "@type": "ListItem", position: 3, name: "Mini Doble Ala" }] }}
+        structuredData={{ "@context": "https://schema.org", "@type": "ItemList", name: "Modelos Beyritech", numberOfItems: 3, itemListElement: catalog.map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name })) }}
       />
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
@@ -78,7 +41,7 @@ export default function Modelos() {
 
         {/* Model Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {models.map((model) => (
+          {catalog.map((model) => (
             <div
               key={model.slug}
               className="bg-jet-900 border border-jet-800 hover:border-gold-500/30 transition-all duration-300 rounded overflow-hidden flex flex-col"
@@ -104,13 +67,7 @@ export default function Modelos() {
 
                 <div className="border border-jet-800/60 bg-jet-950/60 p-3 mb-4">
                   <div className="space-y-1">
-                    {[
-                      { label: "Dimensiones", value: model.dimensions },
-                      { label: "Área útil", value: model.area },
-                      { label: "Capacidad", value: model.capacity },
-                      { label: "Peso", value: model.weight },
-                      { label: "Aislamiento PIR", value: model.insulation },
-                    ].map((spec) => (
+                    {specRows(model).map((spec) => (
                       <div key={spec.label} className="flex items-center justify-between text-xs py-1 border-b border-jet-900/60 last:border-b-0">
                         <span className="font-mono text-jet-300 uppercase tracking-wider text-[10px]">{spec.label}</span>
                         <span className="font-mono text-white font-medium text-[11px]">{spec.value}</span>
@@ -135,7 +92,7 @@ export default function Modelos() {
                     Ver ficha <ArrowRight className="w-3 h-3" />
                   </Link>
                   <Link
-                    to="/contacto"
+                    to={`/contacto?modelo=${model.slug}`}
                     className="px-4 py-2.5 border border-jet-700 hover:border-gold-500/50 text-jet-300 hover:text-white font-mono text-[10px] uppercase tracking-wider rounded flex items-center justify-center gap-1.5 transition-colors text-center"
                   >
                     Cotizar
@@ -156,23 +113,23 @@ export default function Modelos() {
               <thead>
                 <tr className="bg-jet-900 border-b border-jet-800">
                   <th className="text-left font-mono text-[10px] uppercase tracking-widest text-gold-500 px-4 py-3">Característica</th>
-                  {models.map((m) => (
+                  {catalog.map((m) => (
                     <th key={m.slug} className="text-left font-mono text-[10px] uppercase tracking-widest text-gold-500 px-4 py-3">{m.name.split(" ").slice(-1)[0]}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { key: "area", label: "Área útil", fn: (m: Model) => m.area },
-                  { key: "capacity", label: "Capacidad", fn: (m: Model) => m.capacity },
-                  { key: "dimensions", label: "Dimensiones", fn: (m: Model) => m.dimensions },
-                  { key: "weight", label: "Peso", fn: (m: Model) => m.weight },
-                  { key: "insulation", label: "Aislamiento", fn: (m: Model) => m.insulation },
-                  { key: "apps", label: "Sectores", fn: (m: Model) => m.applications.join(", ") },
+                  { key: "area", label: "Área útil", fn: (m: CatalogModel) => m.area },
+                  { key: "capacity", label: "Capacidad", fn: (m: CatalogModel) => m.capacity },
+                  { key: "dimensions", label: "Dimensiones", fn: (m: CatalogModel) => m.dimensionsOpen },
+                  { key: "weight", label: "Peso", fn: (m: CatalogModel) => m.weight },
+                  { key: "insulation", label: "Aislamiento", fn: (m: CatalogModel) => m.insulation },
+                  { key: "apps", label: "Sectores", fn: (m: CatalogModel) => m.applications.join(", ") },
                 ].map((row, i) => (
                   <tr key={row.key} className={`border-b border-jet-800/60 ${i % 2 === 0 ? "" : "bg-jet-900/30"}`}>
                     <td className="px-4 py-3 font-mono text-jet-300 text-xs">{row.label}</td>
-                    {models.map((m) => (
+                    {catalog.map((m) => (
                       <td key={m.slug} className="px-4 py-3 text-white font-medium text-xs">{row.fn(m)}</td>
                     ))}
                   </tr>

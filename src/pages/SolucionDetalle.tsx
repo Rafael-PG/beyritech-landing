@@ -1,140 +1,12 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { Wheat, Warehouse, HardHat, Building2, GraduationCap, Check, ArrowRight, Phone } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import { Check, ArrowRight, Phone, Award } from "lucide-react";
 import SEO from "../components/SEO";
 import ScrollReveal from "../hooks/ScrollReveal";
-
-interface SectorData {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  useCases: string[];
-  recommendedModels: { name: string; slug: string; fit: string }[];
-  benefits: string[];
-  gradient: string;
-}
-
-const sectorsData: Record<string, SectorData> = {
-  agroindustria: {
-    icon: Wheat,
-    title: "Agroindustria",
-    description: "Módulos diseñados para operaciones agrícolas y procesadoras: dormitorios, casinos, clínicas y oficinas que soportan condiciones de campo extremas.",
-    useCases: [
-      "Dormitorios para personal de campo",
-      "Casinos y comedores industriales",
-      "Clínicas y postas de salud",
-      "Oficinas de administración de fundo",
-      "Laboratorios de control de calidad",
-    ],
-    recommendedModels: [
-      { name: "Multispace", slug: "multispace", fit: "Alojamiento y oficinas compactas" },
-      { name: "Doble Ala", slug: "doble-ala", fit: "Espacios amplios y multiuso" },
-    ],
-    benefits: [
-      "Aislamiento térmico para climas extremos",
-      "Despliegue rápido en zonas remotas",
-      "Normativas sanitarias cumplidas",
-      "Reubicación entre campañas agrícolas",
-    ],
-    gradient: "from-emerald-600 to-emerald-800",
-  },
-  "logistica-almacenes": {
-    icon: Warehouse,
-    title: "Logística y Almacenes",
-    description: "Bodegas modulares, oficinas operativas y plataformas de distribución que se amplían según la demanda del mercado.",
-    useCases: [
-      "Bodegas y almacenes temporales",
-      "Oficinas de logística y despacho",
-      "Plataformas de distribución",
-      "Centros de operaciones portuarias",
-      "Control de inventario y tránsito",
-    ],
-    recommendedModels: [
-      { name: "Doble Ala", slug: "doble-ala", fit: "Bodegas y oficinas de amplio espectro" },
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Oficinas operativas compactas" },
-    ],
-    benefits: [
-      "Ampliación progresiva sin detener operaciones",
-      "Costos controlados vs. bodegas tradicionales",
-      "Despliegue en semanas",
-      "Reubicación según demanda estacional",
-    ],
-    gradient: "from-blue-600 to-blue-800",
-  },
-  "obra-construccion": {
-    icon: HardHat,
-    title: "Obra y Construcción",
-    description: "Campamentos, cuadros de comando y centros de acopio temporales para obras de infraestructura y minería.",
-    useCases: [
-      "Campamentos de obra",
-      "Cuadros de comando y seguridad",
-      "Centros de acopio y bodegas",
-      "Oficinas de proyecto",
-      "Baños y duchas temporales",
-    ],
-    recommendedModels: [
-      { name: "Multispace", slug: "multispace", fit: "Campamentos y oficinas de campo" },
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Oficinas y servicios temporales" },
-    ],
-    benefits: [
-      "Temporalidad controlada — se retira al terminar",
-      "Reubicación frecuente entre proyectos",
-      "Seguridad y supervivencia en sitio",
-      "Mínimo trabajo húmedo en campo",
-    ],
-    gradient: "from-orange-600 to-orange-800",
-  },
-  corporativo: {
-    icon: Building2,
-    title: "Corporativo",
-    description: "Oficinas ejecutivas, salas de capacitación y espacios temporales con acabados profesionales para empresas en crecimiento.",
-    useCases: [
-      "Oficinas ejecutivas temporales",
-      "Salas de juntas y capacitación",
-      "Ampliación de oficinas existentes",
-      "Centros de atención al cliente",
-      "Espacios de innovación y coworking",
-    ],
-    recommendedModels: [
-      { name: "Doble Ala", slug: "doble-ala", fit: "Oficinas ejecutivas amplias" },
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Salas de reunión y oficinas compactas" },
-    ],
-    benefits: [
-      "Acabados de arquitectura premium",
-      "Imagen profesional inmediata",
-      "Ampliación sin detener operaciones",
-      "Costos predecibles",
-    ],
-    gradient: "from-purple-600 to-purple-800",
-  },
-  educacion: {
-    icon: GraduationCap,
-    title: "Educación",
-    description: "Aulas, laboratorios y bibliotecas modulares que permiten expandir la infraestructura educativa en semanas, no en años.",
-    useCases: [
-      "Aulas temporales y permanentes",
-      "Laboratorios de ciencias",
-      "Bibliotecas y centros de estudio",
-      "Salas de computación",
-      "Espacios de atención estudiantil",
-    ],
-    recommendedModels: [
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Aulas y espacios educativos compactos" },
-      { name: "Doble Ala", slug: "doble-ala", fit: "Laboratorios y bibliotecas amplias" },
-    ],
-    benefits: [
-      "Aislamiento acústico para ambientes de estudio",
-      "Despliegue durante vacaciones escolares",
-      "Seguridad para entornos estudiantiles",
-      "Años de vida útil con bajo mantenimiento",
-    ],
-    gradient: "from-cyan-600 to-cyan-800",
-  },
-};
+import { getSector } from "../data/soluciones";
 
 export default function SolucionDetalle() {
-  const { slug } = useParams<{ slug: string }>();
-  const data = sectorsData[slug || ""];
+  const { slug } = useParams();
+  const data = getSector(slug);
 
   if (!data) {
     return (
@@ -183,8 +55,47 @@ export default function SolucionDetalle() {
         </div>
       </section>
 
+      {/* Real case (only for sectors with verified projects) */}
+      {data.caso && (
+        <section className="py-16 bg-jet-950 text-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <ScrollReveal>
+              <div className="bg-jet-900 border border-gold-500/20 rounded-xl p-8 sm:p-10">
+                <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+                  <div className="lg:w-1/3 shrink-0">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-500/10 border border-gold-500/30 rounded text-gold-500 text-xs font-mono mb-4">
+                      <Award className="w-3.5 h-3.5" />
+                      Caso real
+                    </div>
+                    <h2 className="font-display text-xl sm:text-2xl font-bold text-white leading-tight">
+                      {data.caso.title}
+                    </h2>
+                    <Link
+                      to={data.caso.href}
+                      className="inline-flex items-center gap-1.5 text-gold-500 text-xs font-medium mt-4 group"
+                    >
+                      Ver caso completo <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                  <ul className="flex-1 space-y-3">
+                    {data.caso.facts.map((fact, i) => (
+                      <li key={i} className="flex items-start gap-3 bg-jet-950 border border-jet-800 rounded-lg p-4">
+                        <span className="text-[10px] font-mono text-gold-500 mt-0.5 shrink-0">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-sm text-jet-200">{fact}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
+
       {/* Recommended Models */}
-      <section className="py-16 bg-jet-950 text-white">
+      <section className="py-16 bg-jet-900 text-white">
         <div className="max-w-5xl mx-auto px-6">
           <ScrollReveal>
             <h2 className="font-display text-2xl font-bold mb-8">Modelos Recomendados</h2>
@@ -193,7 +104,7 @@ export default function SolucionDetalle() {
                 <Link
                   key={i}
                   to={`/modelos/${model.slug}`}
-                  className="group bg-jet-900 border border-jet-800 rounded-xl p-6 hover:border-gold-500/50 transition-all"
+                  className="group bg-jet-950 border border-jet-800 rounded-xl p-6 hover:border-gold-500/40 transition-all"
                 >
                   <h3 className="font-display text-lg font-bold text-white mb-1 group-hover:text-gold-500 transition-colors">{model.name}</h3>
                   <p className="text-sm text-jet-300">{model.fit}</p>
@@ -208,13 +119,13 @@ export default function SolucionDetalle() {
       </section>
 
       {/* Benefits */}
-      <section className="py-16 bg-jet-900 text-white">
+      <section className="py-16 bg-jet-950 text-white">
         <div className="max-w-5xl mx-auto px-6">
           <ScrollReveal>
             <h2 className="font-display text-2xl font-bold mb-8">Beneficios para este Sector</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {data.benefits.map((benefit, i) => (
-                <div key={i} className="flex items-start gap-3 bg-jet-950 border border-jet-800 rounded-lg p-4">
+                <div key={i} className="flex items-start gap-3 bg-jet-900 border border-jet-800 rounded-lg p-4">
                   <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <span className="text-sm text-jet-200">{benefit}</span>
                 </div>
@@ -225,7 +136,7 @@ export default function SolucionDetalle() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-jet-950 text-white text-center">
+      <section className="py-20 bg-jet-900 text-white text-center">
         <div className="max-w-3xl mx-auto px-6">
           <ScrollReveal>
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-6">

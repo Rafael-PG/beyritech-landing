@@ -1,56 +1,14 @@
-import { Wheat, Warehouse, HardHat, Building2, GraduationCap, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import ScrollReveal from "../hooks/ScrollReveal";
-
-const sectors = [
-  {
-    icon: Wheat,
-    title: "Agroindustria",
-    slug: "agroindustria",
-    description: "Casinos, dormitorios, oficinas y áreas de proceso para fundos, plantas procesadoras y operaciones agrícolas.",
-    challenges: ["Acceso remoto", "Climatología extrema", "Normativas sanitarias estrictas"],
-    gradient: "from-emerald-600 to-emerald-800",
-  },
-  {
-    icon: Warehouse,
-    title: "Logística y Almacenes",
-    slug: "logistica-almacenes",
-    description: "Bodegas, oficinas operativas, plataformas de distribución y centros de logística modular.",
-    challenges: ["Ampliación rápida", "Alta demanda estacional", "Costos operativos controlados"],
-    gradient: "from-blue-600 to-blue-800",
-  },
-  {
-    icon: HardHat,
-    title: "Obra y Construcción",
-    slug: "obra-construccion",
-    description: "Campamentos, cuadros de comando, centros de acopio y oficinas temporales de obra.",
-    challenges: ["Temporalidad", "Reubicación frecuente", "Seguridad en sitio"],
-    gradient: "from-orange-600 to-orange-800",
-  },
-  {
-    icon: Building2,
-    title: "Corporativo",
-    slug: "corporativo",
-    description: "Oficinas ejecutivas, salas de capacitación, espacios temporales y ampliaciones corporativas.",
-    challenges: ["Imagen profesional", "Ampliación sin detener operaciones", "Acabados premium"],
-    gradient: "from-purple-600 to-purple-800",
-  },
-  {
-    icon: GraduationCap,
-    title: "Educación",
-    slug: "educacion",
-    description: "Aulas, laboratorios, bibliotecas y espacios educativos modulares de alta calidad.",
-    challenges: ["Aislamiento acústico", "Seguridad estudiantil", "Despliegue en vacaciones"],
-    gradient: "from-cyan-600 to-cyan-800",
-  },
-];
+import { sectors } from "../data/soluciones";
 
 export default function Soluciones() {
   return (
     <>
       <SEO
-        title="Soluciones por Sector — Módulos Modulares"
+        title="Soluciones por Sector — Módulos Prefabricados"
         description="Configuraciones modulares específicas para agroindustria, logística, obra, corporaciones y educación. Espacios diseñados para los desafíos de cada industria."
         url="/soluciones"
       />
@@ -73,7 +31,7 @@ export default function Soluciones() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sectors.map((sector, i) => (
-              <div key={i}>
+              <div key={sector.slug}>
               <ScrollReveal delay={i * 100}>
                 <Link
                   to={`/soluciones/${sector.slug}`}

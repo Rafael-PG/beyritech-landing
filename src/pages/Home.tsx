@@ -10,6 +10,7 @@ import Process from "../components/Process";
 import Projects from "../components/Projects";
 import FaqTestimonials from "../components/FaqTestimonials";
 import InteractiveConfigurator from "../components/InteractiveConfigurator";
+import { faqs } from "../data/faq";
 
 const homeStructuredData = [
   {
@@ -36,48 +37,14 @@ const homeStructuredData = [
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "¿Cuál es la vida útil de los módulos?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Perfiles de acero pesado galvanizado con protección anticorrosión multicapa, diseñados para larga vida útil bajo mantenimiento preventivo estándar.",
-        },
+    mainEntity: faqs.slice(0, 5).map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
       },
-      {
-        "@type": "Question",
-        name: "¿Los módulos son reubicables?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sí. Se desarman, cargan en fletes intermodales y reinstalan con alta recuperación de los componentes originales.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Cómo se comporta el aislamiento en temperaturas extremas?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Núcleo PIR de alta densidad que reduce significativamente el consumo energético en climas fríos y cálidos.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Cuánto tiempo toma la instalación?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Entregamos módulos operativos en 4 a 8 semanas. El montaje en sitio toma entre 3 y 14 días según la cantidad.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "¿Cumplen con normativas sanitarias y laborales?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Totalmente. Cumplimos estándares internacionales de habitabilidad, espacios mínimos, aislación acústica e higiene sanitaria.",
-        },
-      },
-    ],
+    })),
   },
 ];
 

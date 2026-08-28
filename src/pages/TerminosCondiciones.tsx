@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { empresa } from "../data/empresa";
 
 export default function TerminosCondiciones() {
   const today = new Date().toLocaleDateString("es-PE", { year: "numeric", month: "long", day: "numeric" });
@@ -27,7 +28,7 @@ export default function TerminosCondiciones() {
 
           <div>
             <h2 className="font-display text-xl font-bold text-white mb-3">1. Información general</h2>
-            <p>Este sitio web es operado por Beyritech Modular Systems S.A.C., con domicilio en Av. Santa Elvira Mza. B Lote 8, Los Olivos, Lima, Perú. Al acceder y utilizar este sitio web, usted acepta estos términos y condiciones en su totalidad.</p>
+            <p>Este sitio web es operado por {empresa.nombre}, con domicilio en {empresa.direccionCompleta}. Al acceder y utilizar este sitio web, usted acepta estos términos y condiciones en su totalidad.</p>
           </div>
 
           <div>

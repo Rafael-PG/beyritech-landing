@@ -14,11 +14,11 @@ export default function SpeedSustainabilityLogistics() {
   }, []);
 
   return (
-    <section id="speed-sustainability-logistics" className="py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
-      {/* Background visual styling */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#c4966a05,transparent_50%)] pointer-events-none" />
+    <section id="speed-sustainability-logistics" className="py-24 bg-[#090a0a] text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+      {/* Grid texture background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-gold-500 font-semibold">
@@ -92,7 +92,7 @@ export default function SpeedSustainabilityLogistics() {
                   Sostenibilidad de Vanguardia y Eficiencia Térmica
                 </h3>
                 <p className="text-sm sm:text-base text-jet-200 font-light leading-relaxed">
-                  Los módulos Beyritech se fabrican en un entorno controlado que elimina hasta un 90% del desperdicio de materiales en comparación con la construcción tradicional. Además, el diseño modular y el aislamiento de alta resistencia minimizan la energía necesaria para la climatización interna.
+                  Los módulos Beyritech se fabrican en un entorno controlado que reduce drásticamente el desperdicio de materiales en comparación con la construcción tradicional. Además, el diseño modular y el aislamiento de alta resistencia minimizan la energía necesaria para la climatización interna.
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-jet-800/80">
@@ -197,13 +197,13 @@ export default function SpeedSustainabilityLogistics() {
                   Velocidad de Despliegue que Acelera el Retorno
                 </h3>
                 <p className="text-sm sm:text-base text-jet-200 font-light leading-relaxed">
-                  Mientras que en un proyecto tradicional no se puede construir el armazón hasta terminar los cimientos, Beyritech realiza la **prefabricación modular en planta automatizada en paralelo** con la preparación del terreno. Esto reduce significativamente el cronograma de ejecución global.
+                  Mientras que en un proyecto tradicional no se puede construir el armazón hasta terminar los cimientos, Beyritech realiza la prefabricación modular en planta automatizada en paralelo con la preparación del terreno. Esto reduce significativamente el cronograma de ejecución global.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-jet-800/80">
                   <div>
-                    <h4 className="font-display text-2xl font-bold text-gold-500 font-mono">15 Días</h4>
-                    <p className="text-xs text-jet-300 mt-1">Fabricación de oficinas para 200 operadores.</p>
+                    <h4 className="font-display text-2xl font-bold text-gold-500 font-mono">En paralelo</h4>
+                    <p className="text-xs text-jet-300 mt-1">Fabricación en planta mientras se prepara el terreno.</p>
                   </div>
                   <div>
                     <h4 className="font-display text-2xl font-bold text-white font-mono">48 Horas</h4>
@@ -253,7 +253,7 @@ export default function SpeedSustainabilityLogistics() {
                 </div>
 
                 <p className="text-xs text-jet-300 font-light italic">
-                  * El pre-ensamblaje industrial evita retrasos debido a condiciones climáticas adversas en la zona de instalación.
+                  El pre-ensamblaje industrial evita retrasos debido a condiciones climáticas adversas en la zona de instalación.
                 </p>
               </div>
             </motion.div>
@@ -279,7 +279,7 @@ export default function SpeedSustainabilityLogistics() {
                   Logística Global y Resistencia en Entornos Hostiles
                 </h3>
                 <p className="text-sm sm:text-base text-jet-200 font-light leading-relaxed">
-                  Diseñamos cada módulo con acoplamientos normalizados según especificaciones ISO de transporte intermodal. Esto permite que viajen en barcos portacontenedores, trenes o camiones todo terreno sin requerir permisos de carga sobredimensionada, reduciendo los fletes internacionales hasta un 55%.
+                  Diseñamos cada módulo con acoplamientos normalizados según especificaciones ISO de transporte intermodal. Esto permite que viajen en barcos portacontenedores, trenes o camiones todo terreno sin requerir permisos de carga sobredimensionada, reduciendo el costo de los fletes internacionales.
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-jet-800/80">
@@ -288,8 +288,8 @@ export default function SpeedSustainabilityLogistics() {
                       <Snowflake className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-white">Diseñado para Alta Montaña</h4>
-                      <p className="text-xs text-jet-300 font-light mt-1">Módulos preparados para operar en altitudes elevadas y condiciones térmicas extremas.</p>
+                      <h4 className="font-display text-sm font-bold text-white">Resistencia a Climas Extremos</h4>
+                      <p className="text-xs text-jet-300 font-light mt-1">Módulos preparados para operar en condiciones térmicas extremas de costa y sierra.</p>
                     </div>
                   </div>
 
@@ -299,7 +299,7 @@ export default function SpeedSustainabilityLogistics() {
                     </div>
                     <div>
                       <h4 className="font-display text-sm font-bold text-white">Resistencia a Viento Intenso</h4>
-                      <p className="text-xs text-jet-300 font-light mt-1">Cálculo de cargas laterales para entornos costeros y de alta montaña con vientos fuertes.</p>
+                      <p className="text-xs text-jet-300 font-light mt-1">Cálculo de cargas laterales para entornos costeros y de sierra con vientos fuertes.</p>
                     </div>
                   </div>
                 </div>
