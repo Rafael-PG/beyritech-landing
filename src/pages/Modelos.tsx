@@ -87,7 +87,7 @@ export default function Modelos() {
                 <div className="flex gap-3 mt-auto">
                   <Link
                     to={`/modelos/${model.slug}`}
-                    className="flex-1 px-4 py-2.5 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors text-center"
+                    className="flex-1 px-4 py-2.5 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors text-center"
                   >
                     Ver ficha <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -149,7 +149,7 @@ export default function Modelos() {
           </p>
           <Link
             to="/contacto"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm rounded transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm rounded transition-colors"
           >
             Solicitar cotización <ArrowRight className="w-4 h-4" />
           </Link>

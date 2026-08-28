@@ -146,7 +146,7 @@ export default function SolucionDetalle() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/contacto"
-                className="px-8 py-3.5 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm rounded transition-all shadow-lg shadow-gold-500/20"
+                className="px-8 py-3.5 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm rounded transition-all shadow-lg shadow-gold-500/20"
               >
                 Solicitar Cotización
               </Link>
@@ -154,7 +154,7 @@ export default function SolucionDetalle() {
                 href="https://wa.me/51993694677?text=Hola,%20estoy%20interesado%20en%20una%20solución%20modular%20para%20sector%20de%20%5Bnombre%20del%20sector%5D."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-sm rounded transition-all"
+                className="flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-[#ffffff] font-bold uppercase tracking-wider text-sm rounded transition-all"
               >
                 <Phone className="w-4 h-4" /> WhatsApp
               </a>

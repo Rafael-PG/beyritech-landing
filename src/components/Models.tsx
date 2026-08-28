@@ -165,7 +165,7 @@ export default function Models() {
   };
 
   return (
-    <section id="models" className="py-24 bg-jet-950 text-white relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="models" className="section-texture py-24 bg-jet-950 text-white relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
@@ -294,7 +294,7 @@ export default function Models() {
                 <div className="flex gap-3">
                   <Link
                     to={`/contacto?modelo=${currentModel.id}`}
-                    className="flex-1 px-5 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors text-center"
+                    className="flex-1 px-5 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors text-center"
                   >
                     Cotizar
                   </Link>

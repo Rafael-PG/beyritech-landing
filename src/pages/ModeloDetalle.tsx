@@ -126,7 +126,7 @@ export default function ModeloDetalle() {
             <div className="bg-jet-900 border border-jet-800 p-6 rounded space-y-4">
               <h3 className="font-display font-bold text-white text-sm">Descargar ficha técnica</h3>
               <p className="text-xs text-jet-300 font-light">Solicite la ficha técnica completa con planos CAD y memoria descriptiva.</p>
-              <Link to={`/contacto?modelo=${model.slug}`} className="w-full px-5 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs rounded flex items-center justify-center gap-2 transition-colors">
+              <Link to={`/contacto?modelo=${model.slug}`} className="w-full px-5 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-xs rounded flex items-center justify-center gap-2 transition-colors">
                 <Download className="w-4 h-4" /> Solicitar ficha técnica
               </Link>
             </div>

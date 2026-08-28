@@ -14,7 +14,7 @@ export default function SpeedSustainabilityLogistics() {
   }, []);
 
   return (
-    <section id="speed-sustainability-logistics" className="py-24 bg-[#090a0a] text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="speed-sustainability-logistics" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
@@ -238,14 +238,14 @@ export default function SpeedSustainabilityLogistics() {
                     <span className="text-gold-500 font-bold">6 Semanas (Ahorro significativo)</span>
                   </div>
                   <div className="h-10 w-full bg-jet-950 rounded overflow-hidden flex text-[10px] font-mono text-center relative border border-gold-500/30">
-                    <div className="bg-gold-700 text-jet-950 font-bold flex flex-col justify-center px-1" style={{ width: "50%" }}>
+                    <div className="bg-gold-700 text-black font-bold flex flex-col justify-center px-1" style={{ width: "50%" }}>
                       <span>Planta</span>
                       <span className="text-[8px] opacity-75">Paralelo</span>
                     </div>
-                    <div className="bg-gold-600 text-jet-950 font-bold flex flex-col justify-center px-1" style={{ width: "30%" }}>
+                    <div className="bg-gold-600 text-black font-bold flex flex-col justify-center px-1" style={{ width: "30%" }}>
                       <span>Logística</span>
                     </div>
-                    <div className="bg-gold-500 text-jet-950 font-bold flex flex-col justify-center px-1" style={{ width: "20%" }}>
+                    <div className="bg-gold-500 text-black font-bold flex flex-col justify-center px-1" style={{ width: "20%" }}>
                       <span>Montaje</span>
                       <span className="text-[8px] opacity-75">48h</span>
                     </div>

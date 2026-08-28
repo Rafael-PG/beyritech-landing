@@ -65,7 +65,7 @@ export default function CasosExito() {
               onClick={() => setFilter(s)}
               className={`px-4 py-2 text-xs font-mono uppercase tracking-wider rounded transition-all border ${
                 filter === s
-                  ? "bg-gold-500 border-gold-500 text-jet-950 font-bold"
+                  ? "bg-gold-500 border-gold-500 text-black font-bold"
                   : "bg-jet-900 border-jet-800 text-jet-300 hover:border-gold-500/40"
               }`}
             >

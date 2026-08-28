@@ -71,9 +71,9 @@ export default function ComparisonTable() {
   });
 
   return (
-    <section className="py-24 bg-[#050505] relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:900px]">
+    <section className="section-texture py-24 bg-jet-950 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:900px]">
       {/* Grid texture background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+      <div className="absolute inset-0 gold-grid-overlay" />
 
       <div className="max-w-4xl mx-auto px-6 relative">
         {/* Header */}
@@ -188,7 +188,7 @@ export default function ComparisonTable() {
           <div className="mt-12 text-center">
             <Link
               to="/contacto"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gold-500 hover:bg-gold-600 text-jet-950 text-xs font-mono font-bold tracking-wider uppercase transition-colors duration-200"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gold-500 hover:bg-gold-600 text-black text-xs font-mono font-bold tracking-wider uppercase transition-colors duration-200"
             >
               Solicitar Cotización
               <ArrowRight className="w-4 h-4" />

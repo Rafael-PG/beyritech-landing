@@ -34,18 +34,90 @@
 /* Light Mode — Paleta Cálida Industrial */
 .light {
   --color-jet-950: #faf8f4;
-  --color-jet-900: #f5f2ec;
-  --color-jet-800: #ede9e1;
-  --color-jet-700: #e3dfd6;
+  --color-jet-900: #e8e4da;
+  --color-jet-800: #ddd8cc;
+  --color-jet-700: #cfc8b8;
   --color-jet-400: #948f86;
   --color-jet-300: #7d7870;
   --color-jet-200: #5c5852;
   --color-jet-100: #3a3733;
   --color-jet-50: #1c1b19;
   --color-white: #1c1b19;
-  --gradient-multispace: linear-gradient(135deg, #f5f2ec 0%, #ede9e1 50%, #faf8f4 100%);
-  --gradient-z-fold: linear-gradient(135deg, #ede9e1 0%, #e3dfd6 50%, #f5f2ec 100%);
-  --gradient-doble-ala: linear-gradient(135deg, #faf8f4 0%, #ede9e1 50%, #f5f2ec 100%);
+  --color-gold-50: #f6ecd2;
+  --color-gold-100: #eddbb0;
+  --color-gold-200: #e0c27f;
+  --color-gold-300: #c19b1e;
+  --color-gold-500: #c5940e;
+  --color-gold-600: #b1840c;
+  --color-gold-700: #9c740b;
+  --gradient-multispace: linear-gradient(135deg, #e8e4da 0%, #ddd8cc 50%, #faf8f4 100%);
+  --gradient-z-fold: linear-gradient(135deg, #ddd8cc 0%, #cfc8b8 50%, #e8e4da 100%);
+  --gradient-doble-ala: linear-gradient(135deg, #faf8f4 0%, #e8e4da 50%, #cfc8b8 100%);
+}
+/* Secciones siempre oscuras (no cambian en modo claro) */
+.light .theme-dark {
+  --color-jet-50: #f5f5f5;
+  --color-jet-100: #e0e0e0;
+  --color-jet-200: #c0c0c0;
+  --color-jet-300: #909090;
+  --color-jet-400: #707070;
+  --color-jet-700: #303030;
+  --color-jet-800: #1c1c1c;
+  --color-jet-900: #090a0a;
+  --color-jet-950: #050505;
+  --color-white: #ffffff;
+  --color-gold-50: #fff8e6;
+  --color-gold-100: #fef0c4;
+  --color-gold-200: #fde18a;
+  --color-gold-300: #fcd84f;
+  --color-gold-500: #FEC934;
+  --color-gold-600: #e5b42e;
+  --color-gold-700: #cc9f28;
+  --gradient-multispace: linear-gradient(135deg, #0a0e12 0%, #1a2330 50%, #0f1620 100%);
+  --gradient-z-fold: linear-gradient(135deg, #0f1620 0%, #2a3a45 50%, #0a0e12 100%);
+  --gradient-doble-ala: linear-gradient(135deg, #1a2330 0%, #0f1620 50%, #2a3a45 100%);
+  color: var(--color-white);
+}
+/* Textura industrial en secciones claras: rejilla de cuadrados + destello dorado (solo modo claro) */
+.section-texture {
+  isolation: isolate;
+}
+.light .section-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231c1b19' fill-opacity='0.42'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  opacity: 0.14;
+}
+.light .section-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(620px 340px at 88% 0%, rgba(254, 201, 52, 0.1), transparent 62%),
+    radial-gradient(540px 320px at 4% 100%, rgba(254, 201, 52, 0.06), transparent 60%);
+}
+/* Rejilla de cuadrados adaptable (blanca en oscuro, tinta en claro) */
+.grid-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.light .grid-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231c1b19' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+/* Rejilla de planos dorada (viva en oscuro, ámbar visible en claro) */
+.gold-grid-overlay {
+  background-image: linear-gradient(to right, #FEC93406 1px, transparent 1px),
+    linear-gradient(to bottom, #FEC93406 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
+}
+.light .gold-grid-overlay {
+  background-image: linear-gradient(to right, #c5940e14 1px, transparent 1px),
+    linear-gradient(to bottom, #c5940e14 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
 }
 .light ::-webkit-scrollbar-track {
   background: #e8e4dc;

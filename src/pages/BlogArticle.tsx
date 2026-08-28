@@ -113,7 +113,7 @@ export default function BlogArticle() {
           <p className="text-jet-300 mb-4 font-light">¿Tu proyecto encaja con esta solución?</p>
           <Link
             to="/contacto"
-            className="inline-block px-8 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm rounded transition-colors"
+            className="inline-block px-8 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm rounded transition-colors"
           >
             Solicitar cotización
           </Link>

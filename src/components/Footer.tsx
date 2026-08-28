@@ -108,7 +108,7 @@ export default function Footer() {
 
             <button
               onClick={handleScrollToTop}
-              className="w-8 h-8 rounded bg-jet-900 border border-jet-800 flex items-center justify-center text-gold-500 hover:text-jet-950 hover:bg-gold-500 transition-all duration-300"
+              className="w-8 h-8 rounded bg-jet-900 border border-jet-800 flex items-center justify-center text-gold-500 hover:text-black hover:bg-gold-500 transition-all duration-300"
               aria-label="Volver arriba"
             >
               <ArrowUp className="w-4 h-4" />

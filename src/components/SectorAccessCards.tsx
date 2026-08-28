@@ -61,7 +61,7 @@ export default function SectorAccessCards() {
   };
 
   return (
-    <section className="py-24 bg-[#050505] relative overflow-hidden">
+    <section className="section-texture py-24 bg-jet-950 relative overflow-hidden">
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 

@@ -384,7 +384,7 @@ const usages = [
 
 export default function UsageCards() {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#090a0a]">
+    <section className="section-texture py-24 relative overflow-hidden bg-jet-900">
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
@@ -431,7 +431,7 @@ export default function UsageCards() {
                 </div>
 
                 {/* Schematic */}
-                <div className="relative mt-4 border border-gold-500/10 bg-[#050505]/40">
+                <div className="relative mt-4 border border-gold-500/10 bg-jet-950/40">
                   <RegMark className="absolute top-0 left-0 w-4 h-4 -translate-x-1/2 -translate-y-1/2" />
                   <RegMark className="absolute top-0 right-0 w-4 h-4 translate-x-1/2 -translate-y-1/2" />
                   <RegMark className="absolute bottom-0 left-0 w-4 h-4 -translate-x-1/2 translate-y-1/2" />

@@ -100,7 +100,7 @@ export default function Proceso() {
           <p className="text-jet-300 font-light mb-6 max-w-lg mx-auto">
             Cuéntenos sobre su proyecto y reciba una propuesta técnica a la brevedad.
           </p>
-          <Link to="/contacto" className="inline-flex items-center gap-2 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm rounded transition-colors">
+          <Link to="/contacto" className="inline-flex items-center gap-2 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm rounded transition-colors">
             Solicitar cotización
           </Link>
         </div>

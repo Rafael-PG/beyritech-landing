@@ -25,7 +25,7 @@ export default function Gracias() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/"
-              className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs rounded transition-colors"
+              className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-xs rounded transition-colors"
             >
               Volver al inicio
             </Link>

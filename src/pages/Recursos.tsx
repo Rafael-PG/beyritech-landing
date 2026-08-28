@@ -113,7 +113,7 @@ export default function Recursos() {
                   />
                   <button
                     type="submit"
-                    className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs rounded transition-colors"
+                    className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-xs rounded transition-colors"
                   >
                     Enviar enlace
                   </button>
@@ -177,7 +177,7 @@ export default function Recursos() {
               </p>
               <a
                 href="/contacto"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm rounded transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm rounded transition-colors"
               >
                 Contactar asesoría <ArrowRight className="w-4 h-4" />
               </a>

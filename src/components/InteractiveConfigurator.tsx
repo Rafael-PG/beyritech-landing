@@ -80,7 +80,7 @@ name: "",
   };
 
   return (
-    <section id="estimator" className="py-24 bg-[#090a0a] text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="estimator" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
@@ -104,7 +104,7 @@ name: "",
             {/* Left column - Info */}
             <div className="lg:col-span-5 space-y-6">
               {/* Corporate info card */}
-              <div className="bg-[#050505] border border-jet-800/60 rounded-lg p-8">
+              <div className="bg-jet-950 border border-jet-800/60 rounded-lg p-8">
                 <h3 className="font-display text-lg font-bold text-white mb-6 pb-4 border-b border-jet-800">
                   Información Corporativa
                 </h3>
@@ -136,7 +136,7 @@ name: "",
               </div>
 
               {/* Response time card */}
-              <div className="bg-[#090a0a] border border-gold-500/20 rounded-lg p-6 relative overflow-hidden">
+              <div className="bg-jet-900 border border-gold-500/20 rounded-lg p-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gold-500/5 rounded-full filter blur-2xl" />
                 <Clock className="w-6 h-6 text-gold-500 mb-3" />
                 <h4 className="font-display text-base font-bold text-white mb-2">
@@ -153,7 +153,7 @@ name: "",
 
             {/* Right column - Form */}
             <div className="lg:col-span-7">
-              <div className="bg-[#050505] border border-jet-800/60 rounded-lg p-6 sm:p-8">
+              <div className="bg-jet-950 border border-jet-800/60 rounded-lg p-6 sm:p-8">
                 {/* Progress bar */}
                 <div className="mb-8">
                   <div className="flex items-center justify-between mb-4">
@@ -161,7 +161,7 @@ name: "",
                       <div key={step.id} className="flex items-center flex-1 last:flex-initial">
                         <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
                           currentStep > step.id
-                            ? "bg-gold-500 text-jet-950"
+                            ? "bg-gold-500 text-black"
                             : currentStep === step.id
                             ? "bg-gold-500/20 border-2 border-gold-500 text-gold-500"
                             : "bg-jet-800 text-jet-500"
@@ -204,7 +204,7 @@ name: "",
                           <User className="w-4 h-4 text-jet-400 absolute left-3 top-3" />
                           <input id="ec-name" name="name" type="text" required value={formData.name} onChange={handleInputChange}
                             placeholder="Ing. Rafael Huarcaya"
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
                         </div>
                       </div>
 
@@ -214,7 +214,7 @@ name: "",
                           <Phone className="w-4 h-4 text-jet-400 absolute left-3 top-3" />
                           <input id="ec-phone" name="phone" type="tel" required value={formData.phone} onChange={handleInputChange}
                             placeholder="+51 999 888 777"
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
                         </div>
                       </div>
 
@@ -235,7 +235,7 @@ name: "",
                           <Building2 className="w-4 h-4 text-jet-400 absolute left-3 top-3" />
                           <input id="ec-company" name="company" type="text" value={formData.company} onChange={handleInputChange}
                             placeholder="Nombre de la empresa"
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
                         </div>
                       </div>
 
@@ -243,7 +243,7 @@ name: "",
                         <div className="space-y-1.5">
                           <label className="text-xs font-mono text-jet-300" htmlFor="ec-industry">Sector</label>
                           <select id="ec-industry" name="industry" value={formData.industry} onChange={handleInputChange}
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors">
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors">
                             <option value="Agroindustria">Agroindustria</option>
                             <option value="Minería">Minería</option>
                             <option value="Logística">Logística / Almacenes</option>
@@ -257,7 +257,7 @@ name: "",
                           <label className="text-xs font-mono text-jet-300" htmlFor="ec-projectType">Uso previsto</label>
                           <input id="ec-projectType" name="projectType" type="text" value={formData.projectType} onChange={handleInputChange}
                             placeholder="Ej. Campamento, oficinas, clínica"
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
                         </div>
                       </div>
 
@@ -267,7 +267,7 @@ name: "",
                           <Ruler className="w-4 h-4 text-jet-400 absolute left-3 top-3" />
                           <input id="ec-area" name="area" type="number" min="20" max="20000" value={formData.area} onChange={handleInputChange}
                             placeholder="500"
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
                         </div>
                       </div>
                     </div>
@@ -282,7 +282,7 @@ name: "",
                       </div>
 
                       {/* Summary */}
-                      <div className="bg-[#090a0a] border border-jet-800/60 rounded-lg p-5 space-y-3">
+                      <div className="bg-jet-900 border border-jet-800/60 rounded-lg p-5 space-y-3">
                         <div className="flex justify-between text-sm">
                           <span className="text-jet-400">Nombre:</span>
                           <span className="text-white font-medium">{formData.name || "-"}</span>
@@ -312,12 +312,12 @@ name: "",
                           <MessageSquare className="w-4 h-4 text-jet-400 absolute left-3 top-3" />
                           <textarea id="ec-message" name="message" rows={3} value={formData.message} onChange={handleInputChange}
                             placeholder="Cuéntenos brevemente sobre su proyecto..."
-                            className="w-full bg-[#090a0a] border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
+                            className="w-full bg-jet-900 border border-jet-800/60 rounded px-4 py-3 pl-10 text-sm text-white focus:outline-none focus:border-gold-500 transition-colors" />
                         </div>
                       </div>
 
                       {/* Privacy checkbox */}
-                      <label className="flex items-start gap-3 p-4 bg-[#090a0a] border border-jet-800/60 cursor-pointer hover:border-gold-500/30 transition-colors">
+                      <label className="flex items-start gap-3 p-4 bg-jet-900 border border-jet-800/60 cursor-pointer hover:border-gold-500/30 transition-colors">
                         <input
                           type="checkbox"
                           checked={privacyAccepted}
@@ -355,7 +355,7 @@ name: "",
                         type="button"
                         onClick={handleNext}
                         disabled={!canProceed()}
-                        className="flex items-center gap-2 px-6 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="flex items-center gap-2 px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         Siguiente
                         <ArrowRight className="w-4 h-4" />
@@ -364,7 +364,7 @@ name: "",
                       <button
                         type="submit"
                         disabled={loading || !canProceed()}
-                        className="flex items-center gap-2 px-6 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="flex items-center gap-2 px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         {loading ? (
                           <>
@@ -397,7 +397,7 @@ name: "",
                 Gracias, <span className="text-white font-medium">{formData.name}</span>. Un ingeniero consultor se comunicará a la brevedad con una propuesta técnica.
               </p>
               <div className="flex gap-3 justify-center mt-8">
-                <Link to="/" className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs transition-colors">
+                <Link to="/" className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-xs transition-colors">
                   Volver al inicio
                 </Link>
                 <button

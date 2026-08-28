@@ -38,7 +38,7 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section id="why-choose-us" className="py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="why-choose-us" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
       
@@ -75,7 +75,7 @@ export default function WhyChooseUs() {
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gold-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
                 {/* Icon Container */}
-                <div className="w-12 h-12 rounded bg-jet-900 border border-jet-800 flex items-center justify-center text-gold-500 group-hover:bg-gold-500 group-hover:text-jet-950 transition-all duration-300 mb-6">
+                <div className="w-12 h-12 rounded bg-jet-900 border border-jet-800 flex items-center justify-center text-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all duration-300 mb-6">
                   <Icon className="w-6 h-6" />
                 </div>
 
@@ -107,7 +107,7 @@ export default function WhyChooseUs() {
           </div>
           <a
             href="#estimator"
-            className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-jet-950 text-xs font-mono font-bold tracking-wider uppercase rounded shrink-0 transition-colors duration-200 shadow-md shadow-gold-500/15"
+            className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black text-xs font-mono font-bold tracking-wider uppercase rounded shrink-0 transition-colors duration-200 shadow-md shadow-gold-500/15"
           >
             Obtener Ficha Técnica
           </a>

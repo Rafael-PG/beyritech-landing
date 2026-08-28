@@ -53,7 +53,7 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-24 bg-[#050505] text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="process" className="section-texture py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
@@ -97,7 +97,7 @@ export default function Process() {
                       backgroundColor: isSelected ? "var(--color-gold-500)" : "var(--color-jet-900)",
                     }}
                     className={`w-10 h-10 rounded flex items-center justify-center shrink-0 ${
-                      isSelected ? "text-jet-950" : "text-jet-300"
+                      isSelected ? "text-black" : "text-jet-300"
                     }`}
                   >
                     <Icon className="w-5 h-5" />

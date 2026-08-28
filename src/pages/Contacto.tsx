@@ -204,7 +204,7 @@ export default function Contacto() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full px-6 py-4 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm rounded flex items-center justify-center gap-2 transition-colors disabled:bg-gold-700"
+                className="w-full px-6 py-4 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm rounded flex items-center justify-center gap-2 transition-colors disabled:bg-gold-700"
               >
                 {loading ? (
                   <><Loader2 className="w-5 h-5 animate-spin" /> Enviando...</>
@@ -233,7 +233,7 @@ export default function Contacto() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors"
+                className="mt-4 w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-[#ffffff] font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
               </a>

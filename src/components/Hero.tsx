@@ -33,7 +33,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-jet-950">
+    <section id="hero" className="theme-dark relative min-h-screen flex items-center justify-center overflow-hidden bg-jet-950">
       {/* Hero Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -44,8 +44,10 @@ export default function Hero() {
           poster="/video/poster.webp"
           className="w-full h-full object-cover"
         >
-          <source src="/video/background.webm" type="video/webm" />
-          <source src="/video/background.mp4" type="video/mp4" />
+          <source src="/video/hero-desktop.webm" type="video/webm" media="(min-width: 768px)" />
+          <source src="/video/hero-desktop.mp4" type="video/mp4" media="(min-width: 768px)" />
+          <source src="/video/hero-mobile.webm" type="video/webm" />
+          <source src="/video/hero-mobile.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-jet-950 via-jet-950/80 to-jet-950/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-jet-950 via-transparent to-jet-950/60" />
@@ -100,7 +102,7 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Link
                   to="/contacto"
-                  className="px-8 py-4 rounded bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-xl shadow-gold-500/20 hover:scale-[1.03] active:scale-[0.98] text-center"
+                  className="px-8 py-4 rounded bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-xl shadow-gold-500/20 hover:scale-[1.03] active:scale-[0.98] text-center"
                 >
                   Solicitar cotización
                 </Link>

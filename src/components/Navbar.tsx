@@ -20,6 +20,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isLight, toggleTheme } = useTheme();
   const location = useLocation();
+  const overHero = !isScrolled && location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,7 +62,7 @@ export default function Navbar() {
           className="flex items-center gap-3 group"
         >
           <img
-            src={isLight ? "/logo/beyritech-logo-light.webp" : "/logo/beyritech-logo.webp"}
+            src={!isLight || overHero ? "/logo/beyritech-logo.webp" : "/logo/beyritech-logo-light.webp"}
             alt="Logo Beyritech — Módulos Multipropósito"
             width="80" height="64"
             className="h-16 w-auto transition-transform duration-300 group-hover:scale-105"
@@ -79,7 +80,7 @@ export default function Navbar() {
                 key={link.name}
                 to={link.href}
                 className={`relative font-sans text-sm font-medium transition-colors duration-200 ${
-                  isActive ? "text-gold-500" : "text-jet-100 hover:text-gold-500"
+                  isActive ? "text-gold-500" : overHero ? "text-[#ffffff] hover:text-gold-500" : "text-jet-100 hover:text-gold-500"
                 }`}
               >
                 {link.name}
@@ -95,7 +96,9 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             to="/contacto"
-            className="px-5 py-2.5 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-xs rounded transition-all duration-200 shadow-md shadow-gold-500/15"
+            className={`px-5 py-2.5 ${
+              overHero ? "bg-[#FEC934] hover:bg-[#e5b42e]" : "bg-gold-500 hover:bg-gold-600"
+            } text-black font-bold uppercase tracking-wider text-xs rounded transition-all duration-200 shadow-md shadow-gold-500/15`}
           >
             Cotizar
           </Link>
@@ -103,7 +106,9 @@ export default function Navbar() {
           <button
             id="theme-toggle"
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-jet-800 transition-colors text-jet-300 hover:text-gold-500"
+            className={`p-2 rounded-full transition-colors ${
+              overHero ? "text-[#ffffff] hover:text-[#ffffff] hover:bg-white/10" : "text-jet-300 hover:text-gold-500 hover:bg-jet-800"
+            }`}
             aria-label={isLight ? "Activar modo oscuro" : "Activar modo claro"}
           >
             {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -114,14 +119,18 @@ export default function Navbar() {
         <div className="flex items-center gap-2 lg:hidden">
           <Link
             to="/contacto"
-            className="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-jet-950 font-bold uppercase tracking-wider text-[10px] rounded"
+            className={`px-4 py-2 ${
+              overHero ? "bg-[#FEC934] hover:bg-[#e5b42e]" : "bg-gold-500 hover:bg-gold-600"
+            } text-black font-bold uppercase tracking-wider text-[10px] rounded`}
           >
             Cotizar
           </Link>
 
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-jet-800 transition-colors text-jet-300"
+            className={`p-2 rounded-full transition-colors ${
+              overHero ? "text-[#ffffff] hover:text-[#ffffff] hover:bg-white/10" : "text-jet-300 hover:text-gold-500 hover:bg-jet-800"
+            }`}
             aria-label={isLight ? "Activar modo oscuro" : "Activar modo claro"}
           >
             {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
@@ -130,7 +139,9 @@ export default function Navbar() {
           <button
             id="mobile-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white hover:text-gold-500 transition-colors p-2"
+            className={`transition-colors p-2 ${
+              overHero ? "text-[#ffffff] hover:text-gold-500" : "text-jet-300 hover:text-gold-500"
+            }`}
             aria-label="Toggle Menu"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav-menu"
