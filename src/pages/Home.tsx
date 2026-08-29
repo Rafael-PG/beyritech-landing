@@ -1,11 +1,8 @@
 import SEO from "../components/SEO";
 import Hero from "../components/Hero";
 import Models from "../components/Models";
-import UsageCards from "../components/UsageCards";
-import SectorAccessCards from "../components/SectorAccessCards";
 import WhyChooseUs from "../components/WhyChooseUs";
 import ComparisonTable from "../components/ComparisonTable";
-import SpeedSustainabilityLogistics from "../components/SpeedSustainabilityLogistics";
 import Process from "../components/Process";
 import Projects from "../components/Projects";
 import FaqTestimonials from "../components/FaqTestimonials";
@@ -59,15 +56,12 @@ export default function Home() {
       />
       <Hero />
       <Models />
-      <UsageCards />
-      <SectorAccessCards />
-      <WhyChooseUs />
       <ComparisonTable />
-      <SpeedSustainabilityLogistics />
       <Process />
       <Projects />
-      <FaqTestimonials />
+      <WhyChooseUs />
       <InteractiveConfigurator />
+      <FaqTestimonials />
     </>
   );
 }

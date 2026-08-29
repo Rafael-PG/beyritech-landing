@@ -382,11 +382,27 @@ const usages = [
 /* Section                                                             */
 /* ------------------------------------------------------------------ */
 
-export default function UsageCards() {
+interface UsageCardsProps {
+  variant?: "dark" | "gray";
+  headingLevel?: 1 | 2;
+}
+
+export default function UsageCards({
+  variant = "dark",
+  headingLevel = 2,
+}: UsageCardsProps = {}) {
+  const isGray = variant === "gray";
+  const isPage = headingLevel === 1;
+  const TitleTag = isPage ? "h1" : "h2";
+  const sectionBg = isGray ? "bg-jet-900" : "bg-jet-950";
+  const cardBg = isGray ? "bg-jet-950/40 border-gold-500/15 hover:bg-jet-950/60" : "bg-jet-900/40 border-gold-500/15 hover:bg-jet-900/60";
+  const schematicBg = isGray ? "border-gold-500/10 bg-jet-900/50" : "border-gold-500/10 bg-jet-950/40";
+  const padY = isPage ? "pt-32 pb-24" : "py-24";
+
   return (
-    <section className="section-texture py-24 relative overflow-hidden bg-jet-900">
+    <section className={`section-texture ${padY} relative overflow-hidden ${sectionBg}`}>
       {/* Grid texture background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+      <div className="absolute inset-0 gold-grid-overlay" />
 
       {/* Decorative gold line top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
@@ -398,13 +414,13 @@ export default function UsageCards() {
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-500 font-semibold">
               ¿Qué necesita?
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight text-white leading-tight">
+            <TitleTag className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight text-white leading-tight">
               Un módulo para cada{" "}
               <span className="relative inline-block">
                 necesidad
                 <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gold-500/40" />
               </span>
-            </h2>
+            </TitleTag>
             <p className="text-jet-400 mt-5 font-sans text-base font-light leading-relaxed max-w-xl mx-auto">
               Cada solución parte de un plano: espacios modulares diseñados y certificados para su operación, no al revés.
             </p>
@@ -416,7 +432,7 @@ export default function UsageCards() {
           {usages.map((usage, i) => (
             <Fragment key={i}>
               <ScrollReveal delay={0.05 * (i % 3)}>
-              <article className="relative group bg-jet-900/40 border border-gold-500/15 rounded-lg p-5 flex flex-col h-full hover:border-gold-500/40 hover:bg-jet-900/60 hover:-translate-y-1 transition-all duration-300">
+              <article className={`relative group ${cardBg} rounded-lg p-5 flex flex-col h-full hover:border-gold-500/40 hover:-translate-y-1 transition-all duration-300`}>
                 {/* Title block */}
                 <div className="flex items-center justify-between pb-3 border-b border-dashed border-gold-500/20">
                   <span className="text-[10px] font-mono tracking-widest text-gold-500/80">
@@ -431,7 +447,7 @@ export default function UsageCards() {
                 </div>
 
                 {/* Schematic */}
-                <div className="relative mt-4 border border-gold-500/10 bg-jet-950/40">
+                <div className={`relative mt-4 border ${schematicBg}`}>
                   <RegMark className="absolute top-0 left-0 w-4 h-4 -translate-x-1/2 -translate-y-1/2" />
                   <RegMark className="absolute top-0 right-0 w-4 h-4 translate-x-1/2 -translate-y-1/2" />
                   <RegMark className="absolute bottom-0 left-0 w-4 h-4 -translate-x-1/2 translate-y-1/2" />

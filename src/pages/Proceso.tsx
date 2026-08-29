@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MessageSquare, Compass, Factory, ShieldCheck, Truck, KeyRound } from "lucide-react";
+import { MessageSquare, Compass, ShieldCheck, Truck, KeyRound, Handshake } from "lucide-react";
 import SEO from "../components/SEO";
 
 const steps = [
@@ -18,32 +18,32 @@ const steps = [
     detail: "Incluye plano de distribución y memoria técnica.",
   },
   {
-    icon: Factory,
-    number: "03",
-    title: "Fabricación",
-    description: "Cada módulo se fabrica en nuestra planta de Lima bajo control de calidad industrial. Estructura, paneles, aislamiento, instalaciones eléctricas y revestimientos.",
-    detail: "Control dimensional y visual antes del ensamblaje.",
-  },
-  {
     icon: ShieldCheck,
-    number: "04",
+    number: "03",
     title: "Control de Calidad",
     description: "Inspección dimensional, pruebas de estanqueidad, verificación de aislamiento y revisión de acabados. Cada módulo cumple con las especificaciones aprobadas.",
     detail: "Reporte fotográfico de cada etapa.",
   },
   {
     icon: Truck,
-    number: "05",
+    number: "04",
     title: "Logística y Transporte",
     description: "Coordinamos el transporte terrestre, marítimo o fluvial según la ubicación. Módulos plegados para maximizar la eficiencia del flete.",
     detail: "Hasta 12 módulos por camión (según modelo).",
   },
   {
     icon: KeyRound,
-    number: "06",
+    number: "05",
     title: "Montaje y Entrega",
     description: "Nuestro equipo de montaje viaja al sitio para instalar, conectar y poner en marcha los módulos. Espacio operativo en semanas, no en meses.",
     detail: "Capacitación al personal incluida.",
+  },
+  {
+    icon: Handshake,
+    number: "06",
+    title: "Acompañamiento en Campo",
+    description: "Tras la entrega, nuestro equipo técnico acompaña la operación en sitio: supervisión de uso, ajustes finos y soporte a las instalaciones mientras el proyecto se pone en marcha.",
+    detail: "Soporte técnico en campo y canal directo con el equipo de planta.",
   },
 ];
 
@@ -52,7 +52,7 @@ export default function Proceso() {
     <section className="min-h-screen bg-jet-950 text-white pt-28 pb-20">
       <SEO
         title="Cómo Trabajamos — Proceso de 6 Pasos"
-        description="Proceso claro de 6 pasos: contacto, diseño, fabricación, control de calidad, logística y montaje. Sin imprevistos, sin sobrecostos."
+        description="Proceso claro de 6 pasos: contacto, diseño, control de calidad, logística, montaje y acompañamiento en campo. Sin imprevistos, sin sobrecostos."
         url="/proceso"
         structuredData={{ "@context": "https://schema.org", "@type": "HowTo", name: "Proceso Beyritech", description: "De la consulta al espacio operativo en 6 pasos", step: steps.map((s) => ({ "@type": "HowToStep", name: s.title, text: s.description })) }}
       />

@@ -1,6 +1,7 @@
 import { MapPin, Phone, Mail, Building, ShieldCheck, Wrench } from "lucide-react";
 import SEO from "../components/SEO";
 import { empresa } from "../data/empresa";
+import SpeedSustainabilityLogistics from "../components/SpeedSustainabilityLogistics";
 
 export default function Nosotros() {
   return (
@@ -103,6 +104,8 @@ export default function Nosotros() {
           </div>
         </div>
       </div>
+
+      <SpeedSustainabilityLogistics />
     </section>
   );
 }

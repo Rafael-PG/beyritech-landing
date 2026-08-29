@@ -10,7 +10,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-jet-950 text-white pt-20 pb-10 border-t border-jet-900 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <footer className="bg-[#090a0a] text-white pt-20 pb-10 border-t border-jet-800 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -99,7 +99,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-jet-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-jet-300 font-light">
+        <div className="pt-8 border-t border-jet-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-jet-300 font-light">
           <p>© {new Date().getFullYear()} {empresa.nombre} Todos los derechos reservados.</p>
 
           <div className="flex items-center gap-6">
@@ -108,7 +108,7 @@ export default function Footer() {
 
             <button
               onClick={handleScrollToTop}
-              className="w-8 h-8 rounded bg-jet-900 border border-jet-800 flex items-center justify-center text-gold-500 hover:text-black hover:bg-gold-500 transition-all duration-300"
+              className="w-8 h-8 rounded bg-jet-950 border border-jet-800 flex items-center justify-center text-gold-500 hover:text-black hover:bg-gold-500 transition-all duration-300"
               aria-label="Volver arriba"
             >
               <ArrowUp className="w-4 h-4" />

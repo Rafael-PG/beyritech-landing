@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
 interface ThemeContextType {
   isLight: boolean;
@@ -14,6 +14,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
     return false;
   });
+  const transitionTimer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", isLight);
@@ -21,9 +22,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [isLight]);
 
   const toggleTheme = () => {
+    window.clearTimeout(transitionTimer.current);
     document.documentElement.classList.add("theme-transitioning");
-    setIsLight(prev => !prev);
-    setTimeout(() => {
+    const nextIsLight = !isLight;
+    document.documentElement.classList.toggle("light", nextIsLight);
+    setIsLight(nextIsLight);
+    transitionTimer.current = window.setTimeout(() => {
       document.documentElement.classList.remove("theme-transitioning");
     }, 600);
   };

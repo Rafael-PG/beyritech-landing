@@ -130,10 +130,26 @@ function ModelBlueprint({ id }: { id: string }) {
   }
 }
 
-export default function Models() {
+interface ModelsProps {
+  variant?: "dark" | "gray";
+  footerLink?: boolean;
+  headingLevel?: 1 | 2;
+}
+
+export default function Models({
+  variant = "dark",
+  footerLink = true,
+  headingLevel = 2,
+}: ModelsProps) {
   const { isLight } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const isGray = variant === "gray";
+  const isPage = headingLevel === 1;
+  const TitleTag = isPage ? "h1" : "h2";
+  const sectionBg = isGray ? "bg-jet-900" : "bg-jet-950";
+  const padY = isPage ? "pt-32 pb-24" : "py-24";
 
   const currentModel = models[currentIndex];
 
@@ -165,7 +181,7 @@ export default function Models() {
   };
 
   return (
-    <section id="models" className="section-texture py-24 bg-jet-950 text-white relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id={isPage ? undefined : "models"} className={`section-texture ${padY} ${sectionBg} text-white relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]`}>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
@@ -181,9 +197,9 @@ export default function Models() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+            <TitleTag className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
               Módulos <span className="text-gold-500">Multipropósitos</span>
-            </h2>
+            </TitleTag>
           </ScrollReveal>
 
           <ScrollReveal delay={0.25}>
@@ -312,14 +328,16 @@ export default function Models() {
         </ScrollReveal>
 
         {/* Ver todos */}
-        <div className="mt-12 text-center">
-          <Link
-            to="/modelos"
-            className="inline-flex items-center gap-2 text-sm text-gold-500 hover:text-gold-400 font-medium transition-colors"
-          >
-            Ver catálogo completo <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+        {footerLink && (
+          <div className="mt-12 text-center">
+            <Link
+              to="/modelos"
+              className="inline-flex items-center gap-2 text-sm text-gold-500 hover:text-gold-400 font-medium transition-colors"
+            >
+              Ver catálogo completo <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

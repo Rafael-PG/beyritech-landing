@@ -16,7 +16,7 @@ export default function SpeedSustainabilityLogistics() {
   return (
     <section id="speed-sustainability-logistics" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+      <div className="absolute inset-0 gold-grid-overlay" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}

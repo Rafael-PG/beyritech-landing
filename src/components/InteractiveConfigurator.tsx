@@ -9,15 +9,21 @@ const steps = [
   { id: 3, label: "Confirmar" },
 ];
 
-export default function InteractiveConfigurator() {
+export default function InteractiveConfigurator({
+  inPage = false,
+  initialProjectType = "",
+}: {
+  inPage?: boolean;
+  initialProjectType?: string;
+} = {}) {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-name: "",
+    name: "",
     company: "",
     phone: "",
     industry: "Agroindustria",
-    projectType: "",
+    projectType: initialProjectType,
     area: "",
     message: "",
   });
@@ -80,7 +86,10 @@ name: "",
   };
 
   return (
-    <section id="estimator" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section
+      id="estimator"
+      className={`section-texture relative text-white [content-visibility:auto] [contain-intrinsic-size:600px] bg-jet-900 ${inPage ? "pt-28 pb-24" : "py-24"}`}
+    >
       {/* Grid texture background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 

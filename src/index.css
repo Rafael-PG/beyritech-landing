@@ -18,6 +18,8 @@
   --color-jet-200: #c0c0c0;
   --color-jet-300: #909090;
   --color-jet-400: #707070;
+  --color-jet-500: #5a5a5a;
+  --color-jet-600: #464646;
   --color-jet-700: #303030;
   --color-jet-800: #1c1c1c;
   --color-jet-900: #090A0A;
@@ -37,10 +39,12 @@
   --color-jet-900: #e8e4da;
   --color-jet-800: #ddd8cc;
   --color-jet-700: #cfc8b8;
-  --color-jet-400: #948f86;
-  --color-jet-300: #7d7870;
-  --color-jet-200: #5c5852;
   --color-jet-100: #3a3733;
+  --color-jet-200: #4f4b45;
+  --color-jet-300: #66615a;
+  --color-jet-400: #7a756c;
+  --color-jet-500: #57534b;
+  --color-jet-600: #413e38;
   --color-jet-50: #1c1b19;
   --color-white: #1c1b19;
   --color-gold-50: #f6ecd2;
@@ -61,6 +65,8 @@
   --color-jet-200: #c0c0c0;
   --color-jet-300: #909090;
   --color-jet-400: #707070;
+  --color-jet-500: #5a5a5a;
+  --color-jet-600: #464646;
   --color-jet-700: #303030;
   --color-jet-800: #1c1c1c;
   --color-jet-900: #090a0a;
@@ -135,6 +141,12 @@
   transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
               color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
               border-color 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-transitioning,
+  .theme-transitioning * {
+    transition: none !important;
+  }
 }
 
 /* Smooth Scrolling */
@@ -232,4 +244,15 @@ html {
 .animate-gradient-shift {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+/* Line-draw animation for assembly schematics */
+@keyframes phase-line {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+.animate-phase-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: phase-line 1.1s cubic-bezier(0.35, 0, 0.15, 1) forwards;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileSearch, Factory, Box, KeyRound, ChevronRight } from "lucide-react";
+import { FileSearch, Box, KeyRound, Handshake, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 export default function Process() {
@@ -18,19 +18,8 @@ export default function Process() {
       ]
     },
     {
-      icon: Factory,
-      title: "2. Prefabricación Automatizada Off-site",
-      subtitle: "Construcción en Entorno Industrial Controlado",
-      desc: "Fabricamos la estructura principal de acero y los paneles autoportantes PIR en nuestra planta industrial. Se realiza el pre-cableado eléctrico y las instalaciones sanitarias internas bajo estricto control de calidad, con inspección por etapas.",
-      details: [
-        "Estructura de acero soldada por sistemas robotizados",
-        "Control de humedad y temperatura constante para evitar corrosión",
-        "Integración de cañerías e instalaciones eléctricas en tabiques"
-      ]
-    },
-    {
       icon: Box,
-      title: "3. Logística Intermodal de Carga Segura",
+      title: "2. Logística Intermodal de Carga Segura",
       subtitle: "Transporte Estándar y Coordinado",
       desc: "Optimizamos el embalaje de los módulos para enviarlos como unidades intermodales estándar de 20 o 40 pies. Coordinamos fletes terrestres, fluviales o marítimos directos hacia el emplazamiento de obra sin demoras operativas.",
       details: [
@@ -41,7 +30,7 @@ export default function Process() {
     },
     {
       icon: KeyRound,
-      title: "4. Ensamblaje Rápido y Entrega de Llaves",
+      title: "3. Ensamblaje Rápido y Entrega de Llaves",
       subtitle: "Despliegue y Conexión Plug & Play en Obra",
       desc: "En sitio, el equipo técnico de Beyritech posiciona los módulos mediante grúas. Se acoplan los cierres estructurales, se conectan las redes de servicios principales y se realiza la entrega llave en mano en un lapso de 48 a 72 horas.",
       details: [
@@ -49,13 +38,24 @@ export default function Process() {
         "Unión de redes de agua, alcantarillado, electricidad y datos",
         "Inspección final de habitabilidad y firma de acta de conformidad"
       ]
+    },
+    {
+      icon: Handshake,
+      title: "4. Acompañamiento en Campo",
+      subtitle: "Soporte Técnico en Sitio",
+      desc: "Tras la entrega llave en mano, nuestro equipo permanece en campo durante la puesta en marcha: ajustes finos, verificación de instalaciones y soporte técnico directo con la planta.",
+      details: [
+        "Supervisión en sitio durante la puesta en marcha",
+        "Ajustes finos y puesta a punto de instalaciones",
+        "Canal directo de soporte técnico y repuestos"
+      ]
     }
   ];
 
   return (
     <section id="process" className="section-texture py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+      <div className="absolute inset-0 gold-grid-overlay" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}

@@ -38,9 +38,9 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section id="why-choose-us" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="why-choose-us" className="section-texture py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
+      <div className="absolute inset-0 gold-grid-overlay" />
       
       <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}
@@ -69,13 +69,13 @@ export default function WhyChooseUs() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                 whileHover={{ y: -6 }}
-                className="group relative p-8 rounded bg-jet-950 border border-jet-800 hover:border-gold-500/40 transition-colors duration-300 shadow-xl hover:shadow-2xl hover:shadow-gold-500/5"
+                className="group relative p-8 rounded bg-jet-900 border border-jet-800 hover:border-gold-500/40 transition-colors duration-300 shadow-xl hover:shadow-2xl hover:shadow-gold-500/5"
               >
                 {/* Accent top bar on hover */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gold-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
                 {/* Icon Container */}
-                <div className="w-12 h-12 rounded bg-jet-900 border border-jet-800 flex items-center justify-center text-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all duration-300 mb-6">
+                <div className="w-12 h-12 rounded bg-jet-950 border border-jet-800 flex items-center justify-center text-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all duration-300 mb-6">
                   <Icon className="w-6 h-6" />
                 </div>
 
@@ -93,7 +93,7 @@ export default function WhyChooseUs() {
 
         {/* Dynamic Comparison Banner */}
         <ScrollReveal>
-          <div className="mt-16 bg-gradient-to-r from-jet-950 to-jet-900 rounded border border-jet-800 p-8 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
+          <div className="mt-16 bg-gradient-to-r from-jet-900 to-jet-950 rounded border border-jet-800 p-8 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
           <div className="max-w-2xl">
             <span className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-semibold block mb-2">
               Líder de Categoría

@@ -71,7 +71,7 @@ export default function ComparisonTable() {
   });
 
   return (
-    <section className="section-texture py-24 bg-jet-950 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:900px]">
+    <section className="section-texture py-24 bg-jet-900 relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:900px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 gold-grid-overlay" />
 
@@ -159,7 +159,7 @@ export default function ComparisonTable() {
                       Tradicional
                     </span>
                     <div className="relative flex-1 h-2.5 bg-jet-950/90 rounded-full overflow-hidden">
-                      <motion.div className="absolute inset-y-0 left-0 bg-jet-700/70 rounded-full" {...bar(m.trad.pct)} />
+                      <motion.div className="absolute inset-y-0 left-0 bg-[#e46d63] rounded-full" {...bar(m.trad.pct)} />
                     </div>
                     <span className="w-28 sm:w-44 shrink-0 text-right text-xs font-light text-jet-500 leading-snug">
                       <span className="font-mono text-jet-600">{m.trad.pct}%</span> · {m.trad.result}
