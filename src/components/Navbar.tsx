@@ -66,7 +66,7 @@ export default function Navbar() {
             alt="Logo Beyritech — Módulos Multipropósito"
             width="80" height="64"
             className="h-16 w-auto transition-transform duration-300 group-hover:scale-105"
-            fetchpriority="high"
+            fetchPriority="high"
             loading="eager"
           />
         </Link>

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { modeloName, modeloShort } from "../lib/modelosMeta";
 
 interface CasoExito {
   idCasos: number;
   slug: string;
-  servicio: string;
+  modelo: string;
   title: string;
   excerpt: string;
   date: string;
@@ -31,8 +32,8 @@ export default function CasosExito() {
       .catch(() => setLoading(false));
   }, []);
 
-  const servicios = ["todos", ...new Set(casos.map((c) => c.servicio))];
-  const filtered = filter === "todos" ? casos : casos.filter((c) => c.servicio === filter);
+  const modelos = ["todos", ...new Set(casos.map((c) => c.modelo))];
+  const filtered = filter === "todos" ? casos : casos.filter((c) => c.modelo === filter);
 
   return (
     <section className="min-h-screen bg-jet-950 text-white pt-28 pb-20">
@@ -59,7 +60,7 @@ export default function CasosExito() {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {servicios.map((s) => (
+          {modelos.map((s) => (
             <button
               key={s}
               onClick={() => setFilter(s)}
@@ -69,7 +70,7 @@ export default function CasosExito() {
                   : "bg-jet-900 border-jet-800 text-jet-300 hover:border-gold-500/40"
               }`}
             >
-              {s}
+              {modeloShort(s)}
             </button>
           ))}
         </div>
@@ -90,12 +91,12 @@ export default function CasosExito() {
           {filtered.map((caso) => (
             <Link
               key={caso.idCasos}
-              to={`/casos-de-exito/${caso.slug}`}
+              to={`/casos-de-exito/${caso.modelo}/${caso.slug}`}
               className="group bg-jet-900 border border-jet-800 hover:border-gold-500/40 rounded overflow-hidden transition-all duration-300 hover:-translate-y-1"
             >
               <div className="h-52 bg-gradient-to-br from-jet-900 to-jet-950 flex items-center justify-center relative">
                 <span className="text-xs font-mono text-jet-600 uppercase tracking-widest">
-                  {caso.servicio}
+                  {modeloName(caso.modelo)}
                 </span>
                 {caso.featured && (
                   <span className="absolute top-4 right-4 text-[9px] font-mono uppercase tracking-wider text-gold-500 border border-gold-500/20 px-2 py-0.5 bg-jet-950/80">

@@ -17,6 +17,7 @@ export interface CatalogModel {
   insulation: string;
   specs: ModelSpecRow[];
   options: string[];
+  zones: string[];
   deliveryTime: string;
   installRequirements: string[];
   relatedSlugs: string[];
@@ -59,6 +60,14 @@ export const catalog: CatalogModel[] = [
       "Clínica o posta de salud",
       "Acabados premium para oficinas ejecutivas",
       "Preparación solar-ready para paneles fotovoltaicos",
+    ],
+    zones: [
+      "Dormitorio",
+      "Baño / ducha",
+      "Casino · comedor",
+      "Clínica / posta",
+      "Oficina ejecutiva",
+      "Solar-ready",
     ],
     deliveryTime: "Entre 4 y 8 semanas desde la confirmación del pedido, según cantidad de módulos y ubicación del proyecto.",
     installRequirements: [
@@ -106,6 +115,14 @@ export const catalog: CatalogModel[] = [
       "Módulo sanitario de mayor escala",
       "Preparación solar-ready para paneles fotovoltaicos",
     ],
+    zones: [
+      "Núcleo central",
+      "Ala corporativa",
+      "Sala de juntas",
+      "Laboratorio",
+      "Módulo sanitario",
+      "Solar-ready",
+    ],
     deliveryTime: "Entre 4 y 8 semanas desde la confirmación del pedido, según cantidad de módulos y ubicación del proyecto.",
     installRequirements: [
       "Terreno nivelado con acceso para camión de carga",
@@ -150,6 +167,13 @@ export const catalog: CatalogModel[] = [
       "Módulo sanitario compacto",
       "Depósito de herramientas o almacén de insumos",
       "Preparación solar-ready para paneles fotovoltaicos",
+    ],
+    zones: [
+      "Caseta técnica",
+      "Oficina de obra",
+      "Módulo sanitario",
+      "Depósito / almacén",
+      "Solar-ready",
     ],
     deliveryTime: "Entre 4 y 8 semanas desde la confirmación del pedido, según cantidad de módulos y ubicación del proyecto.",
     installRequirements: [

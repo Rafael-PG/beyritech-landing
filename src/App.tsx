@@ -1,10 +1,28 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
+import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import AppRouter from "./AppRouter";
+
+function SiteLayout() {
+  const { pathname } = useLocation();
+  const isDashboard = pathname.startsWith("/direccion");
+
+  return (
+    <>
+      {!isDashboard && <Navbar />}
+      <ScrollToTop />
+      <main>
+        <AppRouter />
+      </main>
+      {!isDashboard && <Footer />}
+      {!isDashboard && <WhatsAppButton />}
+    </>
+  );
+}
 
 export default function App() {
   return (
@@ -12,12 +30,7 @@ export default function App() {
       <ThemeProvider>
         <BrowserRouter>
           <div className="bg-jet-950 font-sans text-white overflow-x-hidden">
-            <Navbar />
-            <main>
-              <AppRouter />
-            </main>
-            <Footer />
-            <WhatsAppButton />
+            <SiteLayout />
           </div>
         </BrowserRouter>
       </ThemeProvider>

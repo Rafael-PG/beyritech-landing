@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { modeloName } from "../lib/modelosMeta";
+import { processHtml } from "../lib/html";
 
 interface BlogArticle {
   idBlog: number;
   slug: string;
-  servicio: string;
+  modelo: string;
   title: string;
   excerpt: string;
   content: string;
@@ -14,15 +16,16 @@ interface BlogArticle {
   readTime: string;
   image: string;
   keywords: string;
+  modifiedDate?: string | null;
 }
 
 export default function BlogArticle() {
-  const { slug } = useParams();
+  const { modelo, slug } = useParams();
   const [article, setArticle] = useState<BlogArticle | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/blog/${slug}`)
+    fetch(`/api/blog/${modelo}/${slug}`)
       .then((r) => {
         if (!r.ok) throw new Error("Not found");
         return r.json();
@@ -30,7 +33,7 @@ export default function BlogArticle() {
       .then(setArticle)
       .catch(() => setArticle(null))
       .finally(() => setLoading(false));
-  }, [slug]);
+  }, [modelo, slug]);
 
   if (loading) {
     return (
@@ -51,13 +54,16 @@ export default function BlogArticle() {
     );
   }
 
+  const html = processHtml(article.content);
+
   return (
-    <article className="min-h-screen bg-jet-950 text-white pt-28 pb-20">
+    <article className="min-h-screen bg-jet-950 text-white pt-28 pb-20" itemScope itemType="https://schema.org/BlogPosting">
       <SEO
         title={article.title}
         description={article.excerpt}
-        url={`/blog/${article.slug}`}
+        url={`/blog/${article.modelo}/${article.slug}`}
         type="article"
+        keywords={article.keywords}
       />
       <div className="max-w-3xl mx-auto px-6">
         {/* Breadcrumb */}
@@ -72,7 +78,7 @@ export default function BlogArticle() {
         {/* Meta */}
         <div className="flex items-center gap-3 mb-4">
           <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 border border-gold-500/20 px-2 py-0.5">
-            {article.servicio}
+            {modeloName(article.modelo)}
           </span>
           <span className="text-[10px] font-mono text-jet-400">
             {article.readTime}
@@ -80,18 +86,20 @@ export default function BlogArticle() {
         </div>
 
         {/* Title */}
-        <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+        <h1 itemProp="headline" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
           {article.title}
         </h1>
 
         {/* Author & date */}
         <div className="flex items-center gap-4 text-xs font-mono text-jet-400 mb-10 pb-10 border-b border-jet-800">
-          <span>{article.author}</span>
-          <span>{new Date(article.date).toLocaleDateString("es-PE", { year: "numeric", month: "long", day: "numeric" })}</span>
+          <span itemProp="author">{article.author}</span>
+          <span itemProp="datePublished" content={article.date}>
+            {new Date(article.date).toLocaleDateString("es-PE", { year: "numeric", month: "long", day: "numeric" })}
+          </span>
         </div>
 
         {/* Excerpt */}
-        <p className="text-lg text-jet-200 font-light leading-relaxed mb-10 pb-10 border-b border-jet-800">
+        <p itemProp="description" className="text-lg text-jet-200 font-light leading-relaxed mb-10 pb-10 border-b border-jet-800">
           {article.excerpt}
         </p>
 
@@ -105,7 +113,7 @@ export default function BlogArticle() {
             prose-li:text-jet-300 prose-li:font-light
             prose-strong:text-white
             prose-a:text-gold-500 prose-a:no-underline hover:prose-a:underline"
-          dangerouslySetInnerHTML={{ __html: article.content }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
 
         {/* CTA */}

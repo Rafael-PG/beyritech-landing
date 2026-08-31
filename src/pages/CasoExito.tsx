@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { modeloName } from "../lib/modelosMeta";
+import { processHtml } from "../lib/html";
 
 interface CasoExito {
   idCasos: number;
   slug: string;
-  servicio: string;
+  modelo: string;
   title: string;
   excerpt: string;
   content: string;
@@ -17,12 +19,12 @@ interface CasoExito {
 }
 
 export default function CasoExito() {
-  const { slug } = useParams();
+  const { modelo, slug } = useParams();
   const [caso, setCaso] = useState<CasoExito | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/casos-exito/${slug}`)
+    fetch(`/api/casos-exito/${modelo}/${slug}`)
       .then((r) => {
         if (!r.ok) throw new Error("Not found");
         return r.json();
@@ -30,7 +32,7 @@ export default function CasoExito() {
       .then(setCaso)
       .catch(() => setCaso(null))
       .finally(() => setLoading(false));
-  }, [slug]);
+  }, [modelo, slug]);
 
   if (loading) {
     return (
@@ -56,7 +58,7 @@ export default function CasoExito() {
       <SEO
         title={caso.title}
         description={caso.excerpt}
-        url={`/casos-de-exito/${caso.slug}`}
+        url={`/casos-de-exito/${caso.modelo}/${caso.slug}`}
         type="article"
       />
       <div className="max-w-3xl mx-auto px-6">
@@ -72,7 +74,7 @@ export default function CasoExito() {
         {/* Meta */}
         <div className="flex items-center gap-3 mb-4">
           <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 border border-gold-500/20 px-2 py-0.5">
-            {caso.servicio}
+            {modeloName(caso.modelo)}
           </span>
           <span className="text-[10px] font-mono text-jet-400">
             {caso.readTime}
@@ -105,7 +107,7 @@ export default function CasoExito() {
             prose-li:text-jet-300 prose-li:font-light
             prose-strong:text-white
             prose-a:text-gold-500 prose-a:no-underline hover:prose-a:underline"
-          dangerouslySetInnerHTML={{ __html: caso.content }}
+          dangerouslySetInnerHTML={{ __html: processHtml(caso.content) }}
         />
 
         {/* Gallery */}

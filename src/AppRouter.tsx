@@ -17,6 +17,7 @@ const Contacto = lazy(() => import("./pages/Contacto"));
 const Gracias = lazy(() => import("./pages/Gracias"));
 const PoliticaPrivacidad = lazy(() => import("./pages/PoliticaPrivacidad"));
 const TerminosCondiciones = lazy(() => import("./pages/TerminosCondiciones"));
+const Direccion = lazy(() => import("./pages/Direccion"));
 
 function PageFallback() {
   return (
@@ -38,14 +39,15 @@ export default function AppRouter() {
         <Route path="/modelos/:slug" element={<ModeloDetalle />} />
         <Route path="/proceso" element={<Proceso />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogArticle />} />
+        <Route path="/blog/:modelo/:slug" element={<BlogArticle />} />
         <Route path="/casos-de-exito" element={<CasosExito />} />
-        <Route path="/casos-de-exito/:slug" element={<CasoExito />} />
+        <Route path="/casos-de-exito/:modelo/:slug" element={<CasoExito />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/gracias" element={<Gracias />} />
         <Route path="/politica-de-privacidad" element={<PoliticaPrivacidad />} />
         <Route path="/terminos-y-condiciones" element={<TerminosCondiciones />} />
+        <Route path="/direccion" element={<Direccion />} />
         <Route path="*" element={
           <div className="min-h-screen bg-jet-950 flex flex-col items-center justify-center gap-4">
             <h1 className="font-display text-6xl font-bold text-gold-500">404</h1>

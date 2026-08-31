@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { modeloName, modeloShort } from "../lib/modelosMeta";
 
 interface BlogPost {
   idBlog: number;
   slug: string;
-  servicio: string;
+  modelo: string;
   title: string;
   excerpt: string;
   date: string;
@@ -31,8 +32,8 @@ export default function Blog() {
       .catch(() => setLoading(false));
   }, []);
 
-  const servicios = ["todos", ...new Set(posts.map((p) => p.servicio))];
-  const filtered = filter === "todos" ? posts : posts.filter((p) => p.servicio === filter);
+  const modelos = ["todos", ...new Set(posts.map((p) => p.modelo))];
+  const filtered = filter === "todos" ? posts : posts.filter((p) => p.modelo === filter);
 
   return (
     <section className="min-h-screen bg-jet-950 text-white pt-28 pb-20">
@@ -59,7 +60,7 @@ export default function Blog() {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {servicios.map((s) => (
+          {modelos.map((s) => (
             <button
               key={s}
               onClick={() => setFilter(s)}
@@ -69,7 +70,7 @@ export default function Blog() {
                   : "bg-jet-900 border-jet-800 text-jet-300 hover:border-gold-500/40"
               }`}
             >
-              {s}
+              {modeloShort(s)}
             </button>
           ))}
         </div>
@@ -93,12 +94,12 @@ export default function Blog() {
           {filtered.map((post) => (
             <Link
               key={post.idBlog}
-              to={`/blog/${post.slug}`}
+              to={`/blog/${post.modelo}/${post.slug}`}
               className="group bg-jet-900 border border-jet-800 hover:border-gold-500/40 rounded overflow-hidden transition-all duration-300 hover:-translate-y-1"
             >
               <div className="h-48 bg-gradient-to-br from-jet-900 to-jet-950 flex items-center justify-center">
                 <span className="text-xs font-mono text-jet-600 uppercase tracking-widest">
-                  {post.servicio}
+                  {modeloName(post.modelo)}
                 </span>
               </div>
               <div className="p-6">

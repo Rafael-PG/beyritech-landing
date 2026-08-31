@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { whatsappLink } from "../data/empresa";
 import { useTheme } from "../context/ThemeContext";
+import { trackWhatsAppClick } from "../api/tracking";
+import WhatsAppModal from "./modals/WhatsAppModal";
 
 const MESSAGE = "Hola, me interesa solicitar información sobre sus módulos multipropósitos.";
 
@@ -14,25 +17,37 @@ function WhatsAppGlyph() {
 export default function WhatsAppButton() {
   const { isLight } = useTheme();
   const href = whatsappLink(MESSAGE);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    trackWhatsAppClick();
+    setOpen(true);
+  };
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Contactar por WhatsApp"
-      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-105"
-    >
-      <span
-        className={`hidden sm:block absolute right-full mr-3 text-sm rounded-lg px-3 py-2 whitespace-nowrap pointer-events-none border shadow-lg ${
-          isLight
-            ? "bg-white text-jet-950 border-jet-200/70 shadow-jet-950/10"
-            : "bg-black/80 text-white border-white/15"
-        }`}
+    <>
+      <button
+        type="button"
+        onClick={handleClick}
+        aria-label="Contactar por WhatsApp"
+        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-105"
       >
-        ¿Hablamos por WhatsApp?
-      </span>
-      <WhatsAppGlyph />
-    </a>
+        <span
+          className={`hidden sm:block absolute right-full mr-3 text-sm rounded-lg px-3 py-2 whitespace-nowrap pointer-events-none border shadow-lg ${
+            isLight
+              ? "bg-white text-jet-950 border-jet-200/70 shadow-jet-950/10"
+              : "bg-black/80 text-white border-white/15"
+          }`}
+        >
+          ¿Hablamos por WhatsApp?
+        </span>
+        <WhatsAppGlyph />
+      </button>
+      <WhatsAppModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSkip={() => window.open(href, "_blank")}
+      />
+    </>
   );
 }

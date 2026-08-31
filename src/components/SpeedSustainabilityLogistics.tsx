@@ -14,7 +14,7 @@ export default function SpeedSustainabilityLogistics() {
   }, []);
 
   return (
-    <section id="speed-sustainability-logistics" className="section-texture py-24 bg-jet-900 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
+    <section id="speed-sustainability-logistics" className="section-texture py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 gold-grid-overlay" />
 
@@ -92,7 +92,7 @@ export default function SpeedSustainabilityLogistics() {
                   Sostenibilidad de Vanguardia y Eficiencia Térmica
                 </h3>
                 <p className="text-sm sm:text-base text-jet-200 font-light leading-relaxed">
-                  Los módulos Beyritech se fabrican en un entorno controlado que reduce drásticamente el desperdicio de materiales en comparación con la construcción tradicional. Además, el diseño modular y el aislamiento de alta resistencia minimizan la energía necesaria para la climatización interna.
+                  La fabricación industrial en entorno controlado de nuestros módulos reduce drásticamente el desperdicio de materiales en comparación con la construcción tradicional. Además, el diseño modular y el aislamiento de alta resistencia minimizan la energía necesaria para la climatización interna.
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-jet-800/80">
@@ -197,13 +197,13 @@ export default function SpeedSustainabilityLogistics() {
                   Velocidad de Despliegue que Acelera el Retorno
                 </h3>
                 <p className="text-sm sm:text-base text-jet-200 font-light leading-relaxed">
-                  Mientras que en un proyecto tradicional no se puede construir el armazón hasta terminar los cimientos, Beyritech realiza la prefabricación modular en planta automatizada en paralelo con la preparación del terreno. Esto reduce significativamente el cronograma de ejecución global.
+                  Mientras que en un proyecto tradicional no se puede levantar el armazón hasta terminar los cimientos, nuestros módulos llegan al sitio listos para instalarse, en paralelo con la preparación del terreno. Esto reduce significativamente el cronograma de ejecución global.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-jet-800/80">
                   <div>
                     <h4 className="font-display text-2xl font-bold text-gold-500 font-mono">En paralelo</h4>
-                    <p className="text-xs text-jet-300 mt-1">Fabricación en planta mientras se prepara el terreno.</p>
+                    <p className="text-xs text-jet-300 mt-1">Módulos listos para instalar mientras se prepara el terreno.</p>
                   </div>
                   <div>
                     <h4 className="font-display text-2xl font-bold text-white font-mono">48 Horas</h4>
@@ -239,7 +239,7 @@ export default function SpeedSustainabilityLogistics() {
                   </div>
                   <div className="h-10 w-full bg-jet-950 rounded overflow-hidden flex text-[10px] font-mono text-center relative border border-gold-500/30">
                     <div className="bg-gold-700 text-black font-bold flex flex-col justify-center px-1" style={{ width: "50%" }}>
-                      <span>Planta</span>
+                      <span>Preparación</span>
                       <span className="text-[8px] opacity-75">Paralelo</span>
                     </div>
                     <div className="bg-gold-600 text-black font-bold flex flex-col justify-center px-1" style={{ width: "30%" }}>

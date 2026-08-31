@@ -11,6 +11,7 @@ interface SEOProps {
   url?: string;
   type?: string;
   noindex?: boolean;
+  keywords?: string;
   structuredData?: object | object[];
 }
 
@@ -21,6 +22,7 @@ export default function SEO({
   url,
   type = "website",
   noindex = false,
+  keywords,
   structuredData,
 }: SEOProps) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Módulos Multipropósitos de Fabricación Nacional`;
@@ -30,6 +32,7 @@ export default function SEO({
     <Helmet>
       <title>{fullTitle}</title>
       {description && <meta name="description" content={description} />}
+      {keywords && <meta name="keywords" content={keywords} />}
       <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
       <link rel="canonical" href={fullUrl} />
 
