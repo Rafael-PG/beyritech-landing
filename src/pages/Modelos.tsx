@@ -88,7 +88,7 @@ export default function Modelos() {
   return (
     <>
       <SEO
-        title="Catálogo de Modelos — Multispace, Doble Ala, Mini Doble Ala"
+        title="Catálogo de Modelos — Multispace, Módulo Plegable Z, Doble Ala"
         description="Tres líneas de módulos prefabricados optimizados para diferentes sectores. Especificaciones técnicas, fichas y aplicaciones por uso."
         url="/modelos"
         structuredData={{ "@context": "https://schema.org", "@type": "ItemList", name: "Modelos Beyritech", numberOfItems: 3, itemListElement: catalog.map((m, i) => ({ "@type": "ListItem", position: i + 1, name: m.name })) }}

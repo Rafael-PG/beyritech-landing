@@ -27,7 +27,7 @@ const models: ModelInfo[] = catalog.map((m) => ({
     { label: "Dimensiones", value: m.dimensionsOpen },
     { label: "Área útil", value: m.area },
     { label: "Capacidad", value: m.capacity },
-    { label: "Aislamiento PIR", value: m.insulation },
+    { label: "Aislamiento", value: m.insulation },
   ],
   applications: m.applications,
   description: m.description,
@@ -63,7 +63,7 @@ function MultispaceBlueprint() {
       <line x1={60} y1={190} x2={290} y2={190} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
       <line x1={60} y1={186} x2={60} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
       <line x1={290} y1={186} x2={290} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <text x={175} y={205} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>6.0 m</text>
+      <text x={175} y={205} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>5.8 m</text>
       <g opacity={0.35}>
         <text x="200" y="225" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">PLEGABLE</text>
       </g>
@@ -86,17 +86,17 @@ function DobleAlaBlueprint() {
       <line x1="200" y1="40" x2="200" y2="190" stroke="#FEC934" strokeWidth="0.6" strokeDasharray="4,3" opacity={0.3} />
       <rect x="40" y="60" width="150" height="110" rx="2" fill="none" stroke="#FEC934" strokeWidth="1" opacity={0.7} />
       <rect x="210" y="60" width="150" height="110" rx="2" fill="none" stroke="#FEC934" strokeWidth="1" opacity={0.7} />
-      <text x="115" y="120" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>ALA I</text>
-      <text x="285" y="120" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>ALA II</text>
+      <text x="115" y="120" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>DORMITORIOS / BAÑO</text>
+      <text x="285" y="120" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>ESTAR / COCINA EN L</text>
       <line x1={40} y1={200} x2={360} y2={200} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
       <line x1={40} y1={196} x2={40} y2={204} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
       <line x1={360} y1={196} x2={360} y2={204} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <text x={200} y={218} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>18.0 m</text>
+      <text x={200} y={218} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>6.2 m</text>
     </svg>
   );
 }
 
-function MiniDobleAlaBlueprint() {
+function ModuloPlegableZBlueprint() {
   return (
     <svg viewBox="0 0 400 250" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -106,17 +106,30 @@ function MiniDobleAlaBlueprint() {
       </defs>
       <rect width="400" height="250" fill="url(#bp-grid3)" />
       <g opacity={0.6}>
-        <text x="200" y="18" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">VISTA SUPERIOR — MINI DOBLE ALA</text>
+        <text x="200" y="18" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">VISTA LATERAL — MÓDULO PLEGABLE Z</text>
       </g>
-      <line x1="200" y1="40" x2="200" y2="190" stroke="#FEC934" strokeWidth="0.6" strokeDasharray="4,3" opacity={0.3} />
-      <rect x="80" y="60" width="110" height="90" rx="2" fill="none" stroke="#FEC934" strokeWidth="1" opacity={0.7} />
-      <rect x="210" y="60" width="110" height="90" rx="2" fill="none" stroke="#FEC934" strokeWidth="1" opacity={0.7} />
-      <text x="135" y="110" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>ALA I</text>
-      <text x="265" y="110" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>ALA II</text>
-      <line x1={80} y1={180} x2={320} y2={180} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={80} y1={176} x2={80} y2={184} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={320} y1={176} x2={320} y2={184} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <text x={200} y={198} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>9.0 m</text>
+      <g opacity={0.6}>
+        {[80, 160, 240].map((x, i) => (
+          <g key={i}>
+            <rect x={x} y="35" width="60" height="140" rx="1" fill="none" stroke="#FEC934" strokeWidth="1" />
+            <line x1={x} y1="35" x2={x + 60} y2="175" stroke="#FEC934" strokeWidth="0.3" opacity={0.3} />
+            <line x1={x + 60} y1="35" x2={x} y2="175" stroke="#FEC934" strokeWidth="0.3" opacity={0.3} />
+          </g>
+        ))}
+      </g>
+      {[140, 200].map((cx, i) => (
+        <g key={`hinge-${i}`}>
+          <circle cx={cx} cy="105" r="4" fill="none" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
+          <circle cx={cx} cy="105" r="1.5" fill="#FEC934" opacity={0.7} />
+        </g>
+      ))}
+      <line x1={80} y1={190} x2={300} y2={190} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
+      <line x1={80} y1={186} x2={80} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
+      <line x1={300} y1={186} x2={300} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
+      <text x={190} y={205} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>5.8 m</text>
+      <g opacity={0.35}>
+        <text x="200" y="225" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">PLEGABLE Z</text>
+      </g>
     </svg>
   );
 }
@@ -124,8 +137,8 @@ function MiniDobleAlaBlueprint() {
 function ModelBlueprint({ id }: { id: string }) {
   switch (id) {
     case "multispace": return <MultispaceBlueprint />;
+    case "modulo-plegable-z": return <ModuloPlegableZBlueprint />;
     case "doble-ala": return <DobleAlaBlueprint />;
-    case "mini-doble-ala": return <MiniDobleAlaBlueprint />;
     default: return null;
   }
 }
@@ -190,7 +203,7 @@ export default function Models({
             <div className="inline-flex items-center gap-3 px-4 py-2 border border-gold-500/20 mb-6">
               <Ruler className="w-4 h-4 text-gold-500" />
               <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-gold-500 font-semibold">
-                Catálogo de Ingeniería
+                Catálogo de Soluciones
               </span>
               <Ruler className="w-4 h-4 text-gold-500" />
             </div>
@@ -220,7 +233,7 @@ export default function Models({
                   <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-gold-500/30 z-10" />
                   <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-gold-500/30 z-10" />
                   <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-gold-500/30 z-10" />
-                  
+
                   <div className="h-80 sm:h-96 p-6 bg-jet-950/50 flex items-center justify-center transition-opacity duration-150 ease-in-out" style={{ opacity: isAnimating ? 0 : 1 }}>
                     <ModelBlueprint id={currentModel.id} />
                   </div>
@@ -241,11 +254,10 @@ export default function Models({
                         <button
                           key={index}
                           onClick={() => goToIndex(index)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentIndex
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                               ? "bg-gold-500 w-8"
                               : "bg-jet-600 hover:bg-jet-500"
-                          }`}
+                            }`}
                         />
                       ))}
                     </div>

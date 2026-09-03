@@ -71,7 +71,7 @@ export const sectors: Sector[] = [
     ],
     recommendedModels: [
       { name: "Doble Ala", slug: "doble-ala", fit: "Oficinas dentro de naves y de amplio espectro" },
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Oficinas operativas compactas" },
+      { name: "Módulo Plegable Z", slug: "modulo-plegable-z", fit: "Oficinas operativas compactas" },
     ],
     benefits: [
       "Instalación sin interrumpir la operación",
@@ -106,7 +106,7 @@ export const sectors: Sector[] = [
     ],
     recommendedModels: [
       { name: "Multispace", slug: "multispace", fit: "Campamentos y oficinas de campo" },
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Oficinas y servicios temporales" },
+      { name: "Módulo Plegable Z", slug: "modulo-plegable-z", fit: "Oficinas y servicios temporales" },
     ],
     benefits: [
       "Temporalidad controlada — se retira al terminar",
@@ -132,7 +132,7 @@ export const sectors: Sector[] = [
     ],
     recommendedModels: [
       { name: "Doble Ala", slug: "doble-ala", fit: "Oficinas ejecutivas amplias" },
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Salas de reunión y oficinas compactas" },
+      { name: "Módulo Plegable Z", slug: "modulo-plegable-z", fit: "Salas de reunión y oficinas compactas" },
     ],
     benefits: [
       "Acabados de arquitectura premium",
@@ -157,7 +157,7 @@ export const sectors: Sector[] = [
       "Espacios de atención estudiantil",
     ],
     recommendedModels: [
-      { name: "Mini Doble Ala", slug: "mini-doble-ala", fit: "Aulas y espacios educativos compactos" },
+      { name: "Módulo Plegable Z", slug: "modulo-plegable-z", fit: "Aulas y espacios educativos compactos" },
       { name: "Doble Ala", slug: "doble-ala", fit: "Laboratorios y bibliotecas amplias" },
     ],
     benefits: [

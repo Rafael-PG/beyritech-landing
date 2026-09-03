@@ -328,8 +328,8 @@ const usages = [
       "Superficies sanitarias lavables",
       "Cumplimiento normativo INVIMA",
     ],
-    model: "Mini Doble Ala",
-    link: "/modelos/mini-doble-ala",
+    model: "Módulo Plegable Z",
+    link: "/modelos/modulo-plegable-z",
     plan: <PlanAula />,
   },
   {
@@ -372,8 +372,8 @@ const usages = [
       "Extracción de gases opcional",
       "Fuente de agua purificada",
     ],
-    model: "Mini Doble Ala",
-    link: "/modelos/mini-doble-ala",
+    model: "Módulo Plegable Z",
+    link: "/modelos/modulo-plegable-z",
     plan: <PlanLaboratorio />,
   },
 ];

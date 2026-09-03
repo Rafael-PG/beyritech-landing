@@ -30,10 +30,9 @@ const resources: Resource[] = [
     slug: "ficha-doble-ala",
   },
   {
-    title: "Ficha Técnica — Mini Doble Ala",
-    description: "Especificaciones detalladas, planos CAD y memoria descriptiva del modelo Mini Doble Ala.",
-    type: "PDF",
-    slug: "ficha-mini-doble-ala",
+    title: "Ficha Técnica — Módulo Plegable Z",
+    description: "Especificaciones detalladas, planos CAD y memoria descriptiva del modelo Módulo Plegable Z.",
+    slug: "ficha-modulo-plegable-z",
   },
   {
     title: "Ficha Técnica — Almacén",

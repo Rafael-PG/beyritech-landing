@@ -132,7 +132,7 @@ async function startServer() {
     legacyHeaders: false,
   });
 
-  const ALLOWED_MODELS = ["multispace", "doble-ala", "mini-doble-ala"];
+  const ALLOWED_MODELS = ["multispace", "doble-ala", "modulo-plegable-z"];
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   function clientIp(req: any): string | null {

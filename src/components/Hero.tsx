@@ -1,8 +1,8 @@
 import { useRef, useEffect, type MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
-import Factory from "lucide-react/dist/esm/icons/factory";
-import Zap from "lucide-react/dist/esm/icons/zap";
+import Ship from "lucide-react/dist/esm/icons/ship";
+import Wrench from "lucide-react/dist/esm/icons/wrench";
 import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
 import Clock from "lucide-react/dist/esm/icons/clock";
 
@@ -74,16 +74,16 @@ export default function Hero() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 mb-6 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse" />
                 <span className="text-[11px] font-mono uppercase tracking-widest text-gold-300 font-semibold">
-                  Módulos prefabricados de fabricación nacional
+                  Modulos plegables multiproposito
                 </span>
               </div>
             </div>
 
             <div className="animate-fade-up stagger-2">
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-                Espacios habilitados en{" "}
+                Espacios habilitados{" "}
                 <span className="text-gold-500 relative inline-block">
-                  semanas, no en meses
+                  en días, no en meses
                   <span className="absolute left-0 bottom-1 w-full h-[3px] bg-gold-500/30" />
                 </span>
               </h1>
@@ -91,10 +91,7 @@ export default function Hero() {
 
             <div className="animate-fade-up stagger-3">
               <p className="font-sans text-base sm:text-lg lg:text-xl text-jet-200 font-light leading-relaxed mb-10 max-w-2xl">
-                Módulos prefabricados de fabricación nacional para agroindustria,
-                logística, obra y corporaciones. Reduzca tiempos de ejecución,
-                elimine imprevistos de presupuesto y obtenga un espacio operativo
-                en semanas.
+                Módulos plegables para trabajos de campo, campamentos, dormitorios, oficinas, entre otros. Reduzca tiempos de ejecución, elimine imprevistos de presupuesto y obtenga un espacio operativo en semanas.
               </p>
             </div>
 
@@ -120,8 +117,8 @@ export default function Hero() {
           <div className="pt-6 border-t border-jet-800/60 animate-fade-up stagger-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: Factory, label: "Fabricación nacional" },
-                { icon: Zap, label: "Montaje en semanas" },
+                { icon: Ship, label: "Importación" },
+                { icon: Wrench, label: "Montaje en días" },
                 { icon: ShieldCheck, label: "Garantía incluida" },
                 { icon: Clock, label: "Entrega garantizada" },
               ].map((item) => (
@@ -138,9 +135,9 @@ export default function Hero() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-12 pb-4 mt-12 animate-fade-up stagger-7">
           {[
             { label: "Proyectos ejecutados", value: "Agroindustria y logística", icon: "01" },
-            { label: "Reducción de tiempo", value: "Entregas en semanas, no en meses", icon: "02" },
+            { label: "Reducción de tiempo", value: "Entregas en días, no en meses", icon: "02" },
             { label: "Activo reubicable", value: "Se desmonta y se reinstala", icon: "03" },
-            { label: "Aislamiento térmico", value: "Alto rendimiento PIR", icon: "04" },
+            { label: "Aislamiento térmico", value: "Alto rendimiento lana de roca", icon: "04" },
           ].map((stat, i) => (
             <div
               key={i}

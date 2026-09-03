@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Ruler, ArrowRight, CheckCircle2, Download, Clock, MapPin, Layers, BedDouble, Droplet, Utensils, Stethoscope, Briefcase, Sun, Beaker, Warehouse, Building2, ShowerHead, Boxes } from "lucide-react";
+import { Ruler, ArrowRight, CheckCircle2, Download, Clock, MapPin, Layers, BedDouble, Droplet, Utensils, Stethoscope, Briefcase, Sun, Beaker, Warehouse, Building2, ShowerHead, Boxes, Shield, Zap, FlameKindling, DoorOpen, PanelTop, Plug } from "lucide-react";
 import SEO from "../components/SEO";
 import ScrollReveal from "../hooks/ScrollReveal";
 import FichaModal from "../components/modals/FichaModal";
@@ -11,8 +11,8 @@ const G = "#FEC934";
 
 const HERO_IMAGES: Record<string, string> = {
   multispace: "/images/modelo-multispace.webp",
+  "modulo-plegable-z": "/images/modelo-modulo-plegable-z.webp",
   "doble-ala": "/images/modelo-doble-ala.webp",
-  "mini-doble-ala": "/images/modelo-mini-doble-ala.webp",
 };
 
 function HeroImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
@@ -109,7 +109,7 @@ function FloorPlan({ slug, del }: { slug: string; del: (extra: number) => CSSPro
           </>
         )}
 
-        {slug === "mini-doble-ala" && (
+        {slug === "modulo-plegable-z" && (
           <>
             <rect x={28} y={28} width={120} height={124} strokeOpacity={0.8} className="animate-phase-line" style={del(0.1)} />
             <rect x={148} y={28} width={54} height={124} strokeOpacity={0.6} className="animate-phase-line" style={del(0.16)} />
@@ -142,7 +142,7 @@ export default function ModeloDetalle() {
   const model = getModel(slug);
   const related = getSortedModels(slug || "");
   const heroImage = slug ? HERO_IMAGES[slug] : undefined;
-  const modelKey = model?.slug === "doble-ala" ? "Doble Ala" : model?.slug === "mini-doble-ala" ? "Mini Doble Ala" : "Multispace";
+  const modelKey = model?.slug === "doble-ala" ? "Doble Ala" : model?.slug === "modulo-plegable-z" ? "Módulo Plegable Z" : "Multispace";
   const [fichaOpen, setFichaOpen] = useState(false);
 
   const zoneChips = [
@@ -475,6 +475,179 @@ export default function ModeloDetalle() {
           </div>
         </div>
         </section>
+
+      {/* Secciones técnicas detalladas — solo si el modelo tiene datos del PDF */}
+      {(model.certifications || model.structuralDetails || model.resistanceSpecs || model.electricalSystem || model.windowSpec || model.doorSpec || model.wallPanelSpec) && (
+        <section className="section-texture py-24 bg-jet-950 text-white relative">
+          <div className="absolute inset-0 gold-grid-overlay" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
+
+          <div className="relative max-w-7xl mx-auto px-6 space-y-20">
+
+            {/* Certificaciones */}
+            {model.certifications && model.certifications.length > 0 && (
+              <ScrollReveal>
+                <div className="text-center max-w-3xl mx-auto">
+                  <span className="text-xs font-mono uppercase tracking-widest text-gold-500 font-semibold">
+                    Normativas
+                  </span>
+                  <h2 className="font-display text-3xl sm:text-4xl font-bold mt-3 tracking-tight">
+                    Certificaciones del <span className="text-gold-500">Producto</span>
+                  </h2>
+                  <div className="flex flex-wrap justify-center gap-4 mt-8">
+                    {model.certifications.map((cert) => (
+                      <div
+                        key={cert}
+                        className="relative flex items-center gap-3 bg-jet-900/60 border border-gold-500/20 px-6 py-4 rounded"
+                      >
+                        <div className="absolute top-0 left-0 w-2.5 h-2.5 border-l-2 border-t-2 border-gold-500/40" />
+                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-r-2 border-b-2 border-gold-500/40" />
+                        <Shield className="w-5 h-5 text-gold-500 shrink-0" />
+                        <span className="font-mono text-sm text-white font-semibold tracking-wide">{cert}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
+
+            {/* Detalles Estructurales */}
+            {model.structuralDetails && model.structuralDetails.length > 0 && (
+              <ScrollReveal delay={0.05}>
+                <div>
+                  <div className="flex items-center gap-2 mb-6">
+                    <Ruler className="w-4 h-4 text-gold-500" />
+                    <h2 className="font-display text-2xl font-bold text-white">Detalles Estructurales</h2>
+                  </div>
+                  <div className="relative border border-jet-800/70 bg-jet-900/50 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-gold-500/40" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-gold-500/40" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-gold-500/40" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-gold-500/40" />
+
+                    {/* Table header */}
+                    <div className="grid grid-cols-3 gap-px bg-jet-800/60">
+                      <div className="bg-jet-950 px-6 py-3">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-semibold">Componente</span>
+                      </div>
+                      <div className="bg-jet-950 px-6 py-3">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-semibold">Material</span>
+                      </div>
+                      <div className="bg-jet-950 px-6 py-3">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-semibold">Especificación</span>
+                      </div>
+                    </div>
+
+                    {/* Table rows */}
+                    {model.structuralDetails.map((detail, i) => (
+                      <div key={i} className="grid grid-cols-3 gap-px bg-jet-800/30">
+                        <div className="bg-jet-900/80 px-6 py-3">
+                          <span className="text-sm text-white font-medium">{detail.component}</span>
+                        </div>
+                        <div className="bg-jet-900/80 px-6 py-3">
+                          <span className="text-sm text-jet-300 font-light">{detail.material}</span>
+                        </div>
+                        <div className="bg-jet-900/80 px-6 py-3">
+                          <span className="text-xs font-mono text-gold-500/80">{detail.spec}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
+
+            {/* Capacidades de Resistencia */}
+            {model.resistanceSpecs && model.resistanceSpecs.length > 0 && (
+              <ScrollReveal delay={0.1}>
+                <div>
+                  <div className="flex items-center gap-2 mb-6">
+                    <FlameKindling className="w-4 h-4 text-gold-500" />
+                    <h2 className="font-display text-2xl font-bold text-white">Capacidades de Resistencia</h2>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {model.resistanceSpecs.map((rs, i) => (
+                      <div key={i} className="relative bg-jet-900/60 border border-jet-800/70 p-5 rounded">
+                        <div className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-gold-500/40" />
+                        <p className="text-[10px] font-mono uppercase tracking-widest text-jet-400 mb-2">{rs.label}</p>
+                        <p className="font-mono text-lg text-white font-bold">{rs.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
+
+            {/* Sistema Eléctrico */}
+            {model.electricalSystem && model.electricalSystem.length > 0 && (
+              <ScrollReveal delay={0.15}>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  <div>
+                    <div className="flex items-center gap-2 mb-6">
+                      <Zap className="w-4 h-4 text-gold-500" />
+                      <h2 className="font-display text-2xl font-bold text-white">Sistema Eléctrico</h2>
+                    </div>
+                    <ul className="space-y-3">
+                      {model.electricalSystem.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-jet-300 bg-jet-900/60 border border-jet-800 rounded p-3.5">
+                          <Plug className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
+                          <span className="font-light">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Cerramientos */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-6">
+                      <PanelTop className="w-4 h-4 text-gold-500" />
+                      <h2 className="font-display text-2xl font-bold text-white">Cerramientos</h2>
+                    </div>
+                    <div className="space-y-4">
+                      {model.windowSpec && (
+                        <div className="relative bg-jet-900/60 border border-jet-800/70 p-4 rounded">
+                          <div className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-gold-500/40" />
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-gold-500 mb-2">Ventana</p>
+                          <p className="text-sm text-jet-300 font-light leading-relaxed">{model.windowSpec}</p>
+                        </div>
+                      )}
+                      {model.doorSpec && (
+                        <div className="relative bg-jet-900/60 border border-jet-800/70 p-4 rounded">
+                          <div className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-gold-500/40" />
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-gold-500 mb-2">Puerta</p>
+                          <p className="text-sm text-jet-300 font-light leading-relaxed">{model.doorSpec}</p>
+                        </div>
+                      )}
+                      {model.wallPanelSpec && (
+                        <div className="relative bg-jet-900/60 border border-jet-800/70 p-4 rounded">
+                          <div className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-gold-500/40" />
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-gold-500 mb-2">Paneles de pared</p>
+                          <p className="text-sm text-jet-300 font-light leading-relaxed">{model.wallPanelSpec}</p>
+                        </div>
+                      )}
+                      {model.roofSpec && (
+                        <div className="relative bg-jet-900/60 border border-jet-800/70 p-4 rounded">
+                          <div className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-gold-500/40" />
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-gold-500 mb-2">Techo</p>
+                          <p className="text-sm text-jet-300 font-light leading-relaxed">{model.roofSpec}</p>
+                        </div>
+                      )}
+                      {model.floorSpec && (
+                        <div className="relative bg-jet-900/60 border border-jet-800/70 p-4 rounded">
+                          <div className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-gold-500/40" />
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-gold-500 mb-2">Piso</p>
+                          <p className="text-sm text-jet-300 font-light leading-relaxed">{model.floorSpec}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
+
+          </div>
+        </section>
+      )}
 
       {/* Modelos relacionados */}
       {related.length > 0 && (

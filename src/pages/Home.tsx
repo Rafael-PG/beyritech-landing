@@ -49,8 +49,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Módulos Multipropósitos de Fabricación Nacional"
-        description="Módulos prefabricados plegables para agroindustria, logística, obra y corporaciones. Reduzca tiempos de ejecución y obtenga un espacio operativo en semanas."
+        title="Módulos Multipropósito Plegables de Alta Resistencia | Beyritech"
+        description="Módulos prefabricados plegables para agroindustria, minería, construcción y corporaciones. Reduzca tiempos de ejecución y obtenga un espacio operativo en días."
         url="/"
         structuredData={homeStructuredData}
       />

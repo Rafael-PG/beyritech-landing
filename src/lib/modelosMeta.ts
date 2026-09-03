@@ -1,10 +1,10 @@
 export const MODELOS_META: Record<string, { name: string; short: string }> = {
   multispace: { name: "Módulo Plegable Multispace", short: "Multispace" },
   "doble-ala": { name: "Módulo Plegable Doble Ala", short: "Doble Ala" },
-  "mini-doble-ala": { name: "Mini Doble Ala", short: "Mini Doble Ala" },
+  "modulo-plegable-z": { name: "Módulo Plegable Z", short: "Módulo Plegable Z" },
 };
 
-export const MODEL_SLUGS = ["multispace", "doble-ala", "mini-doble-ala"];
+export const MODEL_SLUGS = ["multispace", "doble-ala", "modulo-plegable-z"];
 
 export function modeloName(slug?: string | null): string {
   if (!slug) return "Beyritech";

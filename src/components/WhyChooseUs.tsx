@@ -1,24 +1,24 @@
 import React from "react";
-import { ShieldAlert, Cpu, Layers, HardHat, FileCheck, Anchor } from "lucide-react";
+import { Flame, Maximize, Paintbrush, HardHat, Plug, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
 import ScrollReveal from "../hooks/ScrollReveal";
 
 export default function WhyChooseUs() {
   const highlights = [
     {
-      icon: Cpu,
+      icon: Maximize,
       title: "Ingeniería Volumétrica Escalable",
-      desc: "Sistemas de acoplamiento rápido tridimensional que permiten unir módulos de forma lateral, longitudinal y vertical hasta 3 niveles de altura, maximizando la eficiencia de espacio."
+      desc: "Sistemas de acoplamiento rápido que permiten unir módulos de forma lateral, longitudinal y vertical hasta 2 niveles de altura, maximizando la eficiencia de espacio."
     },
     {
-      icon: Anchor,
+      icon: ShieldCheck,
       title: "Protección Anticorrosión Industrial",
-      desc: "Estructuras de acero de alto límite elástico con protección anticorrosión multicapa. Diseñado para condiciones extremas de viento y carga."
+      desc: "Estructuras de acero con protección anticorrosión multicapa. Diseñado para condiciones extremas de viento y carga."
     },
     {
-      icon: ShieldAlert,
+      icon: Flame,
       title: "Aislamiento Ignífugo e Hidrófugo",
-      desc: "Paneles herméticos de núcleo PIR/Lana de roca con clasificación ignífuga. Bloquean ruidos y humedad ambiental para entornos exigentes."
+      desc: "Paneles herméticos de núcleo Lana de roca con clasificación ignífuga. Bloquean ruidos y humedad ambiental para entornos exigentes."
     },
     {
       icon: HardHat,
@@ -26,14 +26,14 @@ export default function WhyChooseUs() {
       desc: "Nuestros módulos están diseñados para cumplir estándares de seguridad laboral y normativas de habitabilidad en entornos exigentes de costa y sierra."
     },
     {
-      icon: Layers,
-      title: "Acabados de Arquitectura Premium",
-      desc: "Combinación de metales industriales pulidos, carpintería de madera termotratada y paneles de vidrio templado panorámico, tal como se aprecia en el diseño de vanguardia de nuestros proyectos."
+      icon: Paintbrush,
+      title: "Acabados y Revestimientos Duraderos",
+      desc: "Estructura de acero galvanizado con recubrimiento electrostático blanco, paneles interiores plastificados lavables, marcos de aluminio y pisos de alta resistencia."
     },
     {
-      icon: FileCheck,
-      title: "Diseño Estructural para Sismicidad",
-      desc: "Cálculos estructurales para zonas de alta sismicidad, priorizando la seguridad de las operaciones y el personal."
+      icon: Plug,
+      title: "Sistema eléctrico incluido",
+      desc: "Los módulos Beyritech llegan con la instalación eléctrica integrada de fábrica (iluminación LED, tomas de corriente y tablero con protección). Solo conecta la energía y comienza a operar."
     }
   ];
 
@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
     <section id="why-choose-us" className="section-texture py-24 bg-jet-950 text-white relative [content-visibility:auto] [contain-intrinsic-size:600px]">
       {/* Grid texture background */}
       <div className="absolute inset-0 gold-grid-overlay" />
-      
+
       <div className="max-w-7xl mx-auto px-6 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -53,7 +53,7 @@ export default function WhyChooseUs() {
           </h2>
           <div className="w-16 h-[2px] bg-gold-500 mx-auto mt-6" />
           <p className="text-jet-200 mt-4 font-sans text-base sm:text-lg font-light leading-relaxed">
-            Fusionamos la velocidad de la prefabricación automatizada con la sofisticación de la arquitectura de lujo, creando Módulos Multipropósito y contenedores de oficina de resistencia extrema, ideales para minería, corporaciones, clínicas y aulas modulares.
+            Fusionamos la velocidad de la prefabricación automatizada con la sofisticación de la arquitectura modular, creando Módulos Multipropósito, ideales para minería, corporaciones, clínicas y aulas modulares.
           </p>
         </div>
 
@@ -94,24 +94,24 @@ export default function WhyChooseUs() {
         {/* Dynamic Comparison Banner */}
         <ScrollReveal>
           <div className="mt-16 bg-gradient-to-r from-jet-900 to-jet-950 rounded border border-jet-800 p-8 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
-          <div className="max-w-2xl">
-            <span className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-semibold block mb-2">
-              Líder de Categoría
-            </span>
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-2">
-              ¿Listo para dar el salto tecnológico a la construcción modular?
-            </h3>
-            <p className="text-sm text-jet-300 font-light leading-relaxed">
-              Deje atrás las demoras climáticas, las fugas de presupuesto y los residuos de obra húmeda. Beyritech ofrece presupuestos cerrados y tiempos de entrega garantizados bajo contrato comercial.
-            </p>
+            <div className="max-w-2xl">
+              <span className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-semibold block mb-2">
+                Líder de Categoría
+              </span>
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-2">
+                ¿Listo para dar el salto tecnológico a la construcción modular?
+              </h3>
+              <p className="text-sm text-jet-300 font-light leading-relaxed">
+                Deje atrás las demoras operativas, las fugas de presupuesto y los residuos de obra húmeda. Beyritech ofrece presupuestos cerrados y tiempos de entrega garantizados bajo contrato comercial.
+              </p>
+            </div>
+            <a
+              href="#estimator"
+              className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black text-xs font-mono font-bold tracking-wider uppercase rounded shrink-0 transition-colors duration-200 shadow-md shadow-gold-500/15"
+            >
+              Obtener Ficha Técnica
+            </a>
           </div>
-          <a
-            href="#estimator"
-            className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black text-xs font-mono font-bold tracking-wider uppercase rounded shrink-0 transition-colors duration-200 shadow-md shadow-gold-500/15"
-          >
-            Obtener Ficha Técnica
-          </a>
-        </div>
         </ScrollReveal>
       </div>
     </section>

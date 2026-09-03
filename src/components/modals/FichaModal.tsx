@@ -37,6 +37,17 @@ export default function FichaModal({ open, onClose, modelo }: FichaModalProps) {
     setError(null);
     setLoading(true);
     await trackFichaDownload(value, modelo.slug);
+
+    // Trigger real PDF download
+    const pdfUrl = `/fichas/${modelo.slug}.pdf`;
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = `Ficha-Tecnica-${modelo.name.replace(/\s+/g, "-")}.pdf`;
+    link.target = "_blank";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
     setLoading(false);
     setDone(true);
   };
@@ -57,10 +68,19 @@ export default function FichaModal({ open, onClose, modelo }: FichaModalProps) {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full border border-gold-500/40 text-gold-500 mb-4">
             <Check className="w-6 h-6" />
           </div>
-          <p className="font-display text-lg font-bold text-white">PDF descargado</p>
+          <p className="font-display text-lg font-bold text-white">¡Descarga lista!</p>
           <p className="text-sm text-jet-300 font-light mt-2">
-            La ficha técnica de <strong className="text-white">{modelo.name}</strong> está
-            lista. Si no se descargó, verifique su correo.
+            La ficha técnica de <strong className="text-white">{modelo.name}</strong> se ha descargado en su dispositivo.
+          </p>
+          <p className="text-xs text-jet-400 mt-3">
+            ¿No inició la descarga automáticamente?{" "}
+            <a
+              href={`/fichas/${modelo.slug}.pdf`}
+              download={`Ficha-Tecnica-${modelo.name.replace(/\s+/g, "-")}.pdf`}
+              className="text-gold-500 hover:underline font-medium"
+            >
+              Clic aquí para descargarla
+            </a>
           </p>
           <button
             type="button"
@@ -73,7 +93,7 @@ export default function FichaModal({ open, onClose, modelo }: FichaModalProps) {
       ) : (
         <form onSubmit={handleSubmit} noValidate>
           <p className="text-sm text-jet-300 font-light mb-5 leading-relaxed">
-            Complete con su correo electrónico para descargar la ficha técnica de{" "}
+            Ingresa tu correo electrónico para desbloquear y descargar la ficha técnica de{" "}
             <strong className="text-white">{modelo.name}</strong>.
           </p>
 

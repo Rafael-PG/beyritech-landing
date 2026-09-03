@@ -43,7 +43,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-xs text-jet-300 font-light">
               <li><Link to="/modelos/multispace" className="hover:text-gold-500 transition-colors">Multispace</Link></li>
               <li><Link to="/modelos/doble-ala" className="hover:text-gold-500 transition-colors">Doble Ala</Link></li>
-              <li><Link to="/modelos/mini-doble-ala" className="hover:text-gold-500 transition-colors">Mini Doble Ala</Link></li>
+              <li><Link to="/modelos/modulo-plegable-z" className="hover:text-gold-500 transition-colors">Módulo Plegable Z</Link></li>
 
             </ul>
           </div>

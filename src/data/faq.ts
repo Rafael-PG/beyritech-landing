@@ -14,7 +14,7 @@ export const faqs: FAQItem[] = [
   {
     category: "Térmica",
     question: "¿Cómo se comporta el aislamiento en temperaturas extremas?",
-    answer: "Utilizamos núcleos de poliisocianurato (PIR) de alta densidad en muros y techos, logrando un alto nivel de aislamiento térmico. Esto reduce significativamente el consumo energético tanto en climas fríos como cálidos."
+    answer: "Utilizamos paneles con núcleos de lana de roca de alta densidad (50 a 60 kg/m³) con clasificación ignífuga Grado A, lana de vidrio de 100 mm en techos y tableros purificadores ignífugos. Esto garantiza un alto nivel de confort térmico y acústico, protegiendo tanto en el calor de la costa como en el frío extremo de la sierra."
   },
   {
     category: "Tiempos",

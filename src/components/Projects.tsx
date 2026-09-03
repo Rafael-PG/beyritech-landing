@@ -24,27 +24,13 @@ const projectsList: Project[] = [
     category: "Agroindustria",
     location: "Ica, Perú",
     area: "3,200 m²",
-    modules: "18 módulos Multispace",
+    modules: "14 módulos Multispace",
     timeline: "6 semanas",
-    features: ["Dormitorios para 144 operarios", "Comedor y casino integrado", "Posta de salud", "Aislamiento PIR 80mm"],
+    features: ["Dormitorios para 84 operarios", "Aislamiento lana de roca ignífuga"],
     description:
-      "Dormitorios modulares para personal de campo de una agroexportadora de uva en el valle de Ica. El complejo incluye 18 módulos Multispace configurados como dormitorios dúplex, comedor industrial para 120 personas, posta de salud y servicios sanitarios. Entregado en tiempo récord para la campaña de exportación.",
+      "Dormitorios modulares para personal de campo encargado de la construcción de edificaciones. El complejo incluye 14 módulos de los cuales 9 son el modelo multispace y 5 modelo Z. Configurados como dormitorios, tienen la capacidad de albergar a 6 colaboradores por unidad.",
     icon: Wheat,
     gradient: "from-jet-800 via-jet-900 to-jet-950",
-  },
-  {
-    id: "proj-2",
-    title: "Módulo Operativo en Almacén Logístico",
-    category: "Logística",
-    location: "Lima, Perú",
-    area: "180 m²",
-    modules: "1 módulo Doble Ala",
-    timeline: "3 semanas",
-    features: ["Oficina dentro de nave operativa", "Sala de control y despacho", "Sin obra húmeda", "Montaje en 48 horas"],
-    description:
-      "Módulo Doble Ala instalado dentro de una nave logística en operación continua en el Callao. El módulo opera como oficina de control de despachos y sala de seguimiento GPS de flota. La clave: cero interrupción de la operación logística durante el montaje. Plug & Play en 48 horas.",
-    icon: Warehouse,
-    gradient: "from-jet-900 via-jet-950 to-black",
   },
 ];
 
@@ -58,7 +44,7 @@ export default function Projects() {
         {/* Header */}
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-500 font-semibold">
+            <span className="text-[10px] font-mono upphercase tracking-[0.3em] text-gold-500 font-semibold">
               Casos de Éxito
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight text-white leading-tight">

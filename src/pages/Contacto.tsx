@@ -5,7 +5,7 @@ import InteractiveConfigurator from "../components/InteractiveConfigurator";
 const MODEL_LABELS: Record<string, string> = {
   "multispace": "Multispace",
   "doble-ala": "Doble Ala",
-  "mini-doble-ala": "Mini Doble Ala",
+  "modulo-plegable-z": "Módulo Plegable Z",
 };
 
 export default function Contacto() {
