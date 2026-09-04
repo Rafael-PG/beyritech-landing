@@ -115,7 +115,7 @@ export default function BlogArticle() {
   });
 
   return (
-    <div className="relative bg-jet-950 min-h-screen text-white font-sans overflow-x-hidden pt-20">
+    <div className="relative bg-jet-950 min-h-screen text-white font-sans overflow-x-hidden">
       {/* ─── FONDO TEXTURADO SUTIL (GRID + DOTS) ───────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 gold-grid-overlay opacity-40" />
@@ -157,7 +157,7 @@ export default function BlogArticle() {
       />
 
       {/* ─── HERO SECTION (55-65vh) FULL-BLEED ─────────────────── */}
-      <section className="relative w-full h-[55vh] md:h-[65vh] min-h-[420px] max-h-[640px] overflow-hidden border-b border-jet-800/80">
+      <section className="relative w-full h-[60vh] md:h-[70vh] min-h-[480px] max-h-[720px] overflow-hidden border-b border-jet-800/80">
         {/* Imagen de fondo full-bleed o plano técnico de alta resolución */}
         {article.image ? (
           <img
@@ -174,13 +174,13 @@ export default function BlogArticle() {
         )}
 
         {/* Gradientes de superposición para legibilidad y elegancia */}
-        <div className="absolute inset-0 bg-gradient-to-t from-jet-950 via-jet-950/70 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-jet-950 via-jet-950/60 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-r from-jet-950/80 via-transparent to-transparent" />
         <div className="absolute inset-0 gold-grid-overlay opacity-25 pointer-events-none" />
 
         {/* Contenido del Hero */}
         <div className="absolute inset-0 flex flex-col justify-end">
-          <div className="max-w-7xl mx-auto w-full px-6 pb-10 md:pb-14 relative z-20">
+          <div className="max-w-7xl mx-auto w-full px-6 pb-10 md:pb-14 pt-28 sm:pt-32 relative z-20">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-2 text-xs font-mono text-jet-300 mb-4 font-medium flex-wrap">
               <Link to="/blog" className="hover:text-gold-500 transition-colors flex items-center gap-1">

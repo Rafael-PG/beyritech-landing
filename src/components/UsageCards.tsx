@@ -1,6 +1,5 @@
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 import ScrollReveal from "../hooks/ScrollReveal";
 
 /* ------------------------------------------------------------------ */
@@ -476,26 +475,6 @@ export default function UsageCards({
                     </li>
                   ))}
                 </ul>
-
-                {/* Footer */}
-                <div className="mt-6 pt-4 border-t border-gold-500/15 flex items-center justify-between gap-3">
-                  {usage.model ? (
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-gold-500/70 border border-gold-500/15 px-2.5 py-1">
-                      Modelo {usage.model}
-                    </span>
-                  ) : (
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-jet-500">
-                      Solución escalable
-                    </span>
-                  )}
-                  <Link
-                    to={usage.link}
-                    className="inline-flex items-center gap-2 text-gold-500 hover:text-gold-600 font-medium transition-colors group/link"
-                  >
-                    <span className="text-xs">Ver plano</span>
-                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
               </article>
             </ScrollReveal>
             </Fragment>

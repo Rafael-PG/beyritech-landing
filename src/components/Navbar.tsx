@@ -19,8 +19,13 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isLight, toggleTheme } = useTheme();
-  const location = useLocation();
-  const overHero = !isScrolled && location.pathname === "/";
+  const hasFullBleedHero =
+    location.pathname === "/" ||
+    location.pathname.startsWith("/casos-de-exito/") ||
+    location.pathname.startsWith("/blog/") ||
+    location.pathname.startsWith("/modelos/");
+
+  const overHero = !isScrolled && hasFullBleedHero;
 
   useEffect(() => {
     const handleScroll = () => {

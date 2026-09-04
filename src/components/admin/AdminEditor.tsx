@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   ArrowLeft, Save, Loader2, FileText, Trash2, ImagePlus, Lightbulb, Sparkles,
+  Maximize2, Eye
 } from "lucide-react";
 import {
   getCms, createCms, updateCms, deleteCms, uploadCmsImage,
@@ -11,6 +12,7 @@ import { modeloName as modeloLabel } from "../../lib/modelosMeta";
 import { analyzeSeo } from "../../lib/seo-check";
 import TiptapEditor from "./TiptapEditor";
 import SeoDrawer from "./SeoDrawer";
+import FullPreviewModal from "./FullPreviewModal";
 import { slugify } from "../../lib/html";
 
 interface AdminEditorProps {
@@ -46,6 +48,7 @@ export default function AdminEditor({ kind, id, nonce, onExitEditor, onRefreshLi
   const [error, setError] = useState<string | null>(null);
   const [savedNotice, setSavedNotice] = useState(false);
   const [showSeo, setShowSeo] = useState(false);
+  const [showFullPreview, setShowFullPreview] = useState(false);
   const [heroFileInput, setHeroFileInput] = useState<HTMLInputElement | null>(null);
 
   const [post, setPost] = useState<CmsPost>(() => emptyPost(kind));
@@ -155,6 +158,16 @@ export default function AdminEditor({ kind, id, nonce, onExitEditor, onRefreshLi
         </button>
 
         <div className="flex-1" />
+
+        <button
+          type="button"
+          onClick={() => setShowFullPreview(true)}
+          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono uppercase tracking-wider border border-gold-500/50 text-gold-500 hover:bg-gold-500/10 transition-colors"
+          title="Ver vista previa completa 1:1"
+        >
+          <Maximize2 className="w-3.5 h-3.5" />
+          Preview completo
+        </button>
 
         <button
           type="button"
@@ -401,6 +414,15 @@ export default function AdminEditor({ kind, id, nonce, onExitEditor, onRefreshLi
           onChange={(html) => set("content", html)}
           modelo={post.modelo}
           slug={post.slug || slugify(post.title)}
+          title={post.title}
+          excerpt={post.excerpt}
+          image={post.image}
+          author={post.author}
+          date={post.date}
+          readTime={post.readTime}
+          isNew={post.isNew}
+          featured={post.featured}
+          kind={kind}
         />
       </div>
 
@@ -413,6 +435,23 @@ export default function AdminEditor({ kind, id, nonce, onExitEditor, onRefreshLi
         slug={post.slug || slugify(post.title)}
         modelo={post.modelo}
         content={post.content}
+      />
+
+      <FullPreviewModal
+        open={showFullPreview}
+        onClose={() => setShowFullPreview(false)}
+        title={post.title}
+        excerpt={post.excerpt}
+        content={post.content}
+        image={post.image}
+        modelo={post.modelo}
+        author={post.author}
+        date={post.date}
+        readTime={post.readTime}
+        isNew={post.isNew}
+        featured={post.featured}
+        kind={kind}
+        gallery={post.gallery}
       />
 
       {/* Botón flotante SEO */}
@@ -429,3 +468,4 @@ export default function AdminEditor({ kind, id, nonce, onExitEditor, onRefreshLi
     </form>
   );
 }
+

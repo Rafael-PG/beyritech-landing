@@ -257,74 +257,149 @@ html {
   animation: phase-line 1.1s cubic-bezier(0.35, 0, 0.15, 1) forwards;
 }
 
-/* ─── Editorial Article & Case Study Typography ────────────────── */
-.prose {
-  color: #c0c0c0;
+/* ─── Editorial Article & Case Study Typography (Live & Editor) ── */
+.prose,
+.tiptap-editor .ProseMirror {
+  color: #d1d5db;
+  font-family: var(--font-sans, "Lato", sans-serif);
   font-size: 1.05rem;
   line-height: 1.85;
 }
-.prose h2 {
-  font-family: var(--font-display);
+
+.tiptap-editor .ProseMirror {
+  outline: none;
+  min-height: 320px;
+  cursor: text;
+}
+
+.prose h2,
+.tiptap-editor .ProseMirror h2 {
+  font-family: var(--font-display, "Raleway", sans-serif);
   font-size: 1.65rem;
   font-weight: 700;
   color: #ffffff;
-  margin-top: 2.5rem;
+  margin-top: 2.25rem;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  border-left: 3px solid #FEC934;
+  border-left: 4px solid #FEC934;
   padding-left: 1rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  background: linear-gradient(90deg, rgba(254, 201, 52, 0.08) 0%, rgba(254, 201, 52, 0.01) 60%, transparent 100%);
+  border-radius: 0 6px 6px 0;
+  line-height: 1.3;
 }
-.prose h3 {
-  font-family: var(--font-display);
+
+.prose h3,
+.tiptap-editor .ProseMirror h3 {
+  font-family: var(--font-display, "Raleway", sans-serif);
   font-size: 1.25rem;
   font-weight: 600;
-  color: #ffffff;
-  margin-top: 2rem;
+  color: #FEC934;
+  margin-top: 1.75rem;
   margin-bottom: 0.75rem;
+  line-height: 1.35;
 }
-.prose p {
-  margin-bottom: 1.5rem;
+
+.prose p,
+.tiptap-editor .ProseMirror p {
+  margin-bottom: 1.35rem;
   font-weight: 300;
+  color: #d1d5db;
+  line-height: 1.85;
 }
-.prose ul {
-  list-style-type: disc;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
-}
-.prose ol {
-  list-style-type: decimal;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
-}
-.prose li {
-  margin-bottom: 0.65rem;
-  color: #d0d0d0;
-}
-.prose strong {
-  color: #ffffff;
-  font-weight: 600;
-}
-.prose blockquote {
-  border-left: 3px solid #FEC934;
-  padding: 1.25rem 1.75rem;
-  margin: 2.25rem 0;
-  background-color: rgba(254, 201, 52, 0.05);
+
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+  color: #6b7280;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
   font-style: italic;
-  color: #f0f0f0;
-  border-radius: 0 4px 4px 0;
 }
-.prose img {
-  border-radius: 6px;
-  margin: 2rem auto;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+
+.prose ul,
+.tiptap-editor .ProseMirror ul {
+  list-style-type: disc;
+  margin-top: 0.75rem;
+  margin-bottom: 1.35rem;
+  padding-left: 1.5rem;
+}
+
+.prose ol,
+.tiptap-editor .ProseMirror ol {
+  list-style-type: decimal;
+  margin-top: 0.75rem;
+  margin-bottom: 1.35rem;
+  padding-left: 1.5rem;
+}
+
+.prose li,
+.tiptap-editor .ProseMirror li {
+  margin-bottom: 0.5rem;
+  color: #d1d5db;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.prose strong,
+.tiptap-editor .ProseMirror strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.prose em,
+.tiptap-editor .ProseMirror em {
+  font-style: italic;
+  color: #f3f4f6;
+}
+
+.prose blockquote,
+.tiptap-editor .ProseMirror blockquote {
+  border-left: 4px solid #FEC934;
+  padding: 1.15rem 1.6rem;
+  margin: 2rem 0;
+  background-color: rgba(254, 201, 52, 0.06);
+  font-style: italic;
+  color: #f3f4f6;
+  border-radius: 0 6px 6px 0;
+  border-top: 1px solid rgba(254, 201, 52, 0.12);
+  border-bottom: 1px solid rgba(254, 201, 52, 0.12);
+  border-right: 1px solid rgba(254, 201, 52, 0.12);
+}
+
+.prose img,
+.tiptap-editor .ProseMirror img {
+  border-radius: 8px;
+  margin: 1.85rem auto;
+  border: 1px solid rgba(254, 201, 52, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   max-width: 100%;
 }
-.prose a {
+
+.prose a,
+.tiptap-editor .ProseMirror a {
   color: #FEC934;
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.prose code,
+.tiptap-editor .ProseMirror code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9em;
+  background-color: #121314;
+  border: 1px solid #2d2f33;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  color: #FEC934;
+}
+
+.prose hr,
+.tiptap-editor .ProseMirror hr {
+  border: none;
+  border-top: 1px solid #2d2f33;
+  margin: 2.5rem 0;
 }
 
 @keyframes progress {
