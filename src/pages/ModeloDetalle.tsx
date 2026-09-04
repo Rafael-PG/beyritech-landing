@@ -10,9 +10,15 @@ import { getModel, getSortedModels } from "../data/modelos";
 const G = "#FEC934";
 
 const HERO_IMAGES: Record<string, string> = {
-  multispace: "/images/modelo-multispace.webp",
-  "modulo-plegable-z": "/images/modelo-modulo-plegable-z.webp",
-  "doble-ala": "/images/modelo-doble-ala.webp",
+  multispace: "/images/models/multispace/hero/desktop.webp",
+  "modulo-plegable-z": "/images/models/modulo-plegable-z/hero/desktop.webp",
+  "doble-ala": "/images/models/doble-ala/hero/desktop.webp",
+};
+
+const HERO_IMAGES_MOBILE: Record<string, string> = {
+  multispace: "/images/models/multispace/hero/mobile.webp",
+  "modulo-plegable-z": "/images/models/modulo-plegable-z/hero/mobile.webp",
+  "doble-ala": "/images/models/doble-ala/hero/mobile.webp",
 };
 
 function HeroImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
@@ -179,13 +185,20 @@ export default function ModeloDetalle() {
 
       {/* Hero — Detalle de modelo */}
       <section className="relative overflow-hidden bg-jet-950 text-white">
+        {/* Hero background — desktop */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center hidden sm:block"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-jet-950 via-jet-950/80 to-jet-950/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-jet-950/70 via-transparent to-jet-950" />
-        <div className="absolute inset-0 gold-grid-overlay opacity-40" />
+        {/* Hero background — mobile */}
+        <div
+          className="absolute inset-0 bg-cover bg-center sm:hidden"
+          style={{ backgroundImage: `url(${slug ? HERO_IMAGES_MOBILE[slug] : heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-jet-950 via-jet-950/70 to-jet-950/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-jet-950/50 via-transparent to-jet-950" />
+        <div className="absolute inset-0 gold-grid-overlay opacity-25" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 min-h-[60vh] sm:min-h-[72vh] flex flex-col items-center justify-center pt-32 pb-10">
           <nav className="text-xs font-mono text-jet-300 mb-4 flex flex-wrap justify-center">

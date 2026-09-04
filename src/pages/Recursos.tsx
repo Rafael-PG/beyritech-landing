@@ -32,19 +32,8 @@ const resources: Resource[] = [
   {
     title: "Ficha Técnica — Módulo Plegable Z",
     description: "Especificaciones detalladas, planos CAD y memoria descriptiva del modelo Módulo Plegable Z.",
+    type: "PDF",
     slug: "ficha-modulo-plegable-z",
-  },
-  {
-    title: "Ficha Técnica — Almacén",
-    description: "Especificaciones detalladas, planos CAD y memoria descriptiva del modelo Almacén.",
-    type: "PDF",
-    slug: "ficha-almacen",
-  },
-  {
-    title: "Guía de Preparación de Terreno",
-    description: "Requisitos mínimos de terreno, cimentación y acceso para la instalación de módulos.",
-    type: "PDF",
-    slug: "guia-terreno",
   },
 ];
 

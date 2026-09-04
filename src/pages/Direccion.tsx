@@ -1,8 +1,9 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { lazy, Suspense, useEffect, useState, type FormEvent } from "react";
 import { Lock, LogIn, Loader2, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
-import AdminDashboard from "../components/dashboard/AdminDashboard";
 import { login, getToken, clearToken } from "../api/dashboard";
+
+const AdminDashboard = lazy(() => import("../components/dashboard/AdminDashboard"));
 
 type AuthState = "checking" | "loggedOut" | "loggedIn";
 
@@ -93,5 +94,15 @@ export default function Direccion() {
     );
   }
 
-  return <AdminDashboard onLogout={handleLogout} />;
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-jet-950 flex items-center justify-center">
+          <Loader2 className="w-6 h-6 text-gold-500 animate-spin" />
+        </div>
+      }
+    >
+      <AdminDashboard onLogout={handleLogout} />
+    </Suspense>
+  );
 }

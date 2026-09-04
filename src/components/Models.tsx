@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Ruler, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Ruler, ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import ScrollReveal from "../hooks/ScrollReveal";
 import { useTheme } from "../context/ThemeContext";
 import { Link } from "react-router-dom";
@@ -33,121 +33,19 @@ const models: ModelInfo[] = catalog.map((m) => ({
   description: m.description,
 }));
 
-function MultispaceBlueprint() {
-  return (
-    <svg viewBox="0 0 400 250" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <pattern id="bp-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#FEC934" strokeWidth="0.5" opacity={0.06} />
-        </pattern>
-      </defs>
-      <rect width="400" height="250" fill="url(#bp-grid)" />
-      <g opacity={0.6}>
-        <text x="200" y="18" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">VISTA LATERAL</text>
-      </g>
-      <g opacity={0.6}>
-        {[60, 140, 220].map((x, i) => (
-          <g key={i}>
-            <rect x={x} y="35" width="70" height="140" rx="1" fill="none" stroke="#FEC934" strokeWidth="1" />
-            <line x1={x} y1="35" x2={x + 70} y2="175" stroke="#FEC934" strokeWidth="0.3" opacity={0.3} />
-            <line x1={x + 70} y1="35" x2={x} y2="175" stroke="#FEC934" strokeWidth="0.3" opacity={0.3} />
-          </g>
-        ))}
-      </g>
-      {[130, 210].map((cx, i) => (
-        <g key={`hinge-${i}`}>
-          <circle cx={cx} cy="105" r="4" fill="none" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
-          <circle cx={cx} cy="105" r="1.5" fill="#FEC934" opacity={0.7} />
-        </g>
-      ))}
-      <line x1={60} y1={190} x2={290} y2={190} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={60} y1={186} x2={60} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={290} y1={186} x2={290} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <text x={175} y={205} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>5.8 m</text>
-      <g opacity={0.35}>
-        <text x="200" y="225" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">PLEGABLE</text>
-      </g>
-    </svg>
-  );
-}
-
-function DobleAlaBlueprint() {
-  return (
-    <svg viewBox="0 0 400 250" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <pattern id="bp-grid2" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#FEC934" strokeWidth="0.5" opacity={0.06} />
-        </pattern>
-      </defs>
-      <rect width="400" height="250" fill="url(#bp-grid2)" />
-      <g opacity={0.6}>
-        <text x="200" y="18" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">VISTA SUPERIOR — DOBLE ALA</text>
-      </g>
-      <line x1="200" y1="40" x2="200" y2="190" stroke="#FEC934" strokeWidth="0.6" strokeDasharray="4,3" opacity={0.3} />
-      <rect x="40" y="60" width="150" height="110" rx="2" fill="none" stroke="#FEC934" strokeWidth="1" opacity={0.7} />
-      <rect x="210" y="60" width="150" height="110" rx="2" fill="none" stroke="#FEC934" strokeWidth="1" opacity={0.7} />
-      <text x="115" y="120" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>DORMITORIOS / BAÑO</text>
-      <text x="285" y="120" textAnchor="middle" fill="#FEC934" fontSize="9" fontFamily="monospace" opacity={0.4}>ESTAR / COCINA EN L</text>
-      <line x1={40} y1={200} x2={360} y2={200} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={40} y1={196} x2={40} y2={204} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={360} y1={196} x2={360} y2={204} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <text x={200} y={218} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>6.2 m</text>
-    </svg>
-  );
-}
-
-function ModuloPlegableZBlueprint() {
-  return (
-    <svg viewBox="0 0 400 250" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <pattern id="bp-grid3" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#FEC934" strokeWidth="0.5" opacity={0.06} />
-        </pattern>
-      </defs>
-      <rect width="400" height="250" fill="url(#bp-grid3)" />
-      <g opacity={0.6}>
-        <text x="200" y="18" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">VISTA LATERAL — MÓDULO PLEGABLE Z</text>
-      </g>
-      <g opacity={0.6}>
-        {[80, 160, 240].map((x, i) => (
-          <g key={i}>
-            <rect x={x} y="35" width="60" height="140" rx="1" fill="none" stroke="#FEC934" strokeWidth="1" />
-            <line x1={x} y1="35" x2={x + 60} y2="175" stroke="#FEC934" strokeWidth="0.3" opacity={0.3} />
-            <line x1={x + 60} y1="35" x2={x} y2="175" stroke="#FEC934" strokeWidth="0.3" opacity={0.3} />
-          </g>
-        ))}
-      </g>
-      {[140, 200].map((cx, i) => (
-        <g key={`hinge-${i}`}>
-          <circle cx={cx} cy="105" r="4" fill="none" stroke="#FEC934" strokeWidth="1.2" opacity={0.7} />
-          <circle cx={cx} cy="105" r="1.5" fill="#FEC934" opacity={0.7} />
-        </g>
-      ))}
-      <line x1={80} y1={190} x2={300} y2={190} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={80} y1={186} x2={80} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <line x1={300} y1={186} x2={300} y2={194} stroke="#FEC934" strokeWidth="0.8" opacity={0.5} />
-      <text x={190} y={205} textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" opacity={0.5}>5.8 m</text>
-      <g opacity={0.35}>
-        <text x="200" y="225" textAnchor="middle" fill="#FEC934" fontSize="8" fontFamily="monospace" letterSpacing="2">PLEGABLE Z</text>
-      </g>
-    </svg>
-  );
-}
-
-function ModelBlueprint({ id }: { id: string }) {
-  switch (id) {
-    case "multispace": return <MultispaceBlueprint />;
-    case "modulo-plegable-z": return <ModuloPlegableZBlueprint />;
-    case "doble-ala": return <DobleAlaBlueprint />;
-    default: return null;
-  }
-}
+const modelImages: Record<string, string> = {
+  multispace: "/images/models/multispace/catalogo/principal.webp",
+  "doble-ala": "/images/models/doble-ala/catalogo/principal.webp",
+  "modulo-plegable-z": "/images/models/modulo-plegable-z/catalogo/principal.webp",
+};
 
 interface ModelsProps {
   variant?: "dark" | "gray";
   footerLink?: boolean;
   headingLevel?: 1 | 2;
 }
+
+const AUTOPLAY_INTERVAL = 5000; // 5 segundos por modelo
 
 export default function Models({
   variant = "dark",
@@ -156,7 +54,7 @@ export default function Models({
 }: ModelsProps) {
   const { isLight } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const isGray = variant === "gray";
   const isPage = headingLevel === 1;
@@ -164,37 +62,23 @@ export default function Models({
   const sectionBg = isGray ? "bg-jet-900" : "bg-jet-950";
   const padY = isPage ? "pt-32 pb-24" : "py-24";
 
-  const currentModel = models[currentIndex];
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? models.length - 1 : prev - 1));
+  }, []);
 
-  const goToPrevious = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev === 0 ? models.length - 1 : prev - 1));
-      setIsAnimating(false);
-    }, 150);
-  };
-
-  const goToNext = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev === models.length - 1 ? 0 : prev + 1));
-      setIsAnimating(false);
-    }, 150);
-  };
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === models.length - 1 ? 0 : prev + 1));
+  }, []);
 
   const goToIndex = (index: number) => {
-    if (isAnimating || index === currentIndex) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentIndex(index);
-      setIsAnimating(false);
-    }, 150);
+    setCurrentIndex(index);
   };
 
   return (
-    <section id={isPage ? undefined : "models"} className={`section-texture ${padY} ${sectionBg} text-white relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]`}>
+    <section
+      id={isPage ? undefined : "models"}
+      className={`section-texture ${padY} ${sectionBg} text-white relative overflow-hidden [content-visibility:auto] [contain-intrinsic-size:600px]`}
+    >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#FEC93406_1px,transparent_1px),linear-gradient(to_bottom,#FEC93406_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
@@ -222,49 +106,103 @@ export default function Models({
           </ScrollReveal>
         </div>
 
-        {/* Carousel */}
+        {/* Carousel Container con pausa al hover/touch */}
         <ScrollReveal delay={0.3}>
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-              {/* Blueprint - Left Side */}
+          <div
+            className="max-w-6xl mx-auto"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+          >
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center">
+              {/* Left Side - Image Showcase & Navigation */}
               <div className="lg:w-3/5">
                 <div className="relative bg-jet-950 border border-jet-800 rounded overflow-hidden">
-                  <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-gold-500/30 z-10" />
-                  <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-gold-500/30 z-10" />
-                  <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-gold-500/30 z-10" />
-                  <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-gold-500/30 z-10" />
+                  {/* Decorative corners */}
+                  <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-gold-500/30 z-20 pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-gold-500/30 z-20 pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-gold-500/30 z-20 pointer-events-none" />
+                  <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-gold-500/30 z-20 pointer-events-none" />
 
-                  <div className="h-80 sm:h-96 p-6 bg-jet-950/50 flex items-center justify-center transition-opacity duration-150 ease-in-out" style={{ opacity: isAnimating ? 0 : 1 }}>
-                    <ModelBlueprint id={currentModel.id} />
+                  {/* Autoplay Progress Bar */}
+                  <div className="absolute top-0 inset-x-0 h-0.5 bg-jet-900 z-30 overflow-hidden">
+                    <div
+                      key={currentIndex}
+                      onAnimationEnd={goToNext}
+                      className="h-full bg-gold-500/80 animate-progress will-change-transform"
+                      style={{
+                        animationDuration: `${AUTOPLAY_INTERVAL}ms`,
+                        animationTimingFunction: "linear",
+                        animationIterationCount: 1,
+                        animationPlayState: isPaused ? "paused" : "running",
+                      }}
+                    />
+                  </div>
+
+                  {/* Image Stack pre-rendered for zero-lag hardware-accelerated crossfade */}
+                  <div className="h-80 sm:h-96 relative overflow-hidden bg-jet-950">
+                    {models.map((m, idx) => {
+                      const isActive = idx === currentIndex;
+                      const src = modelImages[m.id];
+                      return (
+                        <div
+                          key={m.id}
+                          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                            isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                          }`}
+                        >
+                          <img
+                            src={src}
+                            alt={`Módulo Plegable ${m.name} — Beyritech`}
+                            className={`w-full h-full object-cover transition-transform duration-1000 ease-out will-change-transform ${
+                              isActive ? "scale-100" : "scale-105"
+                            }`}
+                            loading="eager"
+                            decoding="async"
+                          />
+                          {/* Gold grid overlay */}
+                          <div className="absolute inset-0 gold-grid-overlay opacity-20 pointer-events-none" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-jet-950/85 via-transparent to-jet-950/30 pointer-events-none" />
+                        </div>
+                      );
+                    })}
                   </div>
 
                   {/* Navigation below blueprint */}
                   <div className="border-t border-jet-800 px-6 py-4 flex items-center justify-between">
                     <button
                       onClick={goToPrevious}
-                      className="flex items-center gap-2 text-jet-400 hover:text-gold-500 transition-colors group"
+                      className="flex items-center gap-2 text-jet-400 hover:text-gold-500 transition-colors group cursor-pointer select-none"
+                      aria-label="Modelo anterior"
                     >
                       <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
                       <span className="text-xs font-mono uppercase tracking-wider hidden sm:inline">Anterior</span>
                     </button>
 
                     {/* Position indicators */}
-                    <div className="flex items-center gap-3">
-                      {models.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => goToIndex(index)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                              ? "bg-gold-500 w-8"
-                              : "bg-jet-600 hover:bg-jet-500"
+                    <div className="flex items-center gap-2.5">
+                      {models.map((_, index) => {
+                        const isActive = index === currentIndex;
+                        return (
+                          <button
+                            key={index}
+                            onClick={() => goToIndex(index)}
+                            aria-label={`Ver ${models[index].name}`}
+                            className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                              isActive
+                                ? "bg-gold-500 w-8 shadow-[0_0_10px_rgba(254,201,52,0.4)]"
+                                : "bg-jet-700 hover:bg-jet-500 w-2.5"
                             }`}
-                        />
-                      ))}
+                          />
+                        );
+                      })}
                     </div>
 
                     <button
                       onClick={goToNext}
-                      className="flex items-center gap-2 text-jet-400 hover:text-gold-500 transition-colors group"
+                      className="flex items-center gap-2 text-jet-400 hover:text-gold-500 transition-colors group cursor-pointer select-none"
+                      aria-label="Siguiente modelo"
                     >
                       <span className="text-xs font-mono uppercase tracking-wider hidden sm:inline">Siguiente</span>
                       <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
@@ -273,67 +211,91 @@ export default function Models({
                 </div>
               </div>
 
-              {/* Content - Right Side */}
-              <div className="lg:w-2/5 flex flex-col justify-center transition-opacity duration-150 ease-in-out" style={{ opacity: isAnimating ? 0 : 1 }}>
-                <div className="inline-flex items-center border border-gold-500/20 px-2.5 py-1 mb-4 w-fit">
-                  <span className="text-[9px] font-mono uppercase tracking-widest text-gold-500">
-                    MODELO {String(currentIndex + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
-                  {currentModel.name}
-                </h3>
-                <p className="text-xs font-mono text-gold-500 uppercase tracking-wider mb-4">
-                  {currentModel.tagline}
-                </p>
-                <p className="text-sm text-jet-300 font-light leading-relaxed mb-6">
-                  {currentModel.description}
-                </p>
-
-                {/* Specs */}
-                <div className="border border-jet-800/60 bg-jet-950/60 p-4 mb-5">
-                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-jet-800/40">
-                    <Ruler className="w-4 h-4 text-gold-500" />
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500">
-                      Especificaciones
-                    </span>
-                  </div>
-                  <div className="space-y-2">
-                    {currentModel.specs.map((spec) => (
-                      <div key={spec.label} className="flex items-center justify-between text-xs py-1.5 border-b border-jet-900/60 last:border-b-0">
-                        <span className="font-mono text-jet-300 uppercase tracking-wider text-[10px]">{spec.label}</span>
-                        <span className="font-mono text-white font-medium text-[11px]">{spec.value}</span>
+              {/* Content - Right Side with Stacked Crossfade (Zero stutter) */}
+              <div className="lg:w-2/5 grid [grid-template-areas:'stack'] items-center">
+                {models.map((model, index) => {
+                  const isActive = index === currentIndex;
+                  return (
+                    <div
+                      key={model.id}
+                      className={`[grid-area:stack] flex flex-col justify-center transition-all duration-500 ease-out ${
+                        isActive
+                          ? "opacity-100 translate-y-0 pointer-events-auto z-10"
+                          : "opacity-0 translate-y-2 pointer-events-none z-0"
+                      }`}
+                    >
+                      <div className="inline-flex items-center border border-gold-500/20 px-2.5 py-1 mb-4 w-fit bg-gold-500/5">
+                        <span className="text-[9px] font-mono uppercase tracking-widest text-gold-500">
+                          MODELO {String(index + 1).padStart(2, "0")} · {model.id.toUpperCase()}
+                        </span>
                       </div>
-                    ))}
-                  </div>
-                </div>
 
-                {/* Applications */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {currentModel.applications.map((app) => (
-                    <span key={app} className="text-[9px] font-mono uppercase tracking-wider text-gold-500/70 border border-gold-500/10 px-2.5 py-1">
-                      {app}
-                    </span>
-                  ))}
-                </div>
+                      <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
+                        {model.name}
+                      </h3>
+                      <p className="text-xs font-mono text-gold-500 uppercase tracking-wider mb-4">
+                        {model.tagline}
+                      </p>
+                      <p className="text-sm text-jet-300 font-light leading-relaxed mb-6">
+                        {model.description}
+                      </p>
 
-                {/* CTA */}
-                <div className="flex gap-3">
-                  <Link
-                    to={`/contacto?modelo=${currentModel.id}`}
-                    className="flex-1 px-5 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-[10px] rounded flex items-center justify-center gap-1.5 transition-colors text-center"
-                  >
-                    Cotizar
-                  </Link>
-                  <Link
-                    to={`/modelos/${currentModel.id}`}
-                    className="px-5 py-3 border border-jet-700 hover:border-gold-500/50 text-jet-300 hover:text-white font-mono text-[10px] uppercase tracking-wider rounded flex items-center gap-1.5 transition-colors"
-                  >
-                    <ArrowRight className="w-3 h-3" />
-                    Ficha
-                  </Link>
-                </div>
+                      {/* Specs */}
+                      <div className="border border-jet-800/80 bg-jet-950/80 p-4 mb-5 rounded">
+                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-jet-800/60">
+                          <Ruler className="w-4 h-4 text-gold-500" />
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-semibold">
+                            Especificaciones técnicas
+                          </span>
+                        </div>
+                        <div className="space-y-2">
+                          {model.specs.map((spec) => (
+                            <div
+                              key={spec.label}
+                              className="flex items-center justify-between text-xs py-1.5 border-b border-jet-900/80 last:border-b-0"
+                            >
+                              <span className="font-mono text-jet-300 uppercase tracking-wider text-[10px]">
+                                {spec.label}
+                              </span>
+                              <span className="font-mono text-white font-medium text-[11px]">
+                                {spec.value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Applications */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {model.applications.map((app) => (
+                          <span
+                            key={app}
+                            className="text-[9px] font-mono uppercase tracking-wider text-gold-500/80 border border-gold-500/15 px-2.5 py-1 rounded-xs bg-gold-500/5"
+                          >
+                            {app}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* CTA */}
+                      <div className="flex gap-3">
+                        <Link
+                          to={`/contacto?modelo=${model.id}`}
+                          className="flex-1 px-5 py-3 bg-gold-500 hover:bg-gold-600 text-black font-bold uppercase tracking-wider text-[10px] font-mono rounded flex items-center justify-center gap-1.5 transition-colors text-center shadow-[0_0_15px_rgba(254,201,52,0.15)]"
+                        >
+                          Cotizar este modelo
+                        </Link>
+                        <Link
+                          to={`/modelos/${model.id}`}
+                          className="px-5 py-3 border border-jet-700 hover:border-gold-500/50 text-jet-300 hover:text-white font-mono text-[10px] uppercase tracking-wider rounded flex items-center gap-1.5 transition-colors"
+                        >
+                          <ArrowRight className="w-3 h-3" />
+                          Ver ficha
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -344,7 +306,7 @@ export default function Models({
           <div className="mt-12 text-center">
             <Link
               to="/modelos"
-              className="inline-flex items-center gap-2 text-sm text-gold-500 hover:text-gold-400 font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-gold-500 hover:text-gold-400 font-medium transition-colors font-mono uppercase tracking-wider text-xs"
             >
               Ver catálogo completo <ArrowRight className="w-4 h-4" />
             </Link>
